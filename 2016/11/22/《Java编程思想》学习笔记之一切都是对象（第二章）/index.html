@@ -3,14 +3,42 @@
 <head>
   <meta charset="utf-8">
   
-  <title>xuwei&#39;blog</title>
+  <title>《Java编程思想》学习笔记之一切都是对象（第二章） | xuwei&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="xuwei'blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Java是基于C++的，但是相比之下，java是一种更纯粹的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。本章笔记：
+
+Java操作对象的方式
+对象的存储位置
+Java的基本数据类型和类类型
+Java对象和方法的作用范围
+static关键字
+
+1. Java操作对象的方式 每种语言都有自己操作对象的方式，例如C语言的指针，而Java是通过引用来完成对数据的操作。 关于指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java编程思想》学习笔记之一切都是对象（第二章）">
+<meta property="og:url" content="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/index.html">
 <meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="Java是基于C++的，但是相比之下，java是一种更纯粹的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。本章笔记：
+
+Java操作对象的方式
+对象的存储位置
+Java的基本数据类型和类类型
+Java对象和方法的作用范围
+static关键字
+
+1. Java操作对象的方式 每种语言都有自己操作对象的方式，例如C语言的指针，而Java是通过引用来完成对数据的操作。 关于指">
+<meta property="og:updated_time" content="2016-11-21T17:06:24.638Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xuwei'blog">
+<meta name="twitter:title" content="《Java编程思想》学习笔记之一切都是对象（第二章）">
+<meta name="twitter:description" content="Java是基于C++的，但是相比之下，java是一种更纯粹的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。本章笔记：
+
+Java操作对象的方式
+对象的存储位置
+Java的基本数据类型和类类型
+Java对象和方法的作用范围
+static关键字
+
+1. Java操作对象的方式 每种语言都有自己操作对象的方式，例如C语言的指针，而Java是通过引用来完成对数据的操作。 关于指">
   
     <link rel="alternate" href="/atom.xml" title="xuwei&#39;blog" type="application/atom+xml">
   
@@ -59,9 +87,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-《Java编程思想》学习笔记之一切都是对象（第二章）" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-《Java编程思想》学习笔记之一切都是对象（第二章）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" class="article-date">
   <time datetime="2016-11-21T16:56:53.125Z" itemprop="datePublished">2016-11-22</time>
@@ -74,8 +100,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/">《Java编程思想》学习笔记之一切都是对象（第二章）</a>
+    <h1 class="article-title" itemprop="name">
+      《Java编程思想》学习笔记之一切都是对象（第二章）
     </h1>
   
 
@@ -180,95 +206,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-《java编程思想》学习笔记之对象导论（第一章）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" class="article-date">
-  <time datetime="2016-11-20T01:05:13.711Z" itemprop="datePublished">2016-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/">《Java编程思想》学习笔记之对象导论（第一章）</a>
-    </h1>
+    <a href="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">《Java编程思想》学习笔记之对象导论（第一章）</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　　大部分工科生都接触过C语言，对于<strong>面向过程</strong>的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。<br>　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为（C++）–，因为Java它在C++的基础上舍弃了一些东西，只保留了面向对象的部分，并且进行了拓展。<br>  　　关于面向对象语言，Alan Kay总结了5个基本特性。</p>
-<p>　　 1. <strong>万物皆对象</strong>。刚接触面向对象语言和Java时，就被这五个字洗脑。但是抛开宽泛的概念，在现实生活中，这五个字也有具体的表现。譬如我们每个人使用的笔记本电脑，手机，电视机等等，他们都是具体的对象存在。每个对象具有自己的状态和行为。就手机而言，手机的硬件配置和颜色就是它的状态，而打电话发短信和上网就是它的行为。<br>　　 2. <strong>程序是对象的集合，它们通过发送消息来告知彼此所要做的</strong>。关于这一点，我理解的就是属于面向对象的封装特性。我们把需要的信息和行为封装到具体对象和方法中，通过调用来实现具体功能。比如最简单的加法运算。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class addDemo &#123;</div><div class="line">int a;</div><div class="line">int b;</div><div class="line">public int add(int a,int b)&#123;</div><div class="line">	return a+b;</div><div class="line">&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		addDemo ad = new addDemo();</div><div class="line">		int count = ad.add(1, 1);</div><div class="line">		System.out.println(count);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在这段程序中，主函数中并没有计算方法，计算方法被封装在add()中，需要用的时候只需要进行调用，复用性非常好。<br>　　 3. <strong>每个对象都有自己的有其他对象所构成的存储</strong>。我所理解的这里指的是面向对象的继承特征，通过这个特征可以构建复杂的体系并且简化重复代码的书写。<br>　　 4. <strong>每个对象都有其类型</strong>。类是对象的抽象。我们经常用的含有类词语，比如人类，这也是一个类型。里面包含有各种不同的对象，如男人，女人。我们所用的手机也是，苹果手机是一个大类，里面的各种不同型号是它的小类，每一个小类又有其许多独立的对象，共同构成了一个体系。<br>　　 5. <strong>某一特定类型的所有对象都可以接受同样的消息</strong>。关于这一点我所理解的就是面对象的多态特性。<br>　　<br>Java作为面向对象语言所特有的一些性质。</p>
-<ul>
-<li>对象的创建位置在堆内存，用new关键字开辟空间，缺点是运行开销大。</li>
-<li>Java不同与C++，它是单继承结构，有良好的继承体系。</li>
-<li>Java有垃圾回收器，可以用来处理内存释放问题，不必手动清理内存，编程更加灵活。</li>
-<li>Java内置异常处理机制，将运行代码和异常处理代码分开，有利于编写更加大型和健壮的代码。</li>
-<li>Java语言内置线程机制，有利于程序的并发处理。</li>
-</ul>
-<p><strong>小结</strong>：OOP和Java有较大优势，但并不是适合所有的场合。java代码编写更加简单，层次性较好，也便于理解。但是缺点是效率相对较低（相比较于C和C++），所以在追求高速度高效率的场合，C用的也较多。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="civsbgoos0002s4nsvwcss1nk" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-写在之前" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/11/13/写在之前/" class="article-date">
-  <time datetime="2016-11-13T04:26:20.000Z" itemprop="datePublished">2016-11-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/13/写在之前/">写在之前</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　　自己已经学习Java有了两个多月的时间，之前一直是找寻学习的办法，看书、看视频，敲代码。<br>  　　后来跟前辈交流，觉得学习的过程重在理解和深入，通过github博客记录学习笔记是一个不错的选择。自己希望能够利用这个平台多学习，在学习和实践中掌握应有的技能，早日达到自己的目标。</p>
-<p>   　　Life is Like a sewer,what you get out of it depends on what you put into it.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="civsbgoo70001s4ns79p9qt9x" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         
