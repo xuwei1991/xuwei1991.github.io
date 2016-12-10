@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,79 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-《Java编程思想》学习笔记之初始化（第四章）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" class="article-date">
+  <time datetime="2016-12-10T13:52:03.210Z" itemprop="datePublished">2016-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/">《Java编程思想》学习笔记之初始化（第四章）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　对于程序设计而言，初始化是重要的命题，涉及到程序安全和程序运行效率。程序设计时，忘记对某些变量（必须用户进行初始化）进行初始化可能造成程序的错误。</p>
+<p> 本章笔记：</p>
+<ol>
+<li>对象的初始化及方法的重载</li>
+<li>成员变量的初始化及初始化顺序</li>
+</ol>
+<h2 id="1-对象的初始化及方法的重载"><a href="#1-对象的初始化及方法的重载" class="headerlink" title="1.对象的初始化及方法的重载"></a><strong>1.对象的初始化及方法的重载</strong></h2><p><strong>1.1 对象的初始化</strong><br>　　Java类包含字段（成员）和方法，而方法分为构造方法和普通方法。普通方法完成我们所需要的功能，而构造方法是用来初始化对象的。对于构造方法而言，它的命名要具备唯一性，能够让编译器进行识别。Java和C++类似，在命名上采用的方案是让构造方法采用与类相同的名称，通过自动调用构造方法完成对象的初始化。<br>  如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class C</div><div class="line">&#123;</div><div class="line">C()</div><div class="line">&#123;</div><div class="line">System.out.println("C被初始化啦");</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">C被初始化啦</div></pre></td></tr></table></figure>
+<p>　　可以得知，我们通过关键字new Circle()为对象c分配内存空间，并调用相应的构造方法，确保了对象的初始化。在Java中，对象的初始化和创建是绑定在一起的。<br>  　　在实际使用时，我们也会遇到不含有显式构造方法的类，程序也能通过编译运行。这是因为，当我们不显式写出构造方法时，程序会默认给类加上无参的构造方法，以便完成初始化<br>    　　上面所讲的例子是最简单的一种情况，手动构造无参的构造方法。但是，当我们初始化对象时，希望给对象一个初始值，这时，就需要通过构造有参数的构造方法来解决：如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">   class C</div><div class="line">&#123;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println(&quot;C的值为&quot;+d);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C(2.5);</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">运行结果为：</div><div class="line">C的值为2.5</div></pre></td></tr></table></figure>
+<p><strong>1.2 方法的重载</strong><br>　　对于对象的初始化而言，我们有时候希望通过不同的方式进行初始化。比如对于类C的初始化，我们希望既可以用标准方式初始化，也希望给定一个初始值进行初始化。这个时候就需要有有两个不同的构造方法，一个不带形参，一个带有形式参数。由于构造方法必须与类名一致，因此就存在名称相同，形式参数不同的构造方法，这就是构造方法的<strong>重载</strong>。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class C</div><div class="line">&#123;</div><div class="line">C()</div><div class="line">&#123;</div><div class="line">System.out.println("C被初始化啦");</div><div class="line">&#125;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println("C的值为"+d);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们创建对象时，可以自己选择创建对象的方式，Java虚拟机能够进行自动的匹配。<br>如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c1 = new C(2.5);</div><div class="line">C c2 = new C();</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">运行结果为：</div><div class="line">C的值为2.5</div><div class="line">C被初始化啦</div></pre></td></tr></table></figure>
+<p>关于方法的重载，有几点细节知识需要注意：</p>
+<ol>
+<li>当我们自己定义了一个构造方法之后，编译器就不会帮我们自动创建无参的构造方法，此时，当我们用无参的构造方法创建对象时，程序就会报错。如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> class C</div><div class="line">&#123;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println("C的值为"+d);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C();</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">提示错误为：</div><div class="line">The constructor C() is undefined</div></pre></td></tr></table></figure>
+<ol>
+<li>重载方法的区分方式<br>在区分重载方法时，只能以类名和方法的形参列表（包括参数类型和参数数量）来区分，不能用方法的返回值来区分。例如，对于普通方法：</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">void method()&#123;&#125;</div><div class="line">int method()&#123;&#125;</div></pre></td></tr></table></figure>
+<p>　　它们有同样的名字和形式参数，但是方法的返回值类型不一样。当我们调用方法时，如method(),此时仅仅调用方法而忽略返回值，Java是无法区分该调用哪一个。因此，这种区分重载方法的形式是不能编译通过的。</p>
+<h2 id="2-成员变量的初始化及初始化顺序"><a href="#2-成员变量的初始化及初始化顺序" class="headerlink" title="2. 成员变量的初始化及初始化顺序"></a><strong>2. 成员变量的初始化及初始化顺序</strong></h2><p><strong>2.1 初始化方式</strong><br>对于基本数据类型，如果它是类的数据成员，系统会保证它有一个初始值。但如果它是定义在方法内部的局部变量，系统不会对其进行初始化，编译时就会报错。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void method()</div><div class="line">&#123;</div><div class="line">int i;</div><div class="line">i++</div><div class="line">&#125;</div><div class="line">报错信息为：</div><div class="line">The local variable i may not have been initialized</div></pre></td></tr></table></figure>
+<p>　　可以通过指定初始化的方式为变量进行初始化赋值：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Demo</div><div class="line">&#123;</div><div class="line">int i = 1;</div><div class="line">boolean = true;</div><div class="line">double = 3.14;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上是基本数据类型的初始化方式，对于类类型的数据，也可以采用这种方式，加入C是一个已经构建的类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class  Demo1</div><div class="line">&#123;</div><div class="line">C c1 = new C();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>2.2 初始化顺序</strong><br><img src="./images/1.png" alt="enter description here" title="1.png"></p>
+<p>如以下的示例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class A&#123;</div><div class="line">	A(int i)&#123;</div><div class="line">		System.out.println("A("+i+")");</div><div class="line">	&#125;</div><div class="line">	void method_1(int i)&#123;</div><div class="line">		System.out.println("method_1("+i+")");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B&#123;</div><div class="line">	static A a1 = new A(1);</div><div class="line">	B()&#123;</div><div class="line">		System.out.println("B()");</div><div class="line">		a2.method_1(1);</div><div class="line">	&#125;</div><div class="line">	void method_2(int i)&#123;</div><div class="line">		System.out.println("method_2("+i+")");</div><div class="line">	&#125;</div><div class="line">	static A a2 = new A(2);</div><div class="line">&#125;</div><div class="line"></div><div class="line">class C&#123;</div><div class="line">	 A a3 = new A(3);</div><div class="line">	static A a4 = new A(4);</div><div class="line">	C()&#123;</div><div class="line">		System.out.println("C()");</div><div class="line">		a4.method_1(2);</div><div class="line">	&#125;</div><div class="line">	void method_3(int i)&#123;</div><div class="line">		System.out.println("method_3("+i+")");</div><div class="line">	&#125;</div><div class="line">	static A a5 = new A(5);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line">public class InitializationDemo &#123;</div><div class="line">	static B b2 = new B();</div><div class="line">	static C c2 = new C();</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		System.out.println("creating new C() in main");</div><div class="line">		new C();</div><div class="line">		</div><div class="line">		b2.method_2(1);</div><div class="line">		c2.method_3(1);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line">A(1)</div><div class="line">A(2)</div><div class="line">B()</div><div class="line">method_1(1)</div><div class="line">A(4)</div><div class="line">A(5)</div><div class="line">A(3)</div><div class="line">C()</div><div class="line">method_1(2)</div><div class="line">creating new C() in main</div><div class="line">A(3)</div><div class="line">C()</div><div class="line">method_1(2)</div><div class="line">method_2(1)</div><div class="line">method_3(1)</div></pre></td></tr></table></figure></p>
+<p>通过运行结果，可以看出来初始化顺序：<br>1.当对initialization类进行编译的时候，类中的静态变量b2和c2会进行加载（因为后面的方法中可能会用到）。b2进行构造初始化的时候，首先会初始化其中的静态变量a1,a2，然后进行构造方法B（）的执行。c2进行构造初始化的时候，首先会初始化静态变量a4,a5，然后再初始化非静态变量a3，最后执行构造方法C（）。<br>2.类变量载入完成之后，会进行main方法的执行。首先执行语句creating new C() in main，接下来进行new C（）对象的创建。同样的，也会首先初始化C类中的静态变量，但是静态变量只加载一次，之前已经加载，所以跳过了静态变量，直接初始化非静态变量a3，最后执行构造方法C（）。<br>3.再执行语句b2.method_2(1);c2.method_3(1);</p>
+<p>注意：静态变量只会初始化一次，而且只有在必要时刻才会进行初始化。</p>
+<p>总结：初始化在Java中占有至关重要的地位，构造方法是对对象进行初始化的重要手段，利用方法的重载可以让对象进行不同方式的初始化。在初始化中，正确理解初始化的顺序也是十分重要的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwja73dv0000e4nst87g8mnw" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-《Java编程思想》学习笔记之控制程序流程（第三章）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -103,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciw25shk00001fwns10h4i2kd" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwja73fh0005e4nsx25nmkmm" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -226,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciw25shlb0003fwnszxii0kyc" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwja73gh0006e4nsbbrmkxhb" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -273,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciw25shjb0000fwnsvgnx60cm" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwja73fd0004e4nsqvwq6itc" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -311,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciw25shk40002fwnswaijfb34" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwja73es0001e4nstpz7w2ey" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -330,15 +403,10 @@
 
   
     
-
-  
-    
-  
-    
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li></ul>
     </div>
   </div>
 
@@ -346,9 +414,32 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/构造器-初始化/" style="font-size: 10px;">构造器,初始化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/">《Java编程思想》学习笔记之初始化（第四章）</a>
+          </li>
         
           <li>
             <a href="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/">《Java编程思想》学习笔记之控制程序流程（第三章）</a>
@@ -379,7 +470,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 Xu Wei<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
