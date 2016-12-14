@@ -61,6 +61,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-《Java编程思想》学习笔记之final关键字概述" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" class="article-date">
+  <time datetime="2016-12-14T04:28:41.341Z" itemprop="datePublished">2016-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/">《Java编程思想》学习笔记之final关键字概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。<br>  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。<br>    要点：</p>
+<ul>
+<li>final数据</li>
+<li>final方法</li>
+<li>final类</li>
+</ul>
+<h2 id="1-final数据"><a href="#1-final数据" class="headerlink" title="1.final数据"></a><strong>1.final数据</strong></h2><p>　　final修饰数据时又分为两种情况，即修饰基本类型数据和修饰类的对象引用。<br>　　当用final修饰基本类型数据时，那就表示该数据是恒定不变的，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">final int i=5;</div></pre></td></tr></table></figure>
+<p>　　如果在程序中，我们再次尝试向i赋值，那么就会报错。<br>　　对于一个基本类型数据，还可以同时用static和final修饰，这与单独的final修饰还是有一点不同的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">final int i = new Random().nextInt(20);</div><div class="line">static final int j = new Random().nextInt(20);</div></pre></td></tr></table></figure>
+<p>　　对于i而言，每次创建对象时，都会被初始化，随后在该对象中，这个值是不变的。但是，当我们再次创建一个新的对象后，又会初始化一次，该值对于该对象而言也是不变的。<br>  　　对于j而言，在类加载的时候已经被初始化，而不是每次创建对象时初始化，所以它的值是不会随着对象的创建而改变的。<br>  　　  final修饰对象应用时，它值的是该对象引用是指向某一个确定对象的，无法改变引用的指向。但是，该对象里面的值是可以变化的。<br>     　　在用final修饰数据时，可以不在定义处进行初始化，即空白final，我们可以在构造器中进行初始化。这样，可以保证一个final字段根据对象而有所不同。</p>
+<h2 id="2-final方法"><a href="#2-final方法" class="headerlink" title="2.final方法"></a><strong>2.final方法</strong></h2><p>　　在继承中，如果我们不希望父类的方法被子类覆盖时，可以将该方法用final关键字修饰，这样可以做到方法行为保持不变。当我们尝试对这类方法进行覆盖时，系统就会提示编译错误。<br>  　　<strong>关于private和final。</strong><br>  　　  “覆盖”只有在某方法是父类的接口的一部分时才会出现。<br>    　　当一个方法被private修饰之后，即对外界不可见。那么就无法取用private方法，所以也就谈不上方法的覆盖。所以对于这类方法，是默认final的。<br>      　　两者的区别是，仅仅被final修饰的方法，在子类中是可见的，能够被调用，但是不能够覆盖。而仅仅被private修饰的方法，在子类中不可见，也不能够被调用。</p>
+<h2 id="3-final类"><a href="#3-final类" class="headerlink" title="3.final类"></a><strong>3.final类</strong></h2><p>  当用final修饰类时，如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">final class A&#123;</div><div class="line">int i =4;</div><div class="line">void method()&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么就表明，类A不允许被继承，也就是说，这个类不能够有子类。<br>对于final类中的字段，可以根据需要选择是否被final修饰。但是，对于final类中的方法，由于不能够被覆盖，所以是默认为被final修饰的。</p>
+<p><strong>总结：</strong></p>
+<ul>
+<li>在设计类时，我们可以根据实际情况的需要来将类，数据和方法指明为final.</li>
+<li>对于方法而言，需要谨慎使用final，因为遇见一个类如何被复用是困难的，尤其是对于通用的类库而言。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" data-id="ciwoftt4l00005snswypmbinx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-《java编程思想》学习笔记之复用类" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/12/14/《java编程思想》学习笔记之复用类/" class="article-date">
@@ -129,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/14/《java编程思想》学习笔记之复用类/" data-id="ciwofqcfi0002dknsbrbbqccu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/14/《java编程思想》学习笔记之复用类/" data-id="ciwoftt5h00065snslye5wuw5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组合-继承/">组合,继承</a></li></ul>
@@ -201,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" data-id="ciwofqcgv0009dknss32jqrpa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" data-id="ciwoftt5a00055snsac4c1jw3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/访问权限-关键字/">访问权限,关键字</a></li></ul>
@@ -274,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwofqcfe0001dkns65aze7iz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwoftt4w00025snsplh2y0t5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li></ul>
@@ -328,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwofqcer0000dknscw2524yq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwoftt4z00035snshsetr00o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -451,7 +507,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwofqchj000cdknsvh4khsm9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwoftt4s00015snsex0zscst" class="article-share-link">Share</a>
       
       
     </footer>
@@ -498,7 +554,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwofqcgq0008dknscnv61fob" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwoftt5i00075snsrgfgeo5c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -536,7 +592,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwofqcgk0007dknsvp7zxe0z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwoftt5m000a5snsp9jhmm7y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -590,6 +646,10 @@
       <ul>
         
           <li>
+            <a href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/">《Java编程思想》学习笔记之final关键字概述</a>
+          </li>
+        
+          <li>
             <a href="/2016/12/14/《java编程思想》学习笔记之复用类/">《Java编程思想》学习笔记之复用类</a>
           </li>
         
@@ -603,10 +663,6 @@
         
           <li>
             <a href="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/">《Java编程思想》学习笔记之控制程序流程（第三章）</a>
-          </li>
-        
-          <li>
-            <a href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/">《Java编程思想》学习笔记之一切都是对象（第二章）</a>
           </li>
         
       </ul>
