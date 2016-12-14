@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《java编程思想》学习笔记之接口 | xuwei&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在现实生活中，我们经常听说接口这个词语。直观的理解就是给外界提供的方法，接口能够提供一种规范。比如，计算机通信中，只要满足通信接口的协议，就可以实现不同机器间的通信。对于程序中的接口来说，也是如此。　　接口比类更加抽象，在介于接口和普通类之间，还有一种抽象类。  　　本章要点：
+
+抽象类和抽象方法
+接口及接口中的方法和成员变量
+java的多继承与多实现
+接口的工厂方法1.抽象类和抽象方法当一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《java编程思想》学习笔记之接口">
+<meta property="og:url" content="http://yoursite.com/2016/12/15/《Java编程思想》学习笔记之接口/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="在现实生活中，我们经常听说接口这个词语。直观的理解就是给外界提供的方法，接口能够提供一种规范。比如，计算机通信中，只要满足通信接口的协议，就可以实现不同机器间的通信。对于程序中的接口来说，也是如此。　　接口比类更加抽象，在介于接口和普通类之间，还有一种抽象类。  　　本章要点：
+
+抽象类和抽象方法
+接口及接口中的方法和成员变量
+java的多继承与多实现
+接口的工厂方法1.抽象类和抽象方法当一个">
+<meta property="og:updated_time" content="2016-12-14T17:19:26.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《java编程思想》学习笔记之接口">
+<meta name="twitter:description" content="在现实生活中，我们经常听说接口这个词语。直观的理解就是给外界提供的方法，接口能够提供一种规范。比如，计算机通信中，只要满足通信接口的协议，就可以实现不同机器间的通信。对于程序中的接口来说，也是如此。　　接口比类更加抽象，在介于接口和普通类之间，还有一种抽象类。  　　本章要点：
+
+抽象类和抽象方法
+接口及接口中的方法和成员变量
+java的多继承与多实现
+接口的工厂方法1.抽象类和抽象方法当一个">
+  
+    <link rel="alternate" href="/atom.xml" title="xuwei&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xuwei&#39;blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-《Java编程思想》学习笔记之接口" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/15/《Java编程思想》学习笔记之接口/" class="article-date">
+  <time datetime="2016-12-14T17:19:04.881Z" itemprop="datePublished">2016-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《java编程思想》学习笔记之接口
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　在现实生活中，我们经常听说接口这个词语。直观的理解就是给外界提供的方法，接口能够提供一种规范。比如，计算机通信中，只要满足通信接口的协议，就可以实现不同机器间的通信。对于程序中的接口来说，也是如此。<br>　　接口比类更加抽象，在介于接口和普通类之间，还有一种抽象类。<br>  　　本章要点：</p>
+<ul>
+<li>抽象类和抽象方法</li>
+<li>接口及接口中的方法和成员变量</li>
+<li>java的多继承与多实现</li>
+<li>接口的工厂方法<h2 id="1-抽象类和抽象方法"><a href="#1-抽象类和抽象方法" class="headerlink" title="1.抽象类和抽象方法"></a><strong>1.抽象类和抽象方法</strong></h2>当一个方法只有声明而没有方法体的时候，我们就称这种方法为抽象方法，并且用关键字abstract修饰，如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">abstract void method();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　抽象方法没有方法体，以分号结束。包含一个或者多个抽象方法的类就称之为抽象类。<br>  　　抽象类有未实现的抽象方法，不能被实例化，因为所创建出来的对象也无法完成方法的调用。所以当我们尝试进行实例化时，编译系统就会报错。<br>    　　通过继承抽象类，并覆写其中所有的抽象方法，我们就可以创建子类对象了。如果有一个或者多个抽象方法没有被覆写，那么该子类也是抽象类。</p>
+<h2 id="2-接口及接口中的方法和成员变量"><a href="#2-接口及接口中的方法和成员变量" class="headerlink" title="2.接口及接口中的方法和成员变量"></a><strong>2.接口及接口中的方法和成员变量</strong></h2><p>　　抽象类中允许有非抽象方法的存在，而接口则是其中的方法全部是抽象的。接口用关键字interface表示，而不是类class。<strong>接口可以表示实现了该特定接口的类看起来都像这样。</strong>但是，具体怎么做，需要其他的类进行实现。<br>  　　如果让一个类遵循某一个接口或者某一组接口，用关键字implements表示，类似于继承中的extends。<br>    如下所示;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">interface dianqi&#123;</div><div class="line">public void start();</div><div class="line">public void stop();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TV implements dianqi&#123;</div><div class="line">public void start()&#123;</div><div class="line">System.out.println(&quot;用遥控器打开电视&quot;);&#125;</div><div class="line">public void stop()&#123;</div><div class="line">System.out.println(&quot;用遥控器关电视&quot;);&#125;</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">TV tv = new TV();</div><div class="line">tv.start();</div><div class="line">tv.stop();&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">用遥控器打开电视</div><div class="line">用遥控器关电视</div></pre></td></tr></table></figure>
+<p>接口中的方法都必须拥有最大的权限，所以需要用public修饰，当我们省略了public时，系统也会自动more加上public的。<br>接口中的成员变量也都是默认static和final的，如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface Circle&#123;</div><div class="line">	double Pi = 3.14;</div><div class="line">&#125;</div><div class="line">public class Test &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		System.out.println("圆周率是"+Circle.Pi);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接口的成员变量在类第一次加载时就被初始化，成员变量的值储存在接口的静态存储区域内，可以直接通过接口名进行调用。</p>
+<h2 id="3-Java的多继承与多实现"><a href="#3-Java的多继承与多实现" class="headerlink" title="3.Java的多继承与多实现"></a><strong>3.Java的多继承与多实现</strong></h2><p><strong>3.1 多继承</strong><br>在学习继承的时候，可以知道Java是只支持单继承的面向对象设计语言。但是，在接口中，是可以实现接口的多继承的。<br>如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface A1&#123;</div><div class="line">	void method1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface B1&#123;</div><div class="line">	void method2();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface C1 extends A1,B1&#123;</div><div class="line">	void method3();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class D implements C1&#123;</div><div class="line">	public void method1()&#123;System.out.println("方法1执行了");&#125;;</div><div class="line">	public void method2()&#123;System.out.println("方法2执行了");&#125;;</div><div class="line">	public void method3()&#123;System.out.println("方法3执行了");&#125;;</div><div class="line"></div><div class="line">&#125;</div><div class="line">public class Test2 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		D d = new D();</div><div class="line">		d.method1();</div><div class="line">		d.method2();</div><div class="line">		d.method3();</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">方法<span class="number">1</span>执行了</div><div class="line">方法<span class="number">2</span>执行了</div><div class="line">方法<span class="number">3</span>执行了</div></pre></td></tr></table></figure>
+<p>可以看出，interface C1 extends A1,B1语句能够成功通过编译。并且，继承了A1接口和B1接口之后，C1接口也就自动获得了它们的抽象方法。在这一点上，接口的继承和类的继承比较一致，可以通过继承来进行接口的拓展。<br><strong>3.2多实现</strong><br>一个类只能继承一个类，但是却可以实现多个接口。如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface A1&#123;</div><div class="line">	void method1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface B1&#123;</div><div class="line">	void method2();</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class D implements A1,B1&#123;</div><div class="line">	public void method1()&#123;System.out.println("方法1执行了");&#125;;</div><div class="line">	public void method2()&#123;System.out.println("方法2执行了");&#125;;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test2 &#123;</div><div class="line">    public static void a1(A1 a)&#123;a.method1();&#125;</div><div class="line">    public static void b1(B1 b)&#123;b.method2();&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		D d = new D();</div><div class="line">		a1(d);</div><div class="line">		b1(d);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">方法<span class="number">1</span>执行了</div><div class="line">方法<span class="number">2</span>执行了</div></pre></td></tr></table></figure>
+<p>　　可以看出，类D实现了两个接口，分别是A1和B2，并覆写了它们的抽象方法。在main函数中，d分别向上转型为A1，B1，实现了功能的复用性。<br>　　通过这个例子，也可以看出使用接口的核心原因：<br>1.能够向上转型为多个父类型，极大的增强了编程的灵活性；<br>2.与抽象类一样，可以防止客户端创建接口的对象。<br><strong>3.3 实现与继承的结合</strong><br>　　还可以通过继承一个具体类和实现多个接口组合在一起，组成一个新的类。有一点原则就是这个具体类必须放在前面，接口放在后面，用逗号隔开，否则，编译会报错。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class A extends B implements C,D&#123;&#125;</div></pre></td></tr></table></figure>
+<p><strong>4.接口的工厂方法</strong><br>接口是实现多重继承的途径，而生成遵循某个接口的对象的典型方式就是工厂方法设计模型，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface Cycle1&#123;</div><div class="line">	void ride();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface CycleFactory&#123;</div><div class="line">	Cycle1 getCycle();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class UniCycle1 implements Cycle1&#123;</div><div class="line">	public void ride()&#123;System.out.println("UniCycle ride()");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class UniCycleFactory implements CycleFactory&#123;</div><div class="line">	public Cycle1 getCycle()&#123;</div><div class="line">		return new UniCycle1();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class BiCycle1 implements Cycle1&#123;</div><div class="line">	public void ride()&#123;System.out.println("BiCycle ride()");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class BiCycleFactory implements CycleFactory&#123;</div><div class="line">	public Cycle1 getCycle()&#123;</div><div class="line">		return new BiCycle1();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TriCycle1 implements Cycle1&#123;</div><div class="line">	public void ride()&#123;System.out.println("TriCycle ride()");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TriCycleFactory implements CycleFactory&#123;</div><div class="line">	public Cycle1 getCycle()&#123;</div><div class="line">		return new TriCycle1();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public class FactoryTest &#123;</div><div class="line">    public static void run(CycleFactory c)&#123;</div><div class="line">    	Cycle1 cle=c.getCycle();</div><div class="line">    	cle.ride();</div><div class="line">    &#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">	 run(new UniCycleFactory());</div><div class="line">	 run(new BiCycleFactory());</div><div class="line">	 run(new TriCycleFactory());</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UniCycle ride()</div><div class="line">BiCycle ride()</div><div class="line">TriCycle ride()</div></pre></td></tr></table></figure>
+<p>在工厂对象上调用创建方法，在工厂对象上生成接口的某个实现的对象，通过这种方式可以把代码和接口的实现相分离。</p>
+<p><strong>总结：</strong></p>
+<ol>
+<li>抽象类可以含有非抽象方法，但至少含有一个抽象方法</li>
+<li>接口中的方法全部是抽象的，它只提供做什么，具体怎么做需要具体的类去实现</li>
+<li>多继承和多实现能够有效的增强代码的拓展性</li>
+<li>任何抽象都是基于实际的需求的，可以根据需要构建工厂方法。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/15/《Java编程思想》学习笔记之接口/" data-id="ciwp7ca7x0001zsns4r71fvsp" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/14/《Java编程思想》学习笔记之多态/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">《Java编程思想》学习笔记之多态</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合-继承/">组合,继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/访问权限-关键字/">访问权限,关键字</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/构造器-初始化/" style="font-size: 10px;">构造器,初始化</a> <a href="/tags/组合-继承/" style="font-size: 10px;">组合,继承</a> <a href="/tags/访问权限-关键字/" style="font-size: 10px;">访问权限,关键字</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/12/15/《Java编程思想》学习笔记之接口/">《java编程思想》学习笔记之接口</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/14/《Java编程思想》学习笔记之多态/">《Java编程思想》学习笔记之多态</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/">《Java编程思想》学习笔记之final关键字概述</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/14/《java编程思想》学习笔记之复用类/">《Java编程思想》学习笔记之复用类</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/">《Java编程思想》学习笔记之隐藏具体实现（第五章）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Xu Wei<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
