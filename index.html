@@ -61,6 +61,86 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-《java编程思想》学习笔记之复用类" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/14/《java编程思想》学习笔记之复用类/" class="article-date">
+  <time datetime="2016-12-14T04:26:11.952Z" itemprop="datePublished">2016-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/14/《java编程思想》学习笔记之复用类/">《Java编程思想》学习笔记之复用类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　复用代码是Java众多引人注目的功能之一。可以通过创建新类来复用代码，而不用编写重复的代码。<br>  　　实现这一目的可以有两种方式，一种是组合，既在新类中产生现有类的对象；二是继承，不改变现有类的形式，采用现有类的形式，并向其中添加新代码。<br>    　　本章要点：</p>
+<ul>
+<li>组合</li>
+<li>继承</li>
+<li>final关键字</li>
+</ul>
+<h2 id="1-组合"><a href="#1-组合" class="headerlink" title="1.组合"></a><strong>1.组合</strong></h2><p>　　程序的设计都是基于现实世界的反映，对于面向对象语言来说，这一点尤其的突出。举例来说，一辆汽车有发动机，轮子，门组成，这就是现实中的一种组合关系，反映到代码中，可以表示如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class Engine&#123;</div><div class="line">   public void start()&#123;&#125;</div><div class="line">   public void stop()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Wheel&#123;</div><div class="line">   public void run()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Door&#123;</div><div class="line">   public void open()&#123;&#125;</div><div class="line">   public void close()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Car&#123;</div><div class="line">   public Engine e = new Engine();//汽车有一台发动机</div><div class="line">   public Wheel[] w = new Wheel[4];//汽车有四个轮子</div><div class="line">   public Door left = new Door();//左边的门</div><div class="line">   public Door right = new Door();//右边的门</div><div class="line">   public car()&#123;</div><div class="line">     for(int i=0;i&lt;4;i++)</div><div class="line">      wheel[i] = new Wheel();//在构造器中造轮子</div><div class="line"> &#125;</div><div class="line"> public static void main(String[] args)&#123;</div><div class="line">    Car car = new Car();</div><div class="line">    car.left.open();</div><div class="line">    car.e.start();&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　如上所示，在汽车类Car中，我们把组件（发动机，车轮和门）的引用作为类的成员变量置于其中。汽车启动时，只需调用对象对应的方法就行，省去了重复代码。</p>
+<p>　　在组合中，我们引入的是对象的引用。当我们不对引用进行任何操作时，引用默认初始化为null,一把情况下，我们需要对这些引用进行初始化，初始化的位置有三个：</p>
+<ul>
+<li>在定义对象的地方，能够保证在构造方法被调用之前完成初始化；</li>
+<li>在类的构造方法中；</li>
+<li>在使用对象之前（？？？）<br>在上面的例子中已经得到体现，发动机和车门在被定义的时候就完成了初始化，而轮子是在Car类的构造方法中进行初始化的。</li>
+</ul>
+<h2 id="2-继承"><a href="#2-继承" class="headerlink" title="2.继承"></a><strong>2.继承</strong></h2><p>2.1 <strong>继承的语义</strong><br>　　继承是所有面向对象语言重要的组成部分，它能够实现代码的复用，同时也是面向对象语言的多态特性的基础。<br>  　　在现实世界中，当某一类对象属于另一类对象时，可以看作是继承关系。例如，小米手机，华为手机都属于手机，它们都继承自手机类，拥有手机类的共同特点。用代码可以进行表示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class Phone&#123;</div><div class="line">  double size;</div><div class="line">  String color;</div><div class="line">  public void call()&#123;</div><div class="line">  System.out.println(&quot;能够打电话&quot;);&#125;</div><div class="line">  public void message()&#123;</div><div class="line">  System.out.println(&quot;能够发短信&quot;);&#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  class XiaoMi extends Phone&#123;</div><div class="line">     public static void main(String[] args)&#123;</div><div class="line">     XiaoMi mi = new XiaoMi();</div><div class="line">     mi.size=5.5;</div><div class="line">     mi.color=&quot;白色&quot;;</div><div class="line">     System.out.println(&quot;手机尺寸为：&quot;+mi.size+&quot;   &quot;+&quot;手机颜色为&quot;+mi.color);</div><div class="line">  mi.call;</div><div class="line">     mi.message;&#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  运行结果为：</div><div class="line">  </div><div class="line">  手机尺寸为：5.5   手机颜色为白色</div><div class="line">  能够打电话</div><div class="line">  能够发短信</div><div class="line">  </div><div class="line">  class HuaWei extends Phone&#123;</div><div class="line">     String os = &quot;华为操作系统&quot;;</div><div class="line">     public void call()&#123;</div><div class="line">     System.out.println(&quot;用华为手机方式打电话&quot;);&#125;</div><div class="line">     public static void main(String[] args)&#123;</div><div class="line">     HuaWei hw = new HuaWei();</div><div class="line">     hw.size=6;</div><div class="line">     hw.color = &quot;黑色&quot;;</div><div class="line">     System.out.println(&quot;手机尺寸为：&quot;+hw.size+&quot;   &quot;+&quot;手机颜色为&quot;+hw.color);</div><div class="line">     hw.call();</div><div class="line">     hw.messag();&#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">运行的结果为：</div><div class="line"></div><div class="line">手机尺寸为：6.0   手机颜色为黑色</div><div class="line">用华为手机方式打电话</div><div class="line">能够发短信</div></pre></td></tr></table></figure>
+<p>　　从示例中可以看出，XiaoMi和HuaWei通过关键字extends实现了从phone的继承，那么phone就被成为父类，XiaoMi和HuaWei就是子类。子类继承自父类之后，就拥有了父类全部的方法和成员。并且，子类可以新增属于自己的成员和方法，也可以覆写父类的方法。在覆写父类的方法时，如果要在覆写的方法中调用从父类继承而来的方法，可以用关键字super来表示，如super.call().<br>  　　一般来说，为了继承，会将所有父类的成员指定为private,而将所有的方法指定为public，通过方法去访问数据成员。<br>    <strong>2.2 继承中的子类的初始化</strong><br>    　　“当创建了一个子类对象时，该对象包含了一个父类的子对象。这个子对象与我们用父类直接创建的对象是一样的。两者的区别在于，后者来自外部，而父类的子对象被包装在子类对象内部。”<br>      　　这是因为，我们在进行子类对象创建的时候，系统会首先掉用父类的构造方法。如以下示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class father&#123;</div><div class="line">	father()&#123;</div><div class="line">		System.out.println(&quot;father constructor&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class son extends father&#123;</div><div class="line">	son()&#123;</div><div class="line">		System.out.println(&quot;son constructor&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class grandson extends son&#123;</div><div class="line">	grandson()&#123;</div><div class="line">		System.out.println(&quot;grandson constructor&quot;);</div><div class="line">	&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		grandson g= new grandson();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">father constructor</div><div class="line">son constructor</div><div class="line">grandson constructor</div></pre></td></tr></table></figure>
+<p>可以看出来，构造方法的执行是从父类开始的，如果父类还有上一级的父类，会进一步向上追溯。在该示例中，无参的构造方法是显式写出来的，如果没有显式的构造方法，系统也会调用默认的构造方法。<br>　　上述事例中的构造方法都是没有参数列表，如果构造方法含有参数，就必须用super关键字显式的写在子类构造方法的第一行。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class father&#123;</div><div class="line">	father(int i)&#123;</div><div class="line">		System.out.println("father constructor");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class son extends father&#123;</div><div class="line">	son(int i)&#123;</div><div class="line">		super(i);</div><div class="line">		System.out.println("son constructor");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class grandson extends son&#123;</div><div class="line">	grandson()&#123;</div><div class="line">		super(1);</div><div class="line">		System.out.println("grandson constructor");</div><div class="line">	&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		grandson g= new grandson();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果我们不用super关键字进行调用，系统就会报如下错误：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Implicit super constructor father() is undefined. Must explicitly invoke another constructor</div></pre></td></tr></table></figure>
+<p>如果我们不把super放在第一行，系统就会报如下错误：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Constructor call must be the first statement <span class="keyword">in</span> <span class="selector-tag">a</span> constructor</div></pre></td></tr></table></figure>
+<p><strong>2.3 继承中的方法的重载与重写</strong><br>如果在父类中已经有重载的方法，那么在子类中重新定义该方法的重载，并不会屏蔽掉父类的方法，这一点与重写不一样。示例如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Fu &#123;</div><div class="line">	public void say(int i)&#123;</div><div class="line">		System.out.println("我的年龄是："+i);</div><div class="line">	&#125;</div><div class="line">	public void say(String s)&#123;</div><div class="line">		System.out.println("我的名字是："+s);</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Zi extends Fu &#123;</div><div class="line">     public void say(char c)&#123;</div><div class="line">    	 System.out.println("我最喜欢的字母是"+c);</div><div class="line">    </div><div class="line">     &#125;</div><div class="line">     public void say(int i)&#123;</div><div class="line">    	 i=i-24;</div><div class="line"> 		System.out.println("我的年龄是："+i);</div><div class="line"> 	&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Zi z = new Zi();</div><div class="line">		z.say(48);</div><div class="line">		z.say("张三");</div><div class="line">		z.say('x');	</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">我的年龄是：<span class="number">24</span></div><div class="line">我的名字是：张三</div><div class="line">我最喜欢的字母是x</div></pre></td></tr></table></figure>
+<p>父类中有两个重载的say方法，传递的参数分别是int和String，子类中也有say方法，传递了参数char，该方法与并不是对父类的覆盖，而是重载，相当于一个新的方法。子类中还有一个参数为int的say方法，这个方法是对父类方法的覆盖。</p>
+<p><strong>2.4 继承中的向上转型</strong><br><strong>“子类是父类的一种类型”</strong>。父类中所有的方法在子类中同样有效，向父类发送的消息同样可以向子类发送。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">public void method_1()&#123;&#125;</div><div class="line">public static void method_2(A a)&#123;</div><div class="line">a.method_1();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B extends A&#123;</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">B b= new B();</div><div class="line">A.method_2(b)</div><div class="line">;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子中，在父类中定义了一个静态方法method_2，这个方法的传递参数是A类对象的一个引用，该方法可以用类名直接调用。在子类中，建立了子类的一个对象b,在调用方法method_2时，传递的参数是子类B的对象b,程序可以运行。这说明，子类对象b同样也是父类A的对象。将子类B的引用向上转型到A类的引用，这个就叫做“向转型”，这个方法在多态中应用较多。</p>
+<p><strong>2.5 组合与继承的选择</strong><br>1.组合常用于想在新类中使用现有类的功能而不是接口的场所，而需要使用现有类的所有成员和方法，并且需要使用接口时，用继承。<br>2.组合是“has-a”的关系，而继承是“is-a”的关系，当我们所需要使用的两个类复合其中的关系时，就用对应的组合或者继承。<br>3.到底是用组合还是继承，一个最简单的办法就是看是否需要从子类向父类进行向上转型。如果必须向上转型，则要用继承，否则，可以考虑应用组合语法。</p>
+<p><strong>总结</strong></p>
+<ul>
+<li>组合是一种复用代码的方法，有较强的灵活性；</li>
+<li>继承中，子类是父类的一种类型，它也是向上转型和多态的基础</li>
+<li>组合和继承的选用要看具体使用场景，按照自己归纳的三个原则进行选择。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/14/《java编程思想》学习笔记之复用类/" data-id="ciwofqcfi0002dknsbrbbqccu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组合-继承/">组合,继承</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-《Java编程思想》学习笔记之隐藏具体实现（第五章）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" class="article-date">
@@ -121,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" data-id="ciwk0yptk00004wns8befdzej" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" data-id="ciwofqcgv0009dknss32jqrpa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/访问权限-关键字/">访问权限,关键字</a></li></ul>
@@ -194,7 +274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwk0ypvh00054wnsofeeroh5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwofqcfe0001dkns65aze7iz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li></ul>
@@ -248,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwk0ypvb00044wns89y6oec0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwofqcer0000dknscw2524yq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -371,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwk0ypuv00034wnsjj820nid" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwofqchj000cdknsvh4khsm9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -418,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwk0ypug00024wns81c9twwj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwofqcgq0008dknscnv61fob" class="article-share-link">Share</a>
       
       
     </footer>
@@ -456,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwk0ypud00014wnstdj23ij6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwofqcgk0007dknsvp7zxe0z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -478,7 +558,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/访问权限-关键字/">访问权限,关键字</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合-继承/">组合,继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/访问权限-关键字/">访问权限,关键字</a></li></ul>
     </div>
   </div>
 
@@ -488,7 +568,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/构造器-初始化/" style="font-size: 10px;">构造器,初始化</a> <a href="/tags/访问权限-关键字/" style="font-size: 10px;">访问权限,关键字</a>
+      <a href="/tags/构造器-初始化/" style="font-size: 10px;">构造器,初始化</a> <a href="/tags/组合-继承/" style="font-size: 10px;">组合,继承</a> <a href="/tags/访问权限-关键字/" style="font-size: 10px;">访问权限,关键字</a>
     </div>
   </div>
 
@@ -510,6 +590,10 @@
       <ul>
         
           <li>
+            <a href="/2016/12/14/《java编程思想》学习笔记之复用类/">《Java编程思想》学习笔记之复用类</a>
+          </li>
+        
+          <li>
             <a href="/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/">《Java编程思想》学习笔记之隐藏具体实现（第五章）</a>
           </li>
         
@@ -523,10 +607,6 @@
         
           <li>
             <a href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/">《Java编程思想》学习笔记之一切都是对象（第二章）</a>
-          </li>
-        
-          <li>
-            <a href="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/">《Java编程思想》学习笔记之对象导论（第一章）</a>
           </li>
         
       </ul>
