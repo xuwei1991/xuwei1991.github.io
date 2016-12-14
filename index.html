@@ -61,6 +61,87 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-《Java编程思想》学习笔记之多态" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/14/《Java编程思想》学习笔记之多态/" class="article-date">
+  <time datetime="2016-12-14T04:31:50.492Z" itemprop="datePublished">2016-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/14/《Java编程思想》学习笔记之多态/">《Java编程思想》学习笔记之多态</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　封装，继承，多态是面向对象语言的三个基本特征。封装是通过抽象事物的特征和行为来创建新的数据类型。继承则允许子类对象视为自身类型或者父类型来进行处理。而多态则在继承的基础之上，分离做什么和怎么做，发给父类引用的消息可以由子类对象进行响应。<br>  　　这一章的主要内容：</p>
+<ul>
+<li>多态的基本使用</li>
+<li>有关动态绑定</li>
+<li>多态中构造方法的初始化</li>
+<li>向上转型与向下转型</li>
+<li><p>多态中需要注意的细节</p>
+<h2 id="1-多态的基本使用"><a href="#1-多态的基本使用" class="headerlink" title="1.多态的基本使用"></a><strong>1.多态的基本使用</strong></h2><p>　假设有一个Cycle类，它有三个子类，分别是Unicycle,Bicycle和Tricycle，它们都有ride()方法，编写如下的示例：</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">class Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">		System.out.println("Cycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Unicycle extends Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">	System.out.println("Unicycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Bicycle extends Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">	System.out.println("Bicycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Tricycle extends Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">	System.out.println("Tricycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class PolymorphismTest1 &#123;</div><div class="line">    public static void method(Cycle c)&#123;</div><div class="line">    	c.ride();</div><div class="line">    &#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Cycle c1 = new Unicycle();</div><div class="line">		Cycle c2 = new Bicycle();</div><div class="line">		Cycle c3 = new Tricycle();</div><div class="line">		PolymorphismTest1.method(c1);</div><div class="line">		PolymorphismTest1.method(c2);</div><div class="line">		PolymorphismTest1.method(c3);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Unicycle ride</div><div class="line">Bicycle ride</div><div class="line">Tricycle ride</div></pre></td></tr></table></figure>
+<p>　　示例中，静态方法method()接受的是父类Cycle的引用，c1,c2,c3分别指向的是子类的对象，这个三个引用都可以被method ()方法接收。因此，我们只需要在主函数中写一个方法，接收父类引用为参数，而不用单独为子类编写方法，有效的简化了代码。而且如果后续还有子类加入时，主程序不需要做更改，可以直接使用。</p>
+<h2 id="2-有关动态绑定"><a href="#2-有关动态绑定" class="headerlink" title="2.有关动态绑定"></a><strong>2.有关动态绑定</strong></h2><p>　　<strong>绑定的定义是将方法调用同方法主体相关联的过程。</strong><br>  　　如果在程序运行前进行绑定就成为前期绑定或者静态绑定，如果在运行时根据对象的类型进行绑定，则称之为后期绑定或者动态绑定。<br>   　　 java中，当方法被static或者final(private属于final)修饰时，则这些方法是静态绑定，否则就是动态绑定。<br>     　　在上述示例中，编译之前，method()方法能够接收父类的引用c1,c2和c3，但是无法确定运行哪一个ride()方法。当程序运行起来时，这三个引用分别绑定各自对应的对象，从而调用各自对象的ride()方法。<br>       　　动态绑定是实现多态的重要基础，它可以<strong>将改变的事物与不变的事物分离开来</strong>。不变的是父类的引用，改变的是子类对象。</p>
+<h2 id="3-多态中构造方法的初始化"><a href="#3-多态中构造方法的初始化" class="headerlink" title="3.多态中构造方法的初始化"></a><strong>3.多态中构造方法的初始化</strong></h2><p> 构造方法不同于普通方法，它是隐式static的，它也不具备多态性。构造方法的初始化在继承章节已有讲述，补充的初始化顺序如下：<br> 1）按声明顺序调用静态成员的初始化方法<br> 2）调用父类构造方法，直到最底层<br> 3）按声明顺序调用非静态成员的初始化方法<br> 4）调用子类构造方法的主体<br> 具体的演示代码如下;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Meal&#123;</div><div class="line">	Meal()&#123;</div><div class="line">		System.out.println("Meal()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Bread&#123;</div><div class="line">	Bread()&#123;</div><div class="line">		System.out.println("Bread()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Cheese&#123;</div><div class="line">	Cheese()&#123;</div><div class="line">		System.out.println("Cheese()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Lettuce&#123;</div><div class="line">	Lettuce()&#123;</div><div class="line">		System.out.println("Lettuce()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Lunch extends Meal&#123;</div><div class="line">	Lunch()&#123;</div><div class="line">		System.out.println("Lunch()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class PortableLunch extends Lunch&#123;</div><div class="line">	PortableLunch()&#123;</div><div class="line">		System.out.println("PortableLunch()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class Sandeich extends PortableLunch&#123;</div><div class="line">    private Bread b = new Bread();</div><div class="line">    private Cheese c = new Cheese();</div><div class="line">    private static Lettuce l = new Lettuce();</div><div class="line">    public Sandeich()&#123;		</div><div class="line">    	System.out.println("Sandeich()");</div><div class="line">&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">             new Sandeich();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">Lettuce</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Meal</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Lunch</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">PortableLunch</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Bread</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Cheese</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Sandeich</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
+<p>　　在继承时，我们已经知道父类的一切要素，这就要求在子类进行初始化时，就必须假定所有父类的成员是有效的。构造方法初始化时，对类中成员的初始化要求也是这样的。</p>
+<p>  在构造方法初始化时，有一种比较特殊的情况，那就是在一个构造方法的内部调用正在构造的对象的动态绑定方法。这种情况下，当前构造方法在被调用时，构造方法内部的方法所从属的类是还没有被初始化的，这样可能会导致一些错误。<br>  如下的示例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Glyph&#123;</div><div class="line">	void draw()&#123;</div><div class="line">		System.out.println("Gltph draw(");</div><div class="line">	&#125;</div><div class="line">	Glyph()&#123;</div><div class="line">		System.out.println("Gltph() befor draw()");</div><div class="line">		draw();</div><div class="line">		System.out.println("Gltph() after draw()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class RoundGlyph extends Glyph&#123;</div><div class="line">	private int r=1;</div><div class="line">	RoundGlyph(int r)&#123;</div><div class="line">		this.r=r;</div><div class="line">		System.out.println("RoundGlyph.RoundGlyph(),r="+r);</div><div class="line">	&#125;</div><div class="line">	void draw()&#123;</div><div class="line">		System.out.println("RoundGlyph.draw(),r="+r);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public class PolyConstructors &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">          new RoundGlyph(3);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">Gltph</span><span class="params">()</span></span> befor draw()</div><div class="line">RoundGlyph.draw(),r=<span class="number">0</span></div><div class="line"><span class="function"><span class="title">Gltph</span><span class="params">()</span></span> after draw()</div><div class="line">RoundGlyph.RoundGlyph(),r=<span class="number">3</span></div></pre></td></tr></table></figure>
+<p>　　程序中，子类覆写了父类的draw()方法。进行初始化的时候，首先调用的是父类的构造方法，父类构造方法中此时的draw()是被覆写后的draw()。但是调用是，r=0，而不是默认值1。<br>　　由此，可以看出，在所有初始化动作开始之前，将分配给对象的存储空间初始化为二进制的0。<br> 　　这种错误，编译器不会报错，但是在实际使用中数据已经不可靠，是比较大的隐患。<br>   因此，尽可能的使用简单的方法是对象完成初始化，避免在构造方法中调用其他方法，如果需要调用，也最好是final方法或者private方法，这些方法不会被覆盖。</p>
+<h2 id="4-向上转型与向下转型"><a href="#4-向上转型与向下转型" class="headerlink" title="4.向上转型与向下转型"></a><strong>4.向上转型与向下转型</strong></h2><p> 我们在使用多态时，也就已经使用了向上转型。子类继承自父类，子类拥有父类全部的接口，因此，向上转型总是安全的，但是也会丢失部分信息。通过向下转型，能够或许具体的类的信息，但是也需要注意一些问题。如以下的示例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class AA&#123;</div><div class="line">	public void method_1()&#123;System.out.println("A-1");&#125;</div><div class="line">	public void method_2()&#123;System.out.println("A-2");&#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">class BB extends AA&#123;</div><div class="line">	public void method_1()&#123;System.out.println("B-1");&#125;</div><div class="line">	public void method_2()&#123;System.out.println("B-2");&#125;	</div><div class="line">	public void method_3()&#123;System.out.println("B-3");&#125;</div><div class="line">	public void method_4()&#123;System.out.println("B-4");&#125;</div><div class="line">&#125;</div><div class="line">public class PolymorphismTest2 &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">      AA a = new AA();</div><div class="line">      AA b = new BB();</div><div class="line">      a.method_1();</div><div class="line">      b.method_2();</div><div class="line">      a.method_3();//1.The method method_3() is undefined for the type A</div><div class="line">      ((BB)b).method_3();//2.向下转型，可行</div><div class="line">      ((BB)a).method_3();//3.test.AA cannot be cast to test.BB</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从程序中可以学习到，第1处无法编译通过，原因是父类中没有method_3()方法，也就无法进行调用。可以通过向下转型进行调用，如第2处所示。a指向的是AA对象，b指向的是BB对象。AA对象无法转为BB对象去调用BB的方法，所以会抛出类型转换异常。</p>
+<h2 id="5-多态中需要注意的细节"><a href="#5-多态中需要注意的细节" class="headerlink" title="5. 多态中需要注意的细节"></a><strong>5. 多态中需要注意的细节</strong></h2><p><strong>5.1 假象的覆盖私有方法。</strong><br>如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">private void method()&#123;</div><div class="line">System.out.println("A-method()");</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B extends A&#123;</div><div class="line">public void method()&#123;</div><div class="line">System.out.println("B-method()");</div><div class="line">&#125;</div><div class="line">public static void main (String[] args)&#123;</div><div class="line">A a = new B();</div><div class="line">a.method();</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译运行后，会报如下错误：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The method method() from the type A is not visible</div></pre></td></tr></table></figure>
+<p>从示例中可以看出，我们期待的是输出B-method(),但是程序并没有正确运行。这是因为，被private修饰的方法在子类中是不可见的，所以子类和父类名称一样但并不是覆写，对于子类而言，method()是一个新的方法。这就等同于4中的第1处错误。<br><strong>5.2多态中的成员变量和静态方法</strong><br>在类中，成员变量是不具备多态性的，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">int i=0</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class B extends A&#123;</div><div class="line">int i=1</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">A a = new B();</div><div class="line">System.out.println("i="+a.i);</div><div class="line">B b= new B();</div><div class="line">System.out.println("i="+b.i);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">i=<span class="number">0</span></div><div class="line">i=<span class="number">1</span></div></pre></td></tr></table></figure>
+<p>这说明，成员变量不是多态的，值与对象引用相关。<br>对于静态方法而言，同样如此，因为静态方法是与类相关联的，与对象无关，因此也不具备多态性。</p>
+<p>总结：</p>
+<ul>
+<li>多态的要素是继承，方法的覆写以及父类的引用指向子类的对象，缺一不可</li>
+<li>当方法被static和final修饰时，就不具备动态绑定特性，也就不具备动态特性</li>
+<li>继承和多态存在时，需要留意初始化顺序，谨慎在构造方法中进行其他方法的调用</li>
+<li>向下转型需要注意的问题</li>
+<li>类的成员变量和静态方法不具备多态性，与对象引用相关。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之多态/" data-id="ciwofyqf60004fwns4opnbofd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-《Java编程思想》学习笔记之final关键字概述" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" class="article-date">
@@ -107,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" data-id="ciwoftt4l00005snswypmbinx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" data-id="ciwofyqf40003fwns1w035s76" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/14/《java编程思想》学习笔记之复用类/" data-id="ciwoftt5h00065snslye5wuw5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/14/《java编程思想》学习笔记之复用类/" data-id="ciwofyqfl000afwns7jxuidp6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组合-继承/">组合,继承</a></li></ul>
@@ -257,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" data-id="ciwoftt5a00055snsac4c1jw3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" data-id="ciwofyqfa0005fwns2lu4ecu3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/访问权限-关键字/">访问权限,关键字</a></li></ul>
@@ -330,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwoftt4w00025snsplh2y0t5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" data-id="ciwofyqep0000fwnsa0y5kp12" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/构造器-初始化/">构造器,初始化</a></li></ul>
@@ -384,7 +465,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwoftt4z00035snshsetr00o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" data-id="ciwofyqfd0007fwnsqzgdvuqz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -507,7 +588,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwoftt4s00015snsex0zscst" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" data-id="ciwofyqex0001fwnsv2bw9fgs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -554,7 +635,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwoftt5i00075snsrgfgeo5c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" data-id="ciwofyqfh0009fwnscvaqwf0k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -592,7 +673,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwoftt5m000a5snsp9jhmm7y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/13/写在之前/" data-id="ciwofyqfo000bfwnsneikyehc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -646,6 +727,10 @@
       <ul>
         
           <li>
+            <a href="/2016/12/14/《Java编程思想》学习笔记之多态/">《Java编程思想》学习笔记之多态</a>
+          </li>
+        
+          <li>
             <a href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/">《Java编程思想》学习笔记之final关键字概述</a>
           </li>
         
@@ -659,10 +744,6 @@
         
           <li>
             <a href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/">《Java编程思想》学习笔记之初始化（第四章）</a>
-          </li>
-        
-          <li>
-            <a href="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/">《Java编程思想》学习笔记之控制程序流程（第三章）</a>
           </li>
         
       </ul>
