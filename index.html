@@ -299,6 +299,15 @@
 
           
           
+             <span id="/2016/12/16/《Java编程思想》之内部类/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之内部类">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -317,73 +326,19 @@
       
         
           
-            <p>　　<strong>可以将一个类的定义放在另一个类的定义内部，这就是内部类。</strong><br>  　　一个类的内部可以有成员变量和成员方法，根据内部类定义的位置以及用法不同，可以分为四种，即成员内部类，静态内部类，局部内部类以及匿名内部类。每一种内部类都有各自的特点并且在实际的用途。<br>    本章要点：</p>
-<ul>
-<li>成员内部类</li>
-<li>静态内部类</li>
-<li>局部内部类</li>
-<li>匿名内部类</li>
-<li>为什么要使用内部类</li>
-<li>内部类的继承和覆盖问题<h2 id="1-成员内部类"><a href="#1-成员内部类" class="headerlink" title="1.成员内部类"></a><strong>1.成员内部类</strong></h2>成员内部类的基本使用和方法如下示例：</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Outer&#123;</div><div class="line">	private int i =4;</div><div class="line">	class Inner&#123;</div><div class="line">		Inner()&#123;</div><div class="line">			System.out.println("值为"+(++i));</div><div class="line">		&#125;</div><div class="line">		void say()&#123;</div><div class="line">			System.out.println("Hello Word");</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public Inner method()&#123;</div><div class="line">		return new Inner();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test_neibu &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">        Outer o = new Outer();</div><div class="line">        o.method().say();</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">值为<span class="number">5</span></div><div class="line">Hello Word</div></pre></td></tr></table></figure>
-<p>如上所示，在Outer类的内部定义了一个内部类Inner，并在外部类中建立了method方法返回内部类的对象实例，通过该对象完成了对内部类方法的调用。通过这个示例，可以看出来几点：</p>
-<ol>
-<li>i是Outer类的私有值，内部类可以直接进行访问。这是因为当我们创建内部类对象时，它就会自动捕获一个指向外围对象的引用。</li>
-<li>当我们需要调用成员内部类Inner的内部方法时，<strong>首先需要创建外部类的对象，再通过外部类的对象来创建内部类的对象。</strong><br>上述主函数中调用语句也可以书写如下：</li>
-</ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Outer.Inner oi = new Outer().new Inner();</div><div class="line">oi.say();</div></pre></td></tr></table></figure>
-<p>得到的结果是一致的。<br>书写格式为：<strong>外部类.内部类  对象名 =  外部对象.内部对象</strong></p>
-<p>另外，如果我们需要<strong>在内部类中生成对外部类对象的引用，则可以使用：外部类.this 格式。</strong></p>
-<p>在上述示例中，可以将内部类用private修饰（一般的类只有包权限和public权限两种），因为不能访问其名字，那么可以隐藏实现的细节。通过在外部类中建立公共的访问方法，可以实现对私有化内部类的操作，如下:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Outer&#123;</div><div class="line">	private int i =4;</div><div class="line">	private class Inner&#123;</div><div class="line">		Inner()&#123;</div><div class="line">			System.out.println("值为"+(++i));</div><div class="line">		&#125;</div><div class="line">		void say()&#123;</div><div class="line">			System.out.println("Hello Word");</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public void method()&#123;</div><div class="line">		Inner in = new Inner();</div><div class="line">		in.say();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test_neibu &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">        Outer o = new Outer();</div><div class="line">        o.method();</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="2-静态内部类"><a href="#2-静态内部类" class="headerlink" title="2.静态内部类"></a><strong>2.静态内部类</strong></h2><p>静态内部类也是成员内部类的一种，只不过多了关键字static。在普通的成员内部类中，隐式的存在了一个指向外部类的引用。而当内部类为static时，就没有了该引用。静态内部类也就有了如下的两个特点：</p>
-<ol>
-<li><strong>创建静态内部类的对象，不需要首先创建外部类的对象</strong>。因为此时内部类对象和外部类对象没有联系。类似于类中的静态方法，静态方法属于类方法，调用时不需要创建类的对象来调用。</li>
-<li><strong>不能从静态内部类的对象中访问非静态的外部类对象</strong>。这和加载机制有关，静态的加载总是早于实例对象的。<br>示例代码如下：</li>
-</ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Outer&#123;</div><div class="line">	static int i =4;</div><div class="line">	static class Inner&#123;</div><div class="line">		Inner()&#123;</div><div class="line">			System.out.println("值为"+(++i));</div><div class="line">		&#125;</div><div class="line">		static void say()&#123;</div><div class="line">			System.out.println("Hello Word");</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public static void method()&#123;</div><div class="line">		Inner.say();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test_neibu &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">       Outer.method();</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为;</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello Word</div></pre></td></tr></table></figure>
-<p>可以看出，Method（）方法中是直接对内部类进行调用的，没有创建对象。另一个证明就是，构造方法并没有执行，直接执行的是静态方法。<br>静态内部类里面只允许调用外部类静态成员，尽管构造方法中的i没有被执行，但是如果不把i设置成静态，会有如下的错误提示：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cannot make <span class="selector-tag">a</span> static reference to the non-static field i</div></pre></td></tr></table></figure>
-<h2 id="3-局部内部类"><a href="#3-局部内部类" class="headerlink" title="3. 局部内部类"></a><strong>3. 局部内部类</strong></h2><p>　　可以在方法里面或者任意的作用域里面定义内部类，这种就被称作局部内部类。<br>  如下所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//定义一个接口</div><div class="line">interface OI&#123;</div><div class="line">	void method();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Outer2&#123;</div><div class="line">	//创建一个方法，返回值为OI类型</div><div class="line">	public OI say()&#123;</div><div class="line">		 //定义一个实现了OI接口的内部类</div><div class="line">		 class Inner2 implements OI&#123;</div><div class="line">			public void method()&#123;System.out.println("Hello World");&#125;</div><div class="line">		&#125;</div><div class="line">	//返回内部类的实例	 </div><div class="line">	return new Inner2();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test_Inner &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Outer2 ot = new Outer2();</div><div class="line">		OI in = ot.say();</div><div class="line">		in.method();</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello World</div></pre></td></tr></table></figure>
-<p>Inner2类是say()方法里面的一部分，其作用范围仅仅在方法类，在方法之外无法访问这个类。注意，在say()方法里面定义了内部类Inner2()，但是方法执行完毕之后，内部类仍旧可用。<br>内部类还可以嵌入在方法的任意地方，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">class Outer3&#123;</div><div class="line">	private void Track(boolean f)&#123;</div><div class="line">		if(f)&#123;</div><div class="line">			class Inner3&#123;</div><div class="line">				private String d;</div><div class="line">				Inner3(String s)&#123;</div><div class="line">					d = s;</div><div class="line">				&#125;</div><div class="line">				String getString()&#123;return d;&#125;</div><div class="line">			&#125;</div><div class="line">			Inner3 in = new Inner3("Hello");</div><div class="line">			String ss=in.getString();</div><div class="line">			System.out.println(ss);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public void method()&#123;Track(true);&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestInner2 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Outer3 ot = new Outer3();</div><div class="line">		ot.method();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello</div></pre></td></tr></table></figure>
-<p>示例中的内部类Inner3就是嵌入在Track（）方法的if语句中的，在这个语句之外，它是不可用的。</p>
-<h2 id="4-匿名内部类"><a href="#4-匿名内部类" class="headerlink" title="4.匿名内部类"></a><strong>4.匿名内部类</strong></h2><p>　　上述几个内部类都是有显式的名称的，而匿名内部类则是应用在方法内部，没有名称的内部类。它可以是对类的继承，也可以是对接口的实现。<br>　　当我们在类中定义普通的成员内部类时，我们一般这样写：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Outer4&#123;</div><div class="line">	class Inner4 implements OI&#123;</div><div class="line">		private int i=3;</div><div class="line">		public void method()&#123;System.out.println("i="+i);&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	public OI say()&#123;return new Inner4();&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestInner4 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">	   Outer4 ot = new Outer4();</div><div class="line">	   OI oi =ot.say();</div><div class="line">	   oi.method();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果我们把say()方法中返回值的生成和表示返回值的内部类的定义结合在一起，就可以简化成如下的代码：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Outer4&#123;</div><div class="line">	public OI say()&#123;</div><div class="line">		return new OI()&#123;</div><div class="line">			private int i=3;</div><div class="line">			public void method()&#123;System.out.println("i="+i);&#125;	</div><div class="line">		&#125;;	</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestInner4 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">	   Outer4 ot = new Outer4();</div><div class="line">	   OI oi =ot.say();</div><div class="line">	   oi.method();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>　　上面两个代码的功能是一样的，简化之后，内部类的名称被省略了，所以也被称为匿名内部类，它是对OI接口的实现，通过new表达式返回的是向上转型后的IO的实现。<br>  <strong>匿名内部类的一般格式为：   new 普通类或抽象类或接口（）{ }；</strong><br>  　　由于匿名内部类没有名称，因此也就没有可用的构造方法，上述示例中是调用了默认的无参的构造方法。如果需要一个有参的构造方法，需要通过实例初始化的方式：如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">abstract class Base&#123;</div><div class="line">	public Base(int i)&#123;</div><div class="line">		System.out.println(&quot;Base Constructor,i=&quot;+i);</div><div class="line">	&#125;</div><div class="line">	abstract void method();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Outer5&#123;</div><div class="line">	public static Base getBase(int i)&#123;</div><div class="line">		return new Base(i)&#123;</div><div class="line">			&#123;System.out.println(&quot;Inner constractor&quot;);&#125;</div><div class="line">			void method()&#123;</div><div class="line">				System.out.println(&quot;Inside method&quot;);</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestInner5 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">	 Base bs = Outer5.getBase(23);</div><div class="line">	 bs.method();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Base Constructor,i=<span class="number">23</span></div><div class="line">Inner constractor</div><div class="line">Inside method</div></pre></td></tr></table></figure>
-<p>在这个示例中，i不要求为final，因为它是被传递到了Base类的构造方法中。</p>
-<h2 id="5-为什么要使用内部类"><a href="#5-为什么要使用内部类" class="headerlink" title="5.为什么要使用内部类"></a><strong>5.为什么要使用内部类</strong></h2><p>使用内部类能够有以下的一些好处：<br>1）<strong>实现“多重继承”。</strong><br>每个内部类都能独立的继承自一个类或者实现一个接口，所以无论外围内是否已经继承了某个类或者实现了某个接口，对内部类都没有影响。尤其是对抽象类或者具体的类而言，只有内部类才能实现多重继承，如下所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class A&#123;&#125;</div><div class="line">abstract class B&#123;&#125;</div><div class="line">class C extends A&#123;</div><div class="line">B makeB()&#123;</div><div class="line">return new B()&#123;&#125;;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>类C继承了A，再通过匿名内部类继承了抽象类B。<br>2）<strong>内部类可以有多个实例，</strong>每个实例都有自己的状态信息，并且与外围类的对象的状态信息相独立。<br>3）在单个外围类中，可以让多个内部类以不同的方式实现同一个接口或者实现一个类。<br>如下示例所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface Animal&#123;</div><div class="line">	void run();</div><div class="line">	void fly();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Outer6&#123;</div><div class="line">    class Dog implements Animal&#123;</div><div class="line">		public void run()&#123;System.out.println("用狗的方式跑步");&#125;</div><div class="line">		public void fly()&#123;System.out.println("用狗的方式飞行");&#125;</div><div class="line">	&#125;</div><div class="line">	class Pig implements Animal&#123;</div><div class="line">		public void run()&#123;System.out.println("用猪的方式跑步");&#125;</div><div class="line">		public void fly()&#123;System.out.println("用猪的方式飞行");&#125;</div><div class="line">	&#125;</div><div class="line">	public Animal makedog()&#123;</div><div class="line">		return new Dog();</div><div class="line">	&#125;</div><div class="line">	public Animal makepig()&#123;</div><div class="line">		return new Pig();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class TestInner6 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Outer6 ot = new Outer6();</div><div class="line">		Animal d = ot.makedog();</div><div class="line">		Animal p = ot.makepig();</div><div class="line">		d.run();</div><div class="line">		p.run();	</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">用狗的方式跑步</div><div class="line">用猪的方式跑步</div></pre></td></tr></table></figure>
-<p>上面的示例中，两个内部类采用不同的方式实现了同一个接口，如果不采用内部类，那么就只能用同一种方式实现接口，内部类有了更大的灵活性。<br>4）创建内部类对象的时刻并不依赖于外围内对象的创建，对于静态内部类而言是如此。</p>
-<h2 id="6-内部类的继承和覆盖问题"><a href="#6-内部类的继承和覆盖问题" class="headerlink" title="6.内部类的继承和覆盖问题"></a><strong>6.内部类的继承和覆盖问题</strong></h2><p><strong>6.1 内部类的继承</strong><br>　　由于内部类的构造方法必须连接到指向其外部类的引用，所以在继承内部类的时候，指向外部类的引用必须被初始化，如下所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Outer&#123;</div><div class="line">   class Inner&#123;&#125;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   public class InheritInner extends Outer.Inner&#123;</div><div class="line">   InheritInner(Outer ot)&#123;</div><div class="line">   ot.super();</div><div class="line">   &#125;</div><div class="line">   public static void main (String[] args)&#123;</div><div class="line">   Outer ot = new Outer();</div><div class="line">   InheritInner ii = new InheritInner(ot);</div><div class="line">   &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h2 id="6-2-内部类的覆盖"><a href="#6-2-内部类的覆盖" class="headerlink" title="6.2 内部类的覆盖"></a><strong>6.2 内部类的覆盖</strong></h2><p>内部类是可以继承的，但是必须要明确的继承哪个内部类，即Outer.Inner。如果不明确的继承，是不能够覆盖原有内部类的方法的。因为那样内部类是两个完全独立的实体，各自在自己的命名空间类。</p>
-<p><strong>总结：</strong></p>
-<ol>
-<li>接口和内部类解决了Java中“多重继承”的问题。</li>
-<li>四种内部类有自己各自的用法，匿名内部类语法较为特殊，在设计模式中也有用到，需要重点掌握。</li>
-</ol>
+          　　可以将一个类的定义放在另一个类的定义内部，这就是内部类。  　　一个类的内部可以有成员变量和成员方法，根据内部类定义的位置以及用法不同，可以分为四种，即成员内部类，静态内部类，局部内部类以及匿名内部类。每一种内部类都有各自的特点并且在实际的用途。    本章要点：
 
-          
+成员内部类
+静态内部类
+局部
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/16/《Java编程思想》之内部类/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -480,6 +435,15 @@
 
           
           
+             <span id="/2016/12/15/《Java编程思想》学习笔记之接口/" class="leancloud_visitors" data-flag-title="《java编程思想》学习笔记之接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -498,45 +462,17 @@
       
         
           
-            <p>　　在现实生活中，我们经常听说接口这个词语。直观的理解就是给外界提供的方法，接口能够提供一种规范。比如，计算机通信中，只要满足通信接口的协议，就可以实现不同机器间的通信。对于程序中的接口来说，也是如此。<br>　　接口比类更加抽象，在介于接口和普通类之间，还有一种抽象类。<br>  　　本章要点：</p>
-<ul>
-<li>抽象类和抽象方法</li>
-<li>接口及接口中的方法和成员变量</li>
-<li>java的多继承与多实现</li>
-<li>接口的工厂方法<h2 id="1-抽象类和抽象方法"><a href="#1-抽象类和抽象方法" class="headerlink" title="1.抽象类和抽象方法"></a><strong>1.抽象类和抽象方法</strong></h2>当一个方法只有声明而没有方法体的时候，我们就称这种方法为抽象方法，并且用关键字abstract修饰，如下：</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">abstract void method();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>　　抽象方法没有方法体，以分号结束。包含一个或者多个抽象方法的类就称之为抽象类。<br>  　　抽象类有未实现的抽象方法，不能被实例化，因为所创建出来的对象也无法完成方法的调用。所以当我们尝试进行实例化时，编译系统就会报错。<br>    　　通过继承抽象类，并覆写其中所有的抽象方法，我们就可以创建子类对象了。如果有一个或者多个抽象方法没有被覆写，那么该子类也是抽象类。</p>
-<h2 id="2-接口及接口中的方法和成员变量"><a href="#2-接口及接口中的方法和成员变量" class="headerlink" title="2.接口及接口中的方法和成员变量"></a><strong>2.接口及接口中的方法和成员变量</strong></h2><p>　　抽象类中允许有非抽象方法的存在，而接口则是其中的方法全部是抽象的。接口用关键字interface表示，而不是类class。<strong>接口可以表示实现了该特定接口的类看起来都像这样。</strong>但是，具体怎么做，需要其他的类进行实现。<br>  　　如果让一个类遵循某一个接口或者某一组接口，用关键字implements表示，类似于继承中的extends。<br>    如下所示;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">interface dianqi&#123;</div><div class="line">public void start();</div><div class="line">public void stop();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TV implements dianqi&#123;</div><div class="line">public void start()&#123;</div><div class="line">System.out.println(&quot;用遥控器打开电视&quot;);&#125;</div><div class="line">public void stop()&#123;</div><div class="line">System.out.println(&quot;用遥控器关电视&quot;);&#125;</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">TV tv = new TV();</div><div class="line">tv.start();</div><div class="line">tv.stop();&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">用遥控器打开电视</div><div class="line">用遥控器关电视</div></pre></td></tr></table></figure>
-<p>接口中的方法都必须拥有最大的权限，所以需要用public修饰，当我们省略了public时，系统也会自动more加上public的。<br>接口中的成员变量也都是默认static和final的，如下所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface Circle&#123;</div><div class="line">	double Pi = 3.14;</div><div class="line">&#125;</div><div class="line">public class Test &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		System.out.println("圆周率是"+Circle.Pi);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>接口的成员变量在类第一次加载时就被初始化，成员变量的值储存在接口的静态存储区域内，可以直接通过接口名进行调用。</p>
-<h2 id="3-Java的多继承与多实现"><a href="#3-Java的多继承与多实现" class="headerlink" title="3.Java的多继承与多实现"></a><strong>3.Java的多继承与多实现</strong></h2><p><strong>3.1 多继承</strong><br>在学习继承的时候，可以知道Java是只支持单继承的面向对象设计语言。但是，在接口中，是可以实现接口的多继承的。<br>如下所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface A1&#123;</div><div class="line">	void method1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface B1&#123;</div><div class="line">	void method2();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface C1 extends A1,B1&#123;</div><div class="line">	void method3();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class D implements C1&#123;</div><div class="line">	public void method1()&#123;System.out.println("方法1执行了");&#125;;</div><div class="line">	public void method2()&#123;System.out.println("方法2执行了");&#125;;</div><div class="line">	public void method3()&#123;System.out.println("方法3执行了");&#125;;</div><div class="line"></div><div class="line">&#125;</div><div class="line">public class Test2 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		D d = new D();</div><div class="line">		d.method1();</div><div class="line">		d.method2();</div><div class="line">		d.method3();</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">方法<span class="number">1</span>执行了</div><div class="line">方法<span class="number">2</span>执行了</div><div class="line">方法<span class="number">3</span>执行了</div></pre></td></tr></table></figure>
-<p>可以看出，interface C1 extends A1,B1语句能够成功通过编译。并且，继承了A1接口和B1接口之后，C1接口也就自动获得了它们的抽象方法。在这一点上，接口的继承和类的继承比较一致，可以通过继承来进行接口的拓展。<br><strong>3.2多实现</strong><br>一个类只能继承一个类，但是却可以实现多个接口。如下所示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface A1&#123;</div><div class="line">	void method1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface B1&#123;</div><div class="line">	void method2();</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class D implements A1,B1&#123;</div><div class="line">	public void method1()&#123;System.out.println("方法1执行了");&#125;;</div><div class="line">	public void method2()&#123;System.out.println("方法2执行了");&#125;;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test2 &#123;</div><div class="line">    public static void a1(A1 a)&#123;a.method1();&#125;</div><div class="line">    public static void b1(B1 b)&#123;b.method2();&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		D d = new D();</div><div class="line">		a1(d);</div><div class="line">		b1(d);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为;</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">方法<span class="number">1</span>执行了</div><div class="line">方法<span class="number">2</span>执行了</div></pre></td></tr></table></figure>
-<p>　　可以看出，类D实现了两个接口，分别是A1和B2，并覆写了它们的抽象方法。在main函数中，d分别向上转型为A1，B1，实现了功能的复用性。<br>　　通过这个例子，也可以看出使用接口的核心原因：<br>1.能够向上转型为多个父类型，极大的增强了编程的灵活性；<br>2.与抽象类一样，可以防止客户端创建接口的对象。<br><strong>3.3 实现与继承的结合</strong><br>　　还可以通过继承一个具体类和实现多个接口组合在一起，组成一个新的类。有一点原则就是这个具体类必须放在前面，接口放在后面，用逗号隔开，否则，编译会报错。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class A extends B implements C,D&#123;&#125;</div></pre></td></tr></table></figure>
-<p><strong>4.接口的工厂方法</strong><br>接口是实现多重继承的途径，而生成遵循某个接口的对象的典型方式就是工厂方法设计模型，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">interface Cycle1&#123;</div><div class="line">	void ride();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface CycleFactory&#123;</div><div class="line">	Cycle1 getCycle();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class UniCycle1 implements Cycle1&#123;</div><div class="line">	public void ride()&#123;System.out.println("UniCycle ride()");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class UniCycleFactory implements CycleFactory&#123;</div><div class="line">	public Cycle1 getCycle()&#123;</div><div class="line">		return new UniCycle1();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class BiCycle1 implements Cycle1&#123;</div><div class="line">	public void ride()&#123;System.out.println("BiCycle ride()");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class BiCycleFactory implements CycleFactory&#123;</div><div class="line">	public Cycle1 getCycle()&#123;</div><div class="line">		return new BiCycle1();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TriCycle1 implements Cycle1&#123;</div><div class="line">	public void ride()&#123;System.out.println("TriCycle ride()");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TriCycleFactory implements CycleFactory&#123;</div><div class="line">	public Cycle1 getCycle()&#123;</div><div class="line">		return new TriCycle1();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public class FactoryTest &#123;</div><div class="line">    public static void run(CycleFactory c)&#123;</div><div class="line">    	Cycle1 cle=c.getCycle();</div><div class="line">    	cle.ride();</div><div class="line">    &#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">	 run(new UniCycleFactory());</div><div class="line">	 run(new BiCycleFactory());</div><div class="line">	 run(new TriCycleFactory());</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果如下;</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UniCycle ride()</div><div class="line">BiCycle ride()</div><div class="line">TriCycle ride()</div></pre></td></tr></table></figure>
-<p>在工厂对象上调用创建方法，在工厂对象上生成接口的某个实现的对象，通过这种方式可以把代码和接口的实现相分离。</p>
-<p><strong>总结：</strong></p>
-<ol>
-<li>抽象类可以含有非抽象方法，但至少含有一个抽象方法</li>
-<li>接口中的方法全部是抽象的，它只提供做什么，具体怎么做需要具体的类去实现</li>
-<li>多继承和多实现能够有效的增强代码的拓展性</li>
-<li>任何抽象都是基于实际的需求的，可以根据需要构建工厂方法。</li>
-</ol>
+          　　在现实生活中，我们经常听说接口这个词语。直观的理解就是给外界提供的方法，接口能够提供一种规范。比如，计算机通信中，只要满足通信接口的协议，就可以实现不同机器间的通信。对于程序中的接口来说，也是如此。　　接口比类更加抽象，在介于接口和普通类之间，还有一种抽象类。  　　本章要点：
 
-          
+抽象类和抽象方
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/15/《Java编程思想》学习笔记之接口/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -633,6 +569,15 @@
 
           
           
+             <span id="/2016/12/14/《Java编程思想》学习笔记之多态/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之多态">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -651,53 +596,19 @@
       
         
           
-            <p>　　封装，继承，多态是面向对象语言的三个基本特征。封装是通过抽象事物的特征和行为来创建新的数据类型。继承则允许子类对象视为自身类型或者父类型来进行处理。而多态则在继承的基础之上，分离做什么和怎么做，发给父类引用的消息可以由子类对象进行响应。<br>  　　这一章的主要内容：</p>
-<ul>
-<li>多态的基本使用</li>
-<li>有关动态绑定</li>
-<li>多态中构造方法的初始化</li>
-<li>向上转型与向下转型</li>
-<li><p>多态中需要注意的细节</p>
-<h2 id="1-多态的基本使用"><a href="#1-多态的基本使用" class="headerlink" title="1.多态的基本使用"></a><strong>1.多态的基本使用</strong></h2><p>　假设有一个Cycle类，它有三个子类，分别是Unicycle,Bicycle和Tricycle，它们都有ride()方法，编写如下的示例：</p>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">class Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">		System.out.println("Cycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Unicycle extends Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">	System.out.println("Unicycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Bicycle extends Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">	System.out.println("Bicycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Tricycle extends Cycle&#123;</div><div class="line">	public void ride()&#123;</div><div class="line">	System.out.println("Tricycle ride");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class PolymorphismTest1 &#123;</div><div class="line">    public static void method(Cycle c)&#123;</div><div class="line">    	c.ride();</div><div class="line">    &#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Cycle c1 = new Unicycle();</div><div class="line">		Cycle c2 = new Bicycle();</div><div class="line">		Cycle c3 = new Tricycle();</div><div class="line">		PolymorphismTest1.method(c1);</div><div class="line">		PolymorphismTest1.method(c2);</div><div class="line">		PolymorphismTest1.method(c3);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Unicycle ride</div><div class="line">Bicycle ride</div><div class="line">Tricycle ride</div></pre></td></tr></table></figure>
-<p>　　示例中，静态方法method()接受的是父类Cycle的引用，c1,c2,c3分别指向的是子类的对象，这个三个引用都可以被method ()方法接收。因此，我们只需要在主函数中写一个方法，接收父类引用为参数，而不用单独为子类编写方法，有效的简化了代码。而且如果后续还有子类加入时，主程序不需要做更改，可以直接使用。</p>
-<h2 id="2-有关动态绑定"><a href="#2-有关动态绑定" class="headerlink" title="2.有关动态绑定"></a><strong>2.有关动态绑定</strong></h2><p>　　<strong>绑定的定义是将方法调用同方法主体相关联的过程。</strong><br>  　　如果在程序运行前进行绑定就成为前期绑定或者静态绑定，如果在运行时根据对象的类型进行绑定，则称之为后期绑定或者动态绑定。<br>   　　 java中，当方法被static或者final(private属于final)修饰时，则这些方法是静态绑定，否则就是动态绑定。<br>     　　在上述示例中，编译之前，method()方法能够接收父类的引用c1,c2和c3，但是无法确定运行哪一个ride()方法。当程序运行起来时，这三个引用分别绑定各自对应的对象，从而调用各自对象的ride()方法。<br>       　　动态绑定是实现多态的重要基础，它可以<strong>将改变的事物与不变的事物分离开来</strong>。不变的是父类的引用，改变的是子类对象。</p>
-<h2 id="3-多态中构造方法的初始化"><a href="#3-多态中构造方法的初始化" class="headerlink" title="3.多态中构造方法的初始化"></a><strong>3.多态中构造方法的初始化</strong></h2><p> 构造方法不同于普通方法，它是隐式static的，它也不具备多态性。构造方法的初始化在继承章节已有讲述，补充的初始化顺序如下：<br> 1）按声明顺序调用静态成员的初始化方法<br> 2）调用父类构造方法，直到最底层<br> 3）按声明顺序调用非静态成员的初始化方法<br> 4）调用子类构造方法的主体<br> 具体的演示代码如下;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Meal&#123;</div><div class="line">	Meal()&#123;</div><div class="line">		System.out.println("Meal()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Bread&#123;</div><div class="line">	Bread()&#123;</div><div class="line">		System.out.println("Bread()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Cheese&#123;</div><div class="line">	Cheese()&#123;</div><div class="line">		System.out.println("Cheese()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Lettuce&#123;</div><div class="line">	Lettuce()&#123;</div><div class="line">		System.out.println("Lettuce()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Lunch extends Meal&#123;</div><div class="line">	Lunch()&#123;</div><div class="line">		System.out.println("Lunch()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class PortableLunch extends Lunch&#123;</div><div class="line">	PortableLunch()&#123;</div><div class="line">		System.out.println("PortableLunch()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class Sandeich extends PortableLunch&#123;</div><div class="line">    private Bread b = new Bread();</div><div class="line">    private Cheese c = new Cheese();</div><div class="line">    private static Lettuce l = new Lettuce();</div><div class="line">    public Sandeich()&#123;		</div><div class="line">    	System.out.println("Sandeich()");</div><div class="line">&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">             new Sandeich();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">Lettuce</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Meal</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Lunch</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">PortableLunch</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Bread</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Cheese</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="title">Sandeich</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
-<p>　　在继承时，我们已经知道父类的一切要素，这就要求在子类进行初始化时，就必须假定所有父类的成员是有效的。构造方法初始化时，对类中成员的初始化要求也是这样的。</p>
-<p>  在构造方法初始化时，有一种比较特殊的情况，那就是在一个构造方法的内部调用正在构造的对象的动态绑定方法。这种情况下，当前构造方法在被调用时，构造方法内部的方法所从属的类是还没有被初始化的，这样可能会导致一些错误。<br>  如下的示例：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Glyph&#123;</div><div class="line">	void draw()&#123;</div><div class="line">		System.out.println("Gltph draw(");</div><div class="line">	&#125;</div><div class="line">	Glyph()&#123;</div><div class="line">		System.out.println("Gltph() befor draw()");</div><div class="line">		draw();</div><div class="line">		System.out.println("Gltph() after draw()");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class RoundGlyph extends Glyph&#123;</div><div class="line">	private int r=1;</div><div class="line">	RoundGlyph(int r)&#123;</div><div class="line">		this.r=r;</div><div class="line">		System.out.println("RoundGlyph.RoundGlyph(),r="+r);</div><div class="line">	&#125;</div><div class="line">	void draw()&#123;</div><div class="line">		System.out.println("RoundGlyph.draw(),r="+r);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public class PolyConstructors &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">          new RoundGlyph(3);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行的结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">Gltph</span><span class="params">()</span></span> befor draw()</div><div class="line">RoundGlyph.draw(),r=<span class="number">0</span></div><div class="line"><span class="function"><span class="title">Gltph</span><span class="params">()</span></span> after draw()</div><div class="line">RoundGlyph.RoundGlyph(),r=<span class="number">3</span></div></pre></td></tr></table></figure>
-<p>　　程序中，子类覆写了父类的draw()方法。进行初始化的时候，首先调用的是父类的构造方法，父类构造方法中此时的draw()是被覆写后的draw()。但是调用是，r=0，而不是默认值1。<br>　　由此，可以看出，在所有初始化动作开始之前，将分配给对象的存储空间初始化为二进制的0。<br> 　　这种错误，编译器不会报错，但是在实际使用中数据已经不可靠，是比较大的隐患。<br>   因此，尽可能的使用简单的方法是对象完成初始化，避免在构造方法中调用其他方法，如果需要调用，也最好是final方法或者private方法，这些方法不会被覆盖。</p>
-<h2 id="4-向上转型与向下转型"><a href="#4-向上转型与向下转型" class="headerlink" title="4.向上转型与向下转型"></a><strong>4.向上转型与向下转型</strong></h2><p> 我们在使用多态时，也就已经使用了向上转型。子类继承自父类，子类拥有父类全部的接口，因此，向上转型总是安全的，但是也会丢失部分信息。通过向下转型，能够或许具体的类的信息，但是也需要注意一些问题。如以下的示例：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class AA&#123;</div><div class="line">	public void method_1()&#123;System.out.println("A-1");&#125;</div><div class="line">	public void method_2()&#123;System.out.println("A-2");&#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">class BB extends AA&#123;</div><div class="line">	public void method_1()&#123;System.out.println("B-1");&#125;</div><div class="line">	public void method_2()&#123;System.out.println("B-2");&#125;	</div><div class="line">	public void method_3()&#123;System.out.println("B-3");&#125;</div><div class="line">	public void method_4()&#123;System.out.println("B-4");&#125;</div><div class="line">&#125;</div><div class="line">public class PolymorphismTest2 &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">      AA a = new AA();</div><div class="line">      AA b = new BB();</div><div class="line">      a.method_1();</div><div class="line">      b.method_2();</div><div class="line">      a.method_3();//1.The method method_3() is undefined for the type A</div><div class="line">      ((BB)b).method_3();//2.向下转型，可行</div><div class="line">      ((BB)a).method_3();//3.test.AA cannot be cast to test.BB</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>从程序中可以学习到，第1处无法编译通过，原因是父类中没有method_3()方法，也就无法进行调用。可以通过向下转型进行调用，如第2处所示。a指向的是AA对象，b指向的是BB对象。AA对象无法转为BB对象去调用BB的方法，所以会抛出类型转换异常。</p>
-<h2 id="5-多态中需要注意的细节"><a href="#5-多态中需要注意的细节" class="headerlink" title="5. 多态中需要注意的细节"></a><strong>5. 多态中需要注意的细节</strong></h2><p><strong>5.1 假象的覆盖私有方法。</strong><br>如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">private void method()&#123;</div><div class="line">System.out.println("A-method()");</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B extends A&#123;</div><div class="line">public void method()&#123;</div><div class="line">System.out.println("B-method()");</div><div class="line">&#125;</div><div class="line">public static void main (String[] args)&#123;</div><div class="line">A a = new B();</div><div class="line">a.method();</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>编译运行后，会报如下错误：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The method method() from the type A is not visible</div></pre></td></tr></table></figure>
-<p>从示例中可以看出，我们期待的是输出B-method(),但是程序并没有正确运行。这是因为，被private修饰的方法在子类中是不可见的，所以子类和父类名称一样但并不是覆写，对于子类而言，method()是一个新的方法。这就等同于4中的第1处错误。<br><strong>5.2多态中的成员变量和静态方法</strong><br>在类中，成员变量是不具备多态性的，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">int i=0</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">class B extends A&#123;</div><div class="line">int i=1</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">A a = new B();</div><div class="line">System.out.println("i="+a.i);</div><div class="line">B b= new B();</div><div class="line">System.out.println("i="+b.i);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">i=<span class="number">0</span></div><div class="line">i=<span class="number">1</span></div></pre></td></tr></table></figure>
-<p>这说明，成员变量不是多态的，值与对象引用相关。<br>对于静态方法而言，同样如此，因为静态方法是与类相关联的，与对象无关，因此也不具备多态性。</p>
-<p>总结：</p>
-<ul>
-<li>多态的要素是继承，方法的覆写以及父类的引用指向子类的对象，缺一不可</li>
-<li>当方法被static和final修饰时，就不具备动态绑定特性，也就不具备动态特性</li>
-<li>继承和多态存在时，需要留意初始化顺序，谨慎在构造方法中进行其他方法的调用</li>
-<li>向下转型需要注意的问题</li>
-<li>类的成员变量和静态方法不具备多态性，与对象引用相关。</li>
-</ul>
+          　　封装，继承，多态是面向对象语言的三个基本特征。封装是通过抽象事物的特征和行为来创建新的数据类型。继承则允许子类对象视为自身类型或者父类型来进行处理。而多态则在继承的基础之上，分离做什么和怎么做，发给父类引用的消息可以由子类对象进行响应。  　　这一章的主要内容：
 
-          
+多态的基本使用
+有关动态绑定
+
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/14/《Java编程思想》学习笔记之多态/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -794,6 +705,15 @@
 
           
           
+             <span id="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之final关键字概述">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -812,28 +732,21 @@
       
         
           
-            <p>　　学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。<br>  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。<br>    要点：</p>
-<ul>
-<li>final数据</li>
-<li>final方法</li>
-<li>final类</li>
-</ul>
-<h2 id="1-final数据"><a href="#1-final数据" class="headerlink" title="1.final数据"></a><strong>1.final数据</strong></h2><p>　　final修饰数据时又分为两种情况，即修饰基本类型数据和修饰类的对象引用。<br>　　当用final修饰基本类型数据时，那就表示该数据是恒定不变的，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">final int i=5;</div></pre></td></tr></table></figure>
-<p>　　如果在程序中，我们再次尝试向i赋值，那么就会报错。<br>　　对于一个基本类型数据，还可以同时用static和final修饰，这与单独的final修饰还是有一点不同的。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">final int i = new Random().nextInt(20);</div><div class="line">static final int j = new Random().nextInt(20);</div></pre></td></tr></table></figure>
-<p>　　对于i而言，每次创建对象时，都会被初始化，随后在该对象中，这个值是不变的。但是，当我们再次创建一个新的对象后，又会初始化一次，该值对于该对象而言也是不变的。<br>  　　对于j而言，在类加载的时候已经被初始化，而不是每次创建对象时初始化，所以它的值是不会随着对象的创建而改变的。<br>  　　  final修饰对象应用时，它值的是该对象引用是指向某一个确定对象的，无法改变引用的指向。但是，该对象里面的值是可以变化的。<br>     　　在用final修饰数据时，可以不在定义处进行初始化，即空白final，我们可以在构造器中进行初始化。这样，可以保证一个final字段根据对象而有所不同。</p>
-<h2 id="2-final方法"><a href="#2-final方法" class="headerlink" title="2.final方法"></a><strong>2.final方法</strong></h2><p>　　在继承中，如果我们不希望父类的方法被子类覆盖时，可以将该方法用final关键字修饰，这样可以做到方法行为保持不变。当我们尝试对这类方法进行覆盖时，系统就会提示编译错误。<br>  　　<strong>关于private和final。</strong><br>  　　  “覆盖”只有在某方法是父类的接口的一部分时才会出现。<br>    　　当一个方法被private修饰之后，即对外界不可见。那么就无法取用private方法，所以也就谈不上方法的覆盖。所以对于这类方法，是默认final的。<br>      　　两者的区别是，仅仅被final修饰的方法，在子类中是可见的，能够被调用，但是不能够覆盖。而仅仅被private修饰的方法，在子类中不可见，也不能够被调用。</p>
-<h2 id="3-final类"><a href="#3-final类" class="headerlink" title="3.final类"></a><strong>3.final类</strong></h2><p>  当用final修饰类时，如：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">final class A&#123;</div><div class="line">int i =4;</div><div class="line">void method()&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>那么就表明，类A不允许被继承，也就是说，这个类不能够有子类。<br>对于final类中的字段，可以根据需要选择是否被final修饰。但是，对于final类中的方法，由于不能够被覆盖，所以是默认为被final修饰的。</p>
-<p><strong>总结：</strong></p>
-<ul>
-<li>在设计类时，我们可以根据实际情况的需要来将类，数据和方法指明为final.</li>
-<li>对于方法而言，需要谨慎使用final，因为遇见一个类如何被复用是困难的，尤其是对于通用的类库而言。</li>
-</ul>
+          　　学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。    要点：
 
-          
+final数据
+final方法
+final类
+
+1.final数据　　final
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -930,6 +843,15 @@
 
           
           
+             <span id="/2016/12/14/《java编程思想》学习笔记之复用类/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之复用类">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -948,50 +870,21 @@
       
         
           
-            <p>　　复用代码是Java众多引人注目的功能之一。可以通过创建新类来复用代码，而不用编写重复的代码。<br>  　　实现这一目的可以有两种方式，一种是组合，既在新类中产生现有类的对象；二是继承，不改变现有类的形式，采用现有类的形式，并向其中添加新代码。<br>    　　本章要点：</p>
-<ul>
-<li>组合</li>
-<li>继承</li>
-<li>final关键字</li>
-</ul>
-<h2 id="1-组合"><a href="#1-组合" class="headerlink" title="1.组合"></a><strong>1.组合</strong></h2><p>　　程序的设计都是基于现实世界的反映，对于面向对象语言来说，这一点尤其的突出。举例来说，一辆汽车有发动机，轮子，门组成，这就是现实中的一种组合关系，反映到代码中，可以表示如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class Engine&#123;</div><div class="line">   public void start()&#123;&#125;</div><div class="line">   public void stop()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Wheel&#123;</div><div class="line">   public void run()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Door&#123;</div><div class="line">   public void open()&#123;&#125;</div><div class="line">   public void close()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Car&#123;</div><div class="line">   public Engine e = new Engine();//汽车有一台发动机</div><div class="line">   public Wheel[] w = new Wheel[4];//汽车有四个轮子</div><div class="line">   public Door left = new Door();//左边的门</div><div class="line">   public Door right = new Door();//右边的门</div><div class="line">   public car()&#123;</div><div class="line">     for(int i=0;i&lt;4;i++)</div><div class="line">      wheel[i] = new Wheel();//在构造器中造轮子</div><div class="line"> &#125;</div><div class="line"> public static void main(String[] args)&#123;</div><div class="line">    Car car = new Car();</div><div class="line">    car.left.open();</div><div class="line">    car.e.start();&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>　　如上所示，在汽车类Car中，我们把组件（发动机，车轮和门）的引用作为类的成员变量置于其中。汽车启动时，只需调用对象对应的方法就行，省去了重复代码。</p>
-<p>　　在组合中，我们引入的是对象的引用。当我们不对引用进行任何操作时，引用默认初始化为null,一把情况下，我们需要对这些引用进行初始化，初始化的位置有三个：</p>
-<ul>
-<li>在定义对象的地方，能够保证在构造方法被调用之前完成初始化；</li>
-<li>在类的构造方法中；</li>
-<li>在使用对象之前（？？？）<br>在上面的例子中已经得到体现，发动机和车门在被定义的时候就完成了初始化，而轮子是在Car类的构造方法中进行初始化的。</li>
-</ul>
-<h2 id="2-继承"><a href="#2-继承" class="headerlink" title="2.继承"></a><strong>2.继承</strong></h2><p>2.1 <strong>继承的语义</strong><br>　　继承是所有面向对象语言重要的组成部分，它能够实现代码的复用，同时也是面向对象语言的多态特性的基础。<br>  　　在现实世界中，当某一类对象属于另一类对象时，可以看作是继承关系。例如，小米手机，华为手机都属于手机，它们都继承自手机类，拥有手机类的共同特点。用代码可以进行表示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class Phone&#123;</div><div class="line">  double size;</div><div class="line">  String color;</div><div class="line">  public void call()&#123;</div><div class="line">  System.out.println(&quot;能够打电话&quot;);&#125;</div><div class="line">  public void message()&#123;</div><div class="line">  System.out.println(&quot;能够发短信&quot;);&#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  class XiaoMi extends Phone&#123;</div><div class="line">     public static void main(String[] args)&#123;</div><div class="line">     XiaoMi mi = new XiaoMi();</div><div class="line">     mi.size=5.5;</div><div class="line">     mi.color=&quot;白色&quot;;</div><div class="line">     System.out.println(&quot;手机尺寸为：&quot;+mi.size+&quot;   &quot;+&quot;手机颜色为&quot;+mi.color);</div><div class="line">  mi.call;</div><div class="line">     mi.message;&#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  运行结果为：</div><div class="line">  </div><div class="line">  手机尺寸为：5.5   手机颜色为白色</div><div class="line">  能够打电话</div><div class="line">  能够发短信</div><div class="line">  </div><div class="line">  class HuaWei extends Phone&#123;</div><div class="line">     String os = &quot;华为操作系统&quot;;</div><div class="line">     public void call()&#123;</div><div class="line">     System.out.println(&quot;用华为手机方式打电话&quot;);&#125;</div><div class="line">     public static void main(String[] args)&#123;</div><div class="line">     HuaWei hw = new HuaWei();</div><div class="line">     hw.size=6;</div><div class="line">     hw.color = &quot;黑色&quot;;</div><div class="line">     System.out.println(&quot;手机尺寸为：&quot;+hw.size+&quot;   &quot;+&quot;手机颜色为&quot;+hw.color);</div><div class="line">     hw.call();</div><div class="line">     hw.messag();&#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">运行的结果为：</div><div class="line"></div><div class="line">手机尺寸为：6.0   手机颜色为黑色</div><div class="line">用华为手机方式打电话</div><div class="line">能够发短信</div></pre></td></tr></table></figure>
-<p>　　从示例中可以看出，XiaoMi和HuaWei通过关键字extends实现了从phone的继承，那么phone就被成为父类，XiaoMi和HuaWei就是子类。子类继承自父类之后，就拥有了父类全部的方法和成员。并且，子类可以新增属于自己的成员和方法，也可以覆写父类的方法。在覆写父类的方法时，如果要在覆写的方法中调用从父类继承而来的方法，可以用关键字super来表示，如super.call().<br>  　　一般来说，为了继承，会将所有父类的成员指定为private,而将所有的方法指定为public，通过方法去访问数据成员。<br>    <strong>2.2 继承中的子类的初始化</strong><br>    　　“当创建了一个子类对象时，该对象包含了一个父类的子对象。这个子对象与我们用父类直接创建的对象是一样的。两者的区别在于，后者来自外部，而父类的子对象被包装在子类对象内部。”<br>      　　这是因为，我们在进行子类对象创建的时候，系统会首先掉用父类的构造方法。如以下示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class father&#123;</div><div class="line">	father()&#123;</div><div class="line">		System.out.println(&quot;father constructor&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class son extends father&#123;</div><div class="line">	son()&#123;</div><div class="line">		System.out.println(&quot;son constructor&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class grandson extends son&#123;</div><div class="line">	grandson()&#123;</div><div class="line">		System.out.println(&quot;grandson constructor&quot;);</div><div class="line">	&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		grandson g= new grandson();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">father constructor</div><div class="line">son constructor</div><div class="line">grandson constructor</div></pre></td></tr></table></figure>
-<p>可以看出来，构造方法的执行是从父类开始的，如果父类还有上一级的父类，会进一步向上追溯。在该示例中，无参的构造方法是显式写出来的，如果没有显式的构造方法，系统也会调用默认的构造方法。<br>　　上述事例中的构造方法都是没有参数列表，如果构造方法含有参数，就必须用super关键字显式的写在子类构造方法的第一行。如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class father&#123;</div><div class="line">	father(int i)&#123;</div><div class="line">		System.out.println("father constructor");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class son extends father&#123;</div><div class="line">	son(int i)&#123;</div><div class="line">		super(i);</div><div class="line">		System.out.println("son constructor");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class grandson extends son&#123;</div><div class="line">	grandson()&#123;</div><div class="line">		super(1);</div><div class="line">		System.out.println("grandson constructor");</div><div class="line">	&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		grandson g= new grandson();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果我们不用super关键字进行调用，系统就会报如下错误：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Implicit super constructor father() is undefined. Must explicitly invoke another constructor</div></pre></td></tr></table></figure>
-<p>如果我们不把super放在第一行，系统就会报如下错误：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Constructor call must be the first statement <span class="keyword">in</span> <span class="selector-tag">a</span> constructor</div></pre></td></tr></table></figure>
-<p><strong>2.3 继承中的方法的重载与重写</strong><br>如果在父类中已经有重载的方法，那么在子类中重新定义该方法的重载，并不会屏蔽掉父类的方法，这一点与重写不一样。示例如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class Fu &#123;</div><div class="line">	public void say(int i)&#123;</div><div class="line">		System.out.println("我的年龄是："+i);</div><div class="line">	&#125;</div><div class="line">	public void say(String s)&#123;</div><div class="line">		System.out.println("我的名字是："+s);</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Zi extends Fu &#123;</div><div class="line">     public void say(char c)&#123;</div><div class="line">    	 System.out.println("我最喜欢的字母是"+c);</div><div class="line">    </div><div class="line">     &#125;</div><div class="line">     public void say(int i)&#123;</div><div class="line">    	 i=i-24;</div><div class="line"> 		System.out.println("我的年龄是："+i);</div><div class="line"> 	&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Zi z = new Zi();</div><div class="line">		z.say(48);</div><div class="line">		z.say("张三");</div><div class="line">		z.say('x');	</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行的结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">我的年龄是：<span class="number">24</span></div><div class="line">我的名字是：张三</div><div class="line">我最喜欢的字母是x</div></pre></td></tr></table></figure>
-<p>父类中有两个重载的say方法，传递的参数分别是int和String，子类中也有say方法，传递了参数char，该方法与并不是对父类的覆盖，而是重载，相当于一个新的方法。子类中还有一个参数为int的say方法，这个方法是对父类方法的覆盖。</p>
-<p><strong>2.4 继承中的向上转型</strong><br><strong>“子类是父类的一种类型”</strong>。父类中所有的方法在子类中同样有效，向父类发送的消息同样可以向子类发送。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">public void method_1()&#123;&#125;</div><div class="line">public static void method_2(A a)&#123;</div><div class="line">a.method_1();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B extends A&#123;</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">B b= new B();</div><div class="line">A.method_2(b)</div><div class="line">;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个例子中，在父类中定义了一个静态方法method_2，这个方法的传递参数是A类对象的一个引用，该方法可以用类名直接调用。在子类中，建立了子类的一个对象b,在调用方法method_2时，传递的参数是子类B的对象b,程序可以运行。这说明，子类对象b同样也是父类A的对象。将子类B的引用向上转型到A类的引用，这个就叫做“向转型”，这个方法在多态中应用较多。</p>
-<p><strong>2.5 组合与继承的选择</strong><br>1.组合常用于想在新类中使用现有类的功能而不是接口的场所，而需要使用现有类的所有成员和方法，并且需要使用接口时，用继承。<br>2.组合是“has-a”的关系，而继承是“is-a”的关系，当我们所需要使用的两个类复合其中的关系时，就用对应的组合或者继承。<br>3.到底是用组合还是继承，一个最简单的办法就是看是否需要从子类向父类进行向上转型。如果必须向上转型，则要用继承，否则，可以考虑应用组合语法。</p>
-<p><strong>总结</strong></p>
-<ul>
-<li>组合是一种复用代码的方法，有较强的灵活性；</li>
-<li>继承中，子类是父类的一种类型，它也是向上转型和多态的基础</li>
-<li>组合和继承的选用要看具体使用场景，按照自己归纳的三个原则进行选择。</li>
-</ul>
+          　　复用代码是Java众多引人注目的功能之一。可以通过创建新类来复用代码，而不用编写重复的代码。  　　实现这一目的可以有两种方式，一种是组合，既在新类中产生现有类的对象；二是继承，不改变现有类的形式，采用现有类的形式，并向其中添加新代码。    　　本章要点：
 
-          
+组合
+继承
+final关键字
+
+1
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/14/《java编程思想》学习笔记之复用类/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1088,6 +981,15 @@
 
           
           
+             <span id="/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之隐藏具体实现（第五章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -1106,42 +1008,15 @@
       
         
           
-            <p>　　在面向对象设计中，要考虑的一个基本问题是“如何把变动的事物与保持不变的事物区分开”。<br>  　　对于程序开发者而言，开发的程序和软件是让用户或者客户端程序员进行使用的，但是不希望他们能够对程序内部进行非法的更改。因此，需要对程序进行良好的封装设计，以便于用户或者客户端程序员能够正确的使用程序而不破坏代码。<br>    　　在Java中，是通过提供访问权限修饰符来解决这个问题的。访问权限能够向用户或者客户端程序员指明哪些是可用的，哪些是不可用的，通过层次分明的访问权限进行控制。<br>     　　 另外，访问控制符会因为类所在的位置不同而受到影响，它是依赖于程序库的。<br>      　　本章要点：<br>     　　1.关键字package和import<br>       　　2.关键字public，private和protected
-       　　</p>
-<h2 id="1-关键字package和import"><a href="#1-关键字package和import" class="headerlink" title="1. 关键字package和import"></a><strong>1. 关键字package和import</strong></h2><p>package是为了将一组类文件放置在同一个目录下，避免相同命名的类的冲突。举例说明，假如三年级有两个名叫张三的同学，我们把这两个张三分别放在了三（一）班和三（二）班，那么这两个班就是两个不同的package。伪代码如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">package 三（一）班；</div><div class="line">class student&#123;</div><div class="line">String name = <span class="string">"张三"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">package 三（二）班；</div><div class="line">class student&#123;</div><div class="line">String name = <span class="string">"张三"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在.Java文件的起始处，用“package 包名”的方式声明该Java文件是该程序库的一部分。一个包不是将被打包的东西包装成一个单一的文件，一个包可以由许多的.class文件构成。<br>对于包的命名，一般是将反顺序的类的创建者的internet域名作为package名称，如com.xuwei.因为域名应该是独一无二的，所以package名称也是独一无二的。</p>
-<p>import关键字与package关键字是一个互逆的过程。</p>
-<p>假如在com.xuwei包中有一个类MyClass，如：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">package com.xuwei;</div><div class="line">public class MyClass&#123;</div><div class="line">//.....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当我们想用MyClass类创建对象时，如果不采用import关键字，创建过程是</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">com.xuwei.MyClass m =  new com.xuwei.MyClass();</div></pre></td></tr></table></figure>
-<p>当我们使用import关键字后，创建过程的书写就会变得简单一些，如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import com.xuwei.*;</div><div class="line">MyClass m = new MyClass();</div></pre></td></tr></table></figure></p>
-<p>我们也可以创建属于自己的工具库来减少重复代码的输入，例如，我们经常会写输出语句System.out.println，我们可以创建别名来减少输入的负担，如</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.tools;</div><div class="line">public class P&#123;</div><div class="line">public static void sop(String s)&#123;</div><div class="line">System.out.printin(s);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当我们需要使用的时候，就可以用简写的打印方法：如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//导入工具库</div><div class="line">import com.xuwei.tools;</div><div class="line"></div><div class="line">public class ToolTest&#123;</div><div class="line">public static void main(String[] args)&#123;</div><div class="line">P.sop("Hello word")&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>同理，当我们需要创建一些自己的快捷方法时，我们可以把这些方法放在同一个类库中，只要导入这个类库，就可以很方便的进行使用。</p>
-<h2 id="2-关键字public、private、protected"><a href="#2-关键字public、private、protected" class="headerlink" title="2.关键字public、private、protected"></a><strong>2.关键字public、private、protected</strong></h2><p>　　java通过访问修饰词对类中的成员和方法进行修饰，一般将它置于定义之前，进行访问控制。<br>  　　访问权限最大的是<strong>public</strong>，用public修饰后，该成员或者方法就可以被不同包中的类所访问。，如下所示：我们在com.xuwei包中创建一个Student类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">package com.xuwei;</div><div class="line"></div><div class="line"> //学生类 </div><div class="line"> </div><div class="line">public class Student &#123;</div><div class="line">	public String id;</div><div class="line">	public String name;</div><div class="line">	public Student(String id,String name)&#123;</div><div class="line">		this.id=id;</div><div class="line">		this.name=name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个类的名称以及成员和构造方法都是用public修饰的，导入之后，我们可以在另一个包中直接使用这个类，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line">import com.xuwei.*;</div><div class="line"></div><div class="line">public class Test1 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Student s = new Student("001","张三");</div><div class="line">		System.out.println(s.id+"   "+s.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">001</span>   张三</div></pre></td></tr></table></figure>
-<p>由此可见，public类有最大的访问权限，可以实现不同包之间的类的共享。</p>
-<p>　　当我们不在类之前或者成员和方法之前添加任何修饰符时，默认的就是<strong>包访问权限</strong>，处于同一个包中的类可以相互访问，但是如果在其他的包中进行访问，编译就会报错，比如，把Student中的成员name的public去掉，示例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">package com.xuwei;</div><div class="line"></div><div class="line"> //学生类 </div><div class="line"> </div><div class="line">public class Student &#123;</div><div class="line">	public String id;</div><div class="line">    String name;</div><div class="line">	public Student(String id,String name)&#123;</div><div class="line">		this.id=id;</div><div class="line">		this.name=name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>此时如何再在test包中进行访问，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line">import com.xuwei.*;</div><div class="line"></div><div class="line">public class Test1 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Student s = new Student("001","张三");</div><div class="line">		System.out.println(s.id+"   "+s.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>编译运行时，程序会报错如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java<span class="selector-class">.lang</span><span class="selector-class">.Error</span>: Unresolved compilation problem: </div><div class="line">	The field Student<span class="selector-class">.name</span> is not visible</div></pre></td></tr></table></figure>
-<p>由此可见，默认的包访问权限比包要小，只允许同一个包之间的访问。</p>
-<p>　　private指的是私有，只能用来修饰成员变量和方法，被他修饰之后，对应的变量和方法只在本类中可以访问，同一个包中的其他类都不能够进行访问，能够进行很好的封装隐藏。<br>  　　如果把类的构造方法进行私有化，那就能阻止别人直接访问构造器，控制创建对象，一般会提供一个普通方法进行调用来创建对象。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    package com.xuwei;</div><div class="line"></div><div class="line"> //学生类 </div><div class="line"> </div><div class="line">public class Student &#123;</div><div class="line">	public String id;</div><div class="line">    String name;</div><div class="line">	private Student()&#123;&#125;</div><div class="line">    public static Student makeStudent()&#123;</div><div class="line">         return new Student();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>　　对于成员变量，为了防止非法操作，我们也可以将其私有化。为了让外界进行访问这些变量，可以通过建立公开的访问方法进行访问。<br>　　protected属于继承访问权限，访问权限介于public和包访问权限之间。当用protected修饰成员变量或者方法的时候，被修饰的变量和方法能被同一包中的其他类进行访问。同时，如果有另一个包中的某一个类继承自该类，那么子类同样可以访问被protected修饰的成员变量和方法。</p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h2><p>  1.完成大型的程序设计工作，往往需要不同模块的拼装。通过package和import关键字，可以有效的建立模块之间的层次目录，便于模块的管理。<br>  2.访问修饰符为程序设计提供了封装隐藏的实现，能够增强程序的可读性和安全性，在设计模式中也可能有较大的发挥。</p>
-
-          
+          　　在面向对象设计中，要考虑的一个基本问题是“如何把变动的事物与保持不变的事物区分开”。  　　对于程序开发者而言，开发的程序和软件是让用户或者客户端程序员进行使用的，但是不希望他们能够对程序内部进行非法的更改。因此，需要对程序进行良好的封装设计，以便于用户或者客户端程序员能够正确的使用程序而不破坏
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/11/《Java编程思想》学习笔记之隐藏具体实现（第五章）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1238,6 +1113,15 @@
 
           
           
+             <span id="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之初始化（第四章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -1256,43 +1140,21 @@
       
         
           
-            <p>　　对于程序设计而言，初始化是重要的命题，涉及到程序安全和程序运行效率。程序设计时，忘记对某些变量（必须用户进行初始化）进行初始化可能造成程序的错误。</p>
-<p> 本章笔记：</p>
-<ol>
-<li>对象的初始化及方法的重载</li>
-<li>成员变量的初始化及初始化顺序</li>
-</ol>
-<h2 id="1-对象的初始化及方法的重载"><a href="#1-对象的初始化及方法的重载" class="headerlink" title="1.对象的初始化及方法的重载"></a><strong>1.对象的初始化及方法的重载</strong></h2><p><strong>1.1 对象的初始化</strong><br>　　Java类包含字段（成员）和方法，而方法分为构造方法和普通方法。普通方法完成我们所需要的功能，而构造方法是用来初始化对象的。对于构造方法而言，它的命名要具备唯一性，能够让编译器进行识别。Java和C++类似，在命名上采用的方案是让构造方法采用与类相同的名称，通过自动调用构造方法完成对象的初始化。<br>  如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class C</div><div class="line">&#123;</div><div class="line">C()</div><div class="line">&#123;</div><div class="line">System.out.println("C被初始化啦");</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">C被初始化啦</div></pre></td></tr></table></figure>
-<p>　　可以得知，我们通过关键字new Circle()为对象c分配内存空间，并调用相应的构造方法，确保了对象的初始化。在Java中，对象的初始化和创建是绑定在一起的。<br>  　　在实际使用时，我们也会遇到不含有显式构造方法的类，程序也能通过编译运行。这是因为，当我们不显式写出构造方法时，程序会默认给类加上无参的构造方法，以便完成初始化<br>    　　上面所讲的例子是最简单的一种情况，手动构造无参的构造方法。但是，当我们初始化对象时，希望给对象一个初始值，这时，就需要通过构造有参数的构造方法来解决：如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">   class C</div><div class="line">&#123;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println(&quot;C的值为&quot;+d);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C(2.5);</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">运行结果为：</div><div class="line">C的值为2.5</div></pre></td></tr></table></figure>
-<p><strong>1.2 方法的重载</strong><br>　　对于对象的初始化而言，我们有时候希望通过不同的方式进行初始化。比如对于类C的初始化，我们希望既可以用标准方式初始化，也希望给定一个初始值进行初始化。这个时候就需要有有两个不同的构造方法，一个不带形参，一个带有形式参数。由于构造方法必须与类名一致，因此就存在名称相同，形式参数不同的构造方法，这就是构造方法的<strong>重载</strong>。如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class C</div><div class="line">&#123;</div><div class="line">C()</div><div class="line">&#123;</div><div class="line">System.out.println("C被初始化啦");</div><div class="line">&#125;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println("C的值为"+d);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当我们创建对象时，可以自己选择创建对象的方式，Java虚拟机能够进行自动的匹配。<br>如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c1 = new C(2.5);</div><div class="line">C c2 = new C();</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">运行结果为：</div><div class="line">C的值为2.5</div><div class="line">C被初始化啦</div></pre></td></tr></table></figure>
-<p>关于方法的重载，有几点细节知识需要注意：</p>
-<ol>
-<li>当我们自己定义了一个构造方法之后，编译器就不会帮我们自动创建无参的构造方法，此时，当我们用无参的构造方法创建对象时，程序就会报错。如下：</li>
-</ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> class C</div><div class="line">&#123;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println("C的值为"+d);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C();</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">提示错误为：</div><div class="line">The constructor C() is undefined</div></pre></td></tr></table></figure>
-<ol>
-<li>重载方法的区分方式<br>在区分重载方法时，只能以类名和方法的形参列表（包括参数类型和参数数量）来区分，不能用方法的返回值来区分。例如，对于普通方法：</li>
-</ol>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">void method()&#123;&#125;</div><div class="line">int method()&#123;&#125;</div></pre></td></tr></table></figure>
-<p>　　它们有同样的名字和形式参数，但是方法的返回值类型不一样。当我们调用方法时，如method(),此时仅仅调用方法而忽略返回值，Java是无法区分该调用哪一个。因此，这种区分重载方法的形式是不能编译通过的。</p>
-<h2 id="2-成员变量的初始化及初始化顺序"><a href="#2-成员变量的初始化及初始化顺序" class="headerlink" title="2. 成员变量的初始化及初始化顺序"></a><strong>2. 成员变量的初始化及初始化顺序</strong></h2><p><strong>2.1 初始化方式</strong><br>对于基本数据类型，如果它是类的数据成员，系统会保证它有一个初始值。但如果它是定义在方法内部的局部变量，系统不会对其进行初始化，编译时就会报错。如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void method()</div><div class="line">&#123;</div><div class="line">int i;</div><div class="line">i++</div><div class="line">&#125;</div><div class="line">报错信息为：</div><div class="line">The local variable i may not have been initialized</div></pre></td></tr></table></figure>
-<p>　　可以通过指定初始化的方式为变量进行初始化赋值：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Demo</div><div class="line">&#123;</div><div class="line">int i = 1;</div><div class="line">boolean = true;</div><div class="line">double = 3.14;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上是基本数据类型的初始化方式，对于类类型的数据，也可以采用这种方式，加入C是一个已经构建的类：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class  Demo1</div><div class="line">&#123;</div><div class="line">C c1 = new C();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>2.2 初始化顺序</strong><br><img src="./images/1.png" alt="enter description here" title="1.png"></p>
-<p>如以下的示例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class A&#123;</div><div class="line">	A(int i)&#123;</div><div class="line">		System.out.println("A("+i+")");</div><div class="line">	&#125;</div><div class="line">	void method_1(int i)&#123;</div><div class="line">		System.out.println("method_1("+i+")");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B&#123;</div><div class="line">	static A a1 = new A(1);</div><div class="line">	B()&#123;</div><div class="line">		System.out.println("B()");</div><div class="line">		a2.method_1(1);</div><div class="line">	&#125;</div><div class="line">	void method_2(int i)&#123;</div><div class="line">		System.out.println("method_2("+i+")");</div><div class="line">	&#125;</div><div class="line">	static A a2 = new A(2);</div><div class="line">&#125;</div><div class="line"></div><div class="line">class C&#123;</div><div class="line">	 A a3 = new A(3);</div><div class="line">	static A a4 = new A(4);</div><div class="line">	C()&#123;</div><div class="line">		System.out.println("C()");</div><div class="line">		a4.method_1(2);</div><div class="line">	&#125;</div><div class="line">	void method_3(int i)&#123;</div><div class="line">		System.out.println("method_3("+i+")");</div><div class="line">	&#125;</div><div class="line">	static A a5 = new A(5);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line">public class InitializationDemo &#123;</div><div class="line">	static B b2 = new B();</div><div class="line">	static C c2 = new C();</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		System.out.println("creating new C() in main");</div><div class="line">		new C();</div><div class="line">		</div><div class="line">		b2.method_2(1);</div><div class="line">		c2.method_3(1);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line">A(1)</div><div class="line">A(2)</div><div class="line">B()</div><div class="line">method_1(1)</div><div class="line">A(4)</div><div class="line">A(5)</div><div class="line">A(3)</div><div class="line">C()</div><div class="line">method_1(2)</div><div class="line">creating new C() in main</div><div class="line">A(3)</div><div class="line">C()</div><div class="line">method_1(2)</div><div class="line">method_2(1)</div><div class="line">method_3(1)</div></pre></td></tr></table></figure></p>
-<p>通过运行结果，可以看出来初始化顺序：<br>1.当对initialization类进行编译的时候，类中的静态变量b2和c2会进行加载（因为后面的方法中可能会用到）。b2进行构造初始化的时候，首先会初始化其中的静态变量a1,a2，然后进行构造方法B（）的执行。c2进行构造初始化的时候，首先会初始化静态变量a4,a5，然后再初始化非静态变量a3，最后执行构造方法C（）。<br>2.类变量载入完成之后，会进行main方法的执行。首先执行语句creating new C() in main，接下来进行new C（）对象的创建。同样的，也会首先初始化C类中的静态变量，但是静态变量只加载一次，之前已经加载，所以跳过了静态变量，直接初始化非静态变量a3，最后执行构造方法C（）。<br>3.再执行语句b2.method_2(1);c2.method_3(1);</p>
-<p>注意：静态变量只会初始化一次，而且只有在必要时刻才会进行初始化。</p>
-<p>总结：初始化在Java中占有至关重要的地位，构造方法是对对象进行初始化的重要手段，利用方法的重载可以让对象进行不同方式的初始化。在初始化中，正确理解初始化的顺序也是十分重要的。</p>
+          　　对于程序设计而言，初始化是重要的命题，涉及到程序安全和程序运行效率。程序设计时，忘记对某些变量（必须用户进行初始化）进行初始化可能造成程序的错误。
+ 本章笔记：
 
-          
+对象的初始化及方法的重载
+成员变量的初始化及初始化顺序
+
+1.对象的初始化及方法的重载1.1 对象的初始化　　Java类包含字段（成
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1389,6 +1251,15 @@
 
           
           
+             <span id="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之控制程序流程（第三章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -1407,24 +1278,16 @@
       
         
           
-            <hr>
-<p>　　<em>就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。</em><br>　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把这些东西作为对象或者方法进行了封装，而在主函数中进行的直接调用，控制程序流程仍然是程序设计的基础。<br>  　　在本章的学习中，一些和C语言共性的基础知识不再单独记录，着重介绍Java与之不同的两个细节。</p>
-<ul>
-<li><strong>equals()方法和“==”操作符的差异</strong></li>
-<li><strong>循环语句判断条件的不同</strong></li>
-</ul>
-<p> 1.<strong><em>equals()方法和“==”操作符的差异</em></strong><br>　　 “==”属于关系操作符，生成的是一个布尔结果，也即是true或者false。对于基本类型数据来说，它比较的是数据值是否相等，而对于java中的对象而言，比较的是对象的引用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	   int i;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int n1=1;</div><div class="line">		int n2=1;</div><div class="line">	System.out.println("n1和n2是否相等"+"   "+(n1==n2));</div><div class="line">		</div><div class="line">		equalsTest et1 = new equalsTest();</div><div class="line">		equalsTest et2 = new equalsTest();</div><div class="line">		</div><div class="line">		et1.i=2;</div><div class="line">		et2.i=2;</div><div class="line">	System.out.println("et1和et2是否相等"+"   "+(et1==et2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div><div class="line">et1和et2是否相等   false</div></pre></td></tr></table></figure>
-<p>　　通过程序的运行结果可以看出，n1和n2是相等的。而et1和et2的唯一的值尽管是相同的，运行的结果仍然是false。<br>  　　因为et1和et2是在堆内存中new出来的两个不同的对象，尽管对象里面的值是一样的，但是在内存中还是占据两个位置，对应在栈内存中的也是两个不同的引用，所以结果是false。<br>    　　那如果我们把et1和et2的比较用et1.euqals(et2)来表示呢，在eclipse中验证如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	   int i;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int n1=1;</div><div class="line">		int n2=1;</div><div class="line">	System.out.println(&quot;n1和n2是否相等&quot;+&quot;   &quot;+(n1==n2));</div><div class="line">		</div><div class="line">		equalsTest et1 = new equalsTest();</div><div class="line">		equalsTest et2 = new equalsTest();</div><div class="line">		</div><div class="line">		et1.i=2;</div><div class="line">		et2.i=2;</div><div class="line">	System.out.println(&quot;et1和et2是否相等&quot;+&quot;   &quot;+et1.equals(et2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div><div class="line">et1和et2是否相等   false</div></pre></td></tr></table></figure></p>
-<p>　　可以发现，et1和et2的比较返回来的布尔值仍然是false。这说明，在equals()方法中，默认比较的仍然是对象的引用。<br>  　　<br>    　　但是在实际使用中，也发现这样一种情况，实例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Integer n1 = new Integer(28);</div><div class="line">		Integer n2 = new Integer(28);</div><div class="line">		</div><div class="line">		System.out.println(&quot;n1和n2是否相等&quot;+&quot;   &quot;+n1.equals(n2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div></pre></td></tr></table></figure>
-<p>　　n1和n2也是属于不同的对象，返回的比较值结果确是true。这是因为Integer是基本类型的包装类型，在这些类中，Java的类库已经完成了对equals()方法的覆写，以便用来比较对象的内容，而非对象的引用。<br>  　　而在我们自己所写的类中，需要根据自己的需要<strong>覆写equals方法</strong>，否则，仍然是继承自超类object，比较的是对象的引用。</p>
-<p>2.<strong><em>循环语句判断条件的不同</em></strong><br>　　while-do，if-else,do-while语句是用来控制循环的，循环语句的执行条件是由条件表达式的真或假来决定的。<br>　　在C语言和C++中，循环条件允许我们用数字作为布尔值使用，如while(a),当a为非零值时，条件表达式为真，当a为零时，条件表达式为假。<br>  　　而在Java中，不允许这种用法，如果想用非布尔值作为循环判断条件，则必须先将它转换成布尔值，如while(a!=0).。</p>
-<blockquote>
-<p>小结：<br>基本数据类型值的比较可以用“==”运算符，对于Java中类的比较需要用到equals()方法。equals()默认的是比较对象的引用，对于我们自己建造的类，如果根据自己的需要进行类中对象的比较，需要进行方法的覆写。<br>对于Java而言，条件表达式必须是布尔值，不能是单纯的数字。</p>
-</blockquote>
-
           
+　　就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1521,6 +1384,15 @@
 
           
           
+             <span id="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之一切都是对象（第二章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -1539,95 +1411,23 @@
       
         
           
-            <p>Java是基于C++的，但是相比之下，java是一种<em>更纯粹</em>的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。<br>本章笔记：</p>
-<ul>
-<li>Java操作对象的方式</li>
-<li>对象的存储位置</li>
-<li>Java的基本数据类型和类类型</li>
-<li>Java对象和方法的作用范围</li>
-<li>static关键字</li>
-</ul>
-<h2 id="1-Java操作对象的方式"><a href="#1-Java操作对象的方式" class="headerlink" title="1. Java操作对象的方式"></a>1. <strong>Java操作对象的方式</strong></h2><p> 每种语言都有自己操作对象的方式，例如C语言的指针，而Java是通过引用来完成对数据的操作。<br> 关于指针和引用<br> <em>相同点</em>：都是操作数据的一种方式<br> <em>不同点</em>：<br> a.指针指向一块内存，它所存储的是内存的地址，而引用是对象的别名。所以指针可以为空（即不存储任何内存地址），而引用不可以为空（对象不存在，不能有别名）。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　　String s;</div></pre></td></tr></table></figure>
-<p>如上所示，创建了一个字符串类型的引用，但是没有与任何事物相关联，在运行时会报错。<br>安全的做法是：创建一个引用的同时就进行初始化<br>注：后来经过测试，如果是标识成static，系统会自动初始化成null.如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class snull</div><div class="line"> &#123;</div><div class="line">  static String s;</div><div class="line">  public static void main(String[] args)</div><div class="line">     &#123;</div><div class="line">     System.out.println(s);</div><div class="line">     &#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line"> </div><div class="line">null</div></pre></td></tr></table></figure>
-<p>　　ｂ.引用不可以改变指向，而指针可以改变指向。<br> 　　　 引用不可以改变指向，但是可以改变初始化的内容。举例自增操作<br>      　　　符++，对引用的操作是直接反映到所指的对象，而对指针的操作是<br>         　　　指向下一个对象。<br>创建对象引用最常见的方式：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String s = new String("abc");</div><div class="line">或者</div><div class="line">String s;</div><div class="line">s=new String("abc");</div></pre></td></tr></table></figure>
-<h2 id="2-对象的存储位置"><a href="#2-对象的存储位置" class="headerlink" title="2. 对象的存储位置"></a><strong>2. 对象的存储位置</strong></h2><ul>
-<li><em>寄存器</em>。<br>寄存器是最快的存储区，位于处理器内部，用于暂存指令、数据和地址。由编译器进行分配，不能通过程序进行控制，数量资源极其有限。</li>
-<li><em>堆栈。</em><br>速度仅次于寄存器，位于RAM中。编写程序时，编译器必须知道存储在堆栈里面数据的大小和生命周期。限制了程序的灵活性，但是加快程序的读写速度和运行速度。C语言的存储数据的位置就是在堆栈中。Java将<strong>对象的引用</strong>放在了堆栈中。</li>
-<li><em>堆。</em><br>速度慢于栈，也位于RAM中。编写程序时，编译器不需要知道从堆里分配多杀内存，也不需要知道数据的生命的周期，分配时有较大的灵活性。Java的<strong>对象</strong>用new关键字来实现，都存储在这个区域。对象的销毁通过垃圾回收器来实现，程序灵活，但是也付出了相应的代价，那就是速度慢。</li>
-<li><em>静态存储区。</em><br>也位于RAM中，静态值得是在<strong>固定的位置</strong>。在程序运行时，由jvm分配内存，运行时一直存在的数据。Java中是用static进行标识。</li>
-<li><em>常量存储。</em><br>可以选择放在只读存储器（ROM）中，因为他们的值永远<strong>不会被改变</strong>，在Java中，用final关键字进行标识。<br>同时用static和final标识的数据是放在静态存储区吗？</li>
-<li><em>非RAM存储。</em><br>当数据完全存活在数据之外，不受程序控制，存放在此位置。如<strong>流对象和持久化对象</strong>，流对象中，对象转换为字节流，通常发给另一台机器。持久化对象放置在磁盘上。</li>
-</ul>
-<h2 id="3-Java的基本数据类型和类类型"><a href="#3-Java的基本数据类型和类类型" class="headerlink" title="3.Java的基本数据类型和类类型"></a><strong>3.Java的基本数据类型和类类型</strong></h2><p>Java程序设计中，对于基本的数据类型，往往不是通过new创建对象，而是创建一个并非引用的自动变量，存储在堆栈中，访问更加高效。也可以通过包装器进行装箱操作（具体的目的后续学习），对应的表格如下</p>
-<table>
-<thead>
-<tr>
-<th>基本类型</th>
-<th>包装器类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>boolean</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>char</td>
-<td>character</td>
-</tr>
-<tr>
-<td>byte</td>
-<td>Byte</td>
-</tr>
-<tr>
-<td>short</td>
-<td>Short</td>
-</tr>
-<tr>
-<td>int</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>long</td>
-<td>Long</td>
-</tr>
-<tr>
-<td>float</td>
-<td>Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td>Double</td>
-</tr>
-<tr>
-<td>void</td>
-<td>Void</td>
-</tr>
-</tbody>
-</table>
-<p>除了基本的数据类型，Java中，我们可以自己创建类，为它定义字段和方法，创造新的数据类型。<br>字段可以是基本类型的一种，也可以是某个对象的引用（？）。<br>注意：关于字段，如果它是基本数据类型而且属于类，即使没有初始化，系统也会给它一个默认初始值，以确保得到初始化，防止程序错误（C++没有这个功能）。但是，，，如果这个字段在方法中，属于局部变量，则必须初始化，否则编译会报错。<br>方法的基本组成部分包括：名称，参数，返回值和方法体。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">returnType methodName(<span class="comment">/*Argument List*/</span>)</div><div class="line">&#123;</div><div class="line"><span class="comment">/*method body*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>方法名和参数列表共同唯一的标识出某个方法，这一点很重要，后面在方法的重载中会体现出来。<br>对于非静态方法，必须通过对象进行调用，这种机制称为发送消息给对象。</p>
-<h2 id="4-Java对象和方法的作用范围"><a href="#4-Java对象和方法的作用范围" class="headerlink" title="4.Java对象和方法的作用范围"></a><strong>4.Java对象和方法的作用范围</strong></h2><p>Java中，不需要手动销毁对象，由垃圾回收器完成清理工作。<br>一对花括号的位置是一个作用域，作用域决定了定义在里面的变量的生命周期和可见性。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">int x =12;</div><div class="line">&#123;</div><div class="line">int x=13;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上述定义在Java中不允许，会报错，同一变量不能重复定义。</p>
-<p><em>对象的作用域</em>：对象的生命周期和基本类型不一样。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">String s=new String("abc");</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当作用域结束时，引用s（存在于栈中）消失，但是s所指的String对象仍然存在于堆中，可以通过传递和复制对象引用再次使用（？）。<br>在这一点上，Java和C++ 有明显的不同。C++ 中，一旦使用完对象，就必须确保要销毁对象。Java中，由new创建的对象，只要需要，会一直保存下去。销毁工作由垃圾回收器负责，它会监视那些不会被再次引用的对象，释放这些内存空间。</p>
-<h2 id="5-static关键字"><a href="#5-static关键字" class="headerlink" title="5.static关键字"></a><strong>5.static关键字</strong></h2><p>当我们建立了一个类时，要想使用类的字段和方法，就要通过创建该类的对象来进行使用。new完对象之后，系统才在堆内存中分配空间。<br>两种情况需要单独考虑：<br>第一，不考虑创建多少对象或者不创建对象，就想为特定数据分配空间。<br>第二，即使不创建对象，也想要能够调用类的方法。<br>通过static关键字能够满足这些要求。<br><strong>当static修饰字段</strong>时，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class staticTest</div><div class="line">&#123;</div><div class="line">static int i=22;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>需要注意的是，当类被加载时，该字段i=47就在内存中分配了空间可以直接通过类名进行引用。<br>如果建立该类的两个对象;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">staticTest st1 = new staticTest();</div><div class="line">staticTest st2 = new staticTest();</div></pre></td></tr></table></figure>
-<p>尽管有两个不同的对象，但是该字段对于calssTest类来说，只有一份存储空间，而如果不用static修饰，则该字段有两个存储空间。由此可见，对于共性数据，用static修饰，能够节省内存空间。</p>
-<p><strong>当static修饰方法</strong>时，<br>在没有建立任何对象的时候就能够调用静态方法。Java程序的main函数就是被静态修饰，此时没有任何对象，它仍可以作为程序的入口被JVM调用。</p>
-<blockquote>
-<p>总结：<br> 一切都是对象，对象是类的实例，对象可以使用类的数据和调用类的方法；<br>Java数据类型和Java数据的内存分配是它和其他语言的一个区分点；<br>根据程序需要，可以考虑用static修饰字段和方法；</p>
-</blockquote>
+          Java是基于C++的，但是相比之下，java是一种更纯粹的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。本章笔记：
 
-          
+Java操作对象的方式
+对象的存储位置
+Java的基本数据类型和类类型
+Java对象和方法的作用范围
+static关键字
+
+1. Java操作对象的方式
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1724,6 +1524,15 @@
 
           
           
+             <span id="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之对象导论（第一章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
 
           
 
@@ -1742,19 +1551,15 @@
       
         
           
-            <p>　　大部分工科生都接触过C语言，对于<strong>面向过程</strong>的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。<br>　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为（C++）–，因为Java它在C++的基础上舍弃了一些东西，只保留了面向对象的部分，并且进行了拓展。<br>  　　关于面向对象语言，Alan Kay总结了5个基本特性。</p>
-<p>　　 1. <strong>万物皆对象</strong>。刚接触面向对象语言和Java时，就被这五个字洗脑。但是抛开宽泛的概念，在现实生活中，这五个字也有具体的表现。譬如我们每个人使用的笔记本电脑，手机，电视机等等，他们都是具体的对象存在。每个对象具有自己的状态和行为。就手机而言，手机的硬件配置和颜色就是它的状态，而打电话发短信和上网就是它的行为。<br>　　 2. <strong>程序是对象的集合，它们通过发送消息来告知彼此所要做的</strong>。关于这一点，我理解的就是属于面向对象的封装特性。我们把需要的信息和行为封装到具体对象和方法中，通过调用来实现具体功能。比如最简单的加法运算。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class addDemo &#123;</div><div class="line">int a;</div><div class="line">int b;</div><div class="line">public int add(int a,int b)&#123;</div><div class="line">	return a+b;</div><div class="line">&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		addDemo ad = new addDemo();</div><div class="line">		int count = ad.add(1, 1);</div><div class="line">		System.out.println(count);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在这段程序中，主函数中并没有计算方法，计算方法被封装在add()中，需要用的时候只需要进行调用，复用性非常好。<br>　　 3. <strong>每个对象都有自己的有其他对象所构成的存储</strong>。我所理解的这里指的是面向对象的继承特征，通过这个特征可以构建复杂的体系并且简化重复代码的书写。<br>　　 4. <strong>每个对象都有其类型</strong>。类是对象的抽象。我们经常用的含有类词语，比如人类，这也是一个类型。里面包含有各种不同的对象，如男人，女人。我们所用的手机也是，苹果手机是一个大类，里面的各种不同型号是它的小类，每一个小类又有其许多独立的对象，共同构成了一个体系。<br>　　 5. <strong>某一特定类型的所有对象都可以接受同样的消息</strong>。关于这一点我所理解的就是面对象的多态特性。<br>　　<br>Java作为面向对象语言所特有的一些性质。</p>
-<ul>
-<li>对象的创建位置在堆内存，用new关键字开辟空间，缺点是运行开销大。</li>
-<li>Java不同与C++，它是单继承结构，有良好的继承体系。</li>
-<li>Java有垃圾回收器，可以用来处理内存释放问题，不必手动清理内存，编程更加灵活。</li>
-<li>Java内置异常处理机制，将运行代码和异常处理代码分开，有利于编写更加大型和健壮的代码。</li>
-<li>Java语言内置线程机制，有利于程序的并发处理。</li>
-</ul>
-<p><strong>小结</strong>：OOP和Java有较大优势，但并不是适合所有的场合。java代码编写更加简单，层次性较好，也便于理解。但是缺点是效率相对较低（相比较于C和C++），所以在追求高速度高效率的场合，C用的也较多。</p>
-
-          
+          　　大部分工科生都接触过C语言，对于面向过程的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和
+          ...
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1995,6 +1800,113 @@
   
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 
