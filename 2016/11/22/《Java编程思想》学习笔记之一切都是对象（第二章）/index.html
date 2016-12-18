@@ -492,7 +492,8 @@ static关键字
           
 
 
-          <section id="comment">  
+          <% if ( page.comments){ %>
+<section id="comment">  
   <!-- ��˵���ۿ� start -->
 	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
 <!-- ��˵���ۿ� end -->
@@ -510,7 +511,8 @@ var duoshuoQuery = {short_name:"xuwei1234"};
 	</script>
 <!-- ��˵����JS���� end -->
  
-</section>  
+</section>
+<% } %>
 
         </div>
         
