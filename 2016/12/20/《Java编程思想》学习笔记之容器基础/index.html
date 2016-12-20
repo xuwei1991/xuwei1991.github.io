@@ -1,0 +1,803 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="容器,集合,迭代器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="容器，顾名思义，就是用来存放东西的。在Java语言中，容器里面存放的是具体的对象。我们知道，数组也能够存放对象和基本类型的数据，它是一种很有效的存放方式。但是，数组具有固定的尺寸，而在通常情况下，我们写程序时并不知道需要多少个对象以及如何存储这些对象。为了解决这个问题，Java提供了一套完整的容器类来存储对象。  　　本篇文章主要概述Java中常用的容器类，并对他们的特点和适用场合做介绍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java编程思想》学习笔记之容器基础">
+<meta property="og:url" content="http://yoursite.com/2016/12/20/《Java编程思想》学习笔记之容器基础/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="容器，顾名思义，就是用来存放东西的。在Java语言中，容器里面存放的是具体的对象。我们知道，数组也能够存放对象和基本类型的数据，它是一种很有效的存放方式。但是，数组具有固定的尺寸，而在通常情况下，我们写程序时并不知道需要多少个对象以及如何存储这些对象。为了解决这个问题，Java提供了一套完整的容器类来存储对象。  　　本篇文章主要概述Java中常用的容器类，并对他们的特点和适用场合做介绍。">
+<meta property="og:image" content="http://yoursite.com/./images/rongqi.png">
+<meta property="og:updated_time" content="2016-12-20T14:37:16.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Java编程思想》学习笔记之容器基础">
+<meta name="twitter:description" content="容器，顾名思义，就是用来存放东西的。在Java语言中，容器里面存放的是具体的对象。我们知道，数组也能够存放对象和基本类型的数据，它是一种很有效的存放方式。但是，数组具有固定的尺寸，而在通常情况下，我们写程序时并不知道需要多少个对象以及如何存储这些对象。为了解决这个问题，Java提供了一套完整的容器类来存储对象。  　　本篇文章主要概述Java中常用的容器类，并对他们的特点和适用场合做介绍。">
+<meta name="twitter:image" content="http://yoursite.com/./images/rongqi.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/20/《Java编程思想》学习笔记之容器基础/"/>
+
+
+
+
+
+  <title> 《Java编程思想》学习笔记之容器基础 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/20/《Java编程思想》学习笔记之容器基础/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Java编程思想》学习笔记之容器基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-20T22:34:52+08:00">
+                2016-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/12/20/《Java编程思想》学习笔记之容器基础/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之容器基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　容器，顾名思义，就是用来存放东西的。<strong>在Java语言中，容器里面存放的是具体的对象</strong>。我们知道，数组也能够存放对象和基本类型的数据，它是一种很有效的存放方式。但是，数组具有固定的尺寸，而在通常情况下，我们写程序时并不知道需要多少个对象以及如何存储这些对象。为了解决这个问题，Java提供了一套完整的容器类来存储对象。<br>  　　<strong>本篇文章主要概述Java中常用的容器类，并对他们的特点和适用场合做介绍</strong>。<br>    本章要点：</p>
+<ul>
+<li>容器类的大家庭</li>
+<li>容器工具类Arrays和Collections</li>
+<li>List接口及其子类</li>
+<li>set接口及其子类</li>
+<li>map接口及其子类</li>
+<li>迭代器iterator</li>
+<li>总结<h2 id="1-容器的大家庭"><a href="#1-容器的大家庭" class="headerlink" title="1.容器的大家庭"></a><strong>1.容器的大家庭</strong></h2><img src="./images/rongqi.png" alt="容器" title="rongqi.png"><br>　　如上图所示，容器主要有List，Set，Queue和Map四大类，它们各自又有两到三个实现版本。List，Set，Queue同属Collection接口，它指的是保存单一的元素，而Map指的是保存相关联的键值对。Java集合中还有两个工具类，分别是Arrays和Collections.<h2 id="2-容器工具类Arrays和Collections"><a href="#2-容器工具类Arrays和Collections" class="headerlink" title="2. 容器工具类Arrays和Collections"></a><strong>2. 容器工具类Arrays和Collections</strong></h2>　 Arrays和Collections都是java.util包下面的工具类，两者都能在Collection中添加一组元素。<br>　 Arrays.asList()方法接收一个数组或者是一个用逗号分隔的元素列表，并将它转换为List对象；<br>　Collections.addAll()方法接收一个Collection对象，一个数组，或者是一个用逗号分隔的列表，将元素添加到Collection中。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class AddingGroups &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//Arrays.asList()方法接收元素列表，并转成List</div><div class="line">		//collection的子类ArrayList的构造器，可以接收另一个Collection用来初始化自己。</div><div class="line">		Collection&lt;Integer&gt; collection = new ArrayList&lt;Integer&gt;(Arrays.asList(1,2,3,4,5));</div><div class="line">		</div><div class="line">		//Arrays.asList()方法接收一个数组，并转成List</div><div class="line">		//Collections.addAll()接受一个Collection对象</div><div class="line">		Integer[] moreInts = &#123;6,7,8,9,10&#125;;</div><div class="line">		Collections.addAll(Arrays.asList(moreInts));</div><div class="line">		</div><div class="line">		//Collections.addAll()接受一个元素列表，并将它添加到Collection中；</div><div class="line">		Collections.addAll(collection,11,12,13,14,15);</div><div class="line">		</div><div class="line">		//Collections.addAll()接受一个数组，并将它添加到Collection中；</div><div class="line">		Collections.addAll(collection,moreInts);</div><div class="line">		</div><div class="line">		//Arrays.asList()方法接收元素列表,将它直接当成List,不装入Collection容器</div><div class="line">		List&lt;Integer&gt; list = Arrays.asList(16,17,18,19,20);</div><div class="line">		list.set(1, 32);</div><div class="line">		list.add(47);//运行时报错</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　需要注意的地方：<br>  　　a.可以直接使用Arrays.List()方法的输出当成List。但是，这种情况下的底层是数组，不能够调整尺寸如果尝试增加或者删除元素，就会在运行时报错；<br>　　b.Arrays.List()方法有一个限制，那就是它对所产生的List类型做了理想的假设，有时会造成错误。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Fu&#123;&#125;</div><div class="line">class Zi1 extends Fu&#123;&#125;</div><div class="line">class Sun1 extends Zi1&#123;&#125;</div><div class="line">class Sun2 extends Zi1&#123;&#125;</div><div class="line">class Zi2 extends Fu&#123;&#125;</div><div class="line">class  Zi3 extends Fu&#123;&#125;</div><div class="line"></div><div class="line">public class AsListDemo &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		List&lt;Fu&gt; fu1 = Arrays.asList(new Zi1(),new Zi2(),new Zi3());</div><div class="line">		</div><div class="line">		//Type mismatch: cannot convert from List&lt;Zi1&gt; to List&lt;Fu&gt;</div><div class="line">		List&lt;Fu&gt; fu2 = Arrays.asList(new Sun1(),new Sun2());</div><div class="line">		</div><div class="line">		List&lt;Fu&gt; fu3 = new ArrayList&lt;Fu&gt;();</div><div class="line">		Collections.addAll(fu3,new Sun1(),new Sun2());</div><div class="line">        </div><div class="line">		//显式类型参数说明</div><div class="line">		List&lt;Fu&gt; fu4 = Arrays.&lt;Fu&gt;asList(new Sun1(),new Sun2());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　创建Fu2时，Arrays.asList()中只有Zi1类型，因此它会创建List&lt; Zi1&gt;，而与设定的List&lt; Fu&gt;不匹配。</p>
+<h2 id="3-List接口及其子类"><a href="#3-List接口及其子类" class="headerlink" title="3. List接口及其子类"></a><strong>3. List接口及其子类</strong></h2><p>　<strong>List是有序的Collection</strong>，使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引（元素在List中的位置，类似于数组下标）来访问List中的元素，这类似于Java的数组，<strong>List允许有相同的元素</strong>。<br> 　<strong>List继承自Collection，并添加了额外的功能，它主要有两种实现类，分别是ArrayList和LinkedList</strong>。它们主要有以下几点不同。<br>  　1.ArrayList底层的数据结构是动态数组，而LinkedList底层的数据结构是链表。<br>  　2.当在列表的元素中间频繁的进行插入和删除操作时，LinkedList效率比ArrayList效率高。<br>  　　这是由它们底层的数据结构决定的。当进行插入或者删除操作时，对于ArrayList而言，找到对应位置进行插入或删除时，其后面的元素都要进行位置的改变，消耗的时间较长；对于LinkedList而言，由于是链表结构，在进行插入或删除时，找到目标位置后，只需要把前后两个元素的节点指向进行调整，不需要改变其他元素的位置。<br>   　3.当对列表元素进行随机访问时，ArrayList的效率要比LinkedList高。<br>   　　这是因为ArrayList的底层结构是数组，给到需要访问的位置值后，就能够直接快速的定位到指定位置。而LinkedList的底层结构是链表，每个元素只有相邻两个位置的内存信息，当我们进行访问时，就需要传递式的访问，速度较慢。</p>
+<h2 id="4-set接口及其子类"><a href="#4-set接口及其子类" class="headerlink" title="4.set接口及其子类"></a><strong>4.set接口及其子类</strong></h2><p>　<strong>Set是一种不包含重复的元素的Collection</strong>，它会组织我们将相同对象的多个实例加入其中。利用Set能够很容易的测试某个对象是否存在其中，这是是它最常被用到的地方。<br> 　Set与Collection有相同的接口,只是行为不一致。它有两个主要的实现类，分别是HashSet和TreeSet。<br>  　关于HashSet和TreeSet，通过下面的两个例子进行解释。</p>
+<p>HashSet存储<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class HashSetTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Random rand = new Random(47);</div><div class="line">		Set&lt;Integer&gt; intset= new HashSet&lt;Integer&gt;();</div><div class="line">		for(int i = 0;i&lt;1000;i++)</div><div class="line">			intset.add(rand.nextInt(30));</div><div class="line">		System.out.print(intset);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">17</span>, <span class="number">16</span>, <span class="number">19</span>, <span class="number">18</span>, <span class="number">21</span>, <span class="number">20</span>, <span class="number">23</span>, <span class="number">22</span>, <span class="number">25</span>, <span class="number">24</span>, <span class="number">27</span>, <span class="number">26</span>, <span class="number">29</span>, <span class="number">28</span>]</div></pre></td></tr></table></figure>
+<p>TreeSet存储：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class TreeSetTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Random rand = new Random(47);</div><div class="line">		Set&lt;Integer&gt; intset= new TreeSet&lt;Integer&gt;();</div><div class="line">		for(int i = 0;i&lt;1000;i++)</div><div class="line">			intset.add(rand.nextInt(30));</div><div class="line">		System.out.print(intset);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">24</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">27</span>, <span class="number">28</span>, <span class="number">29</span>]</div></pre></td></tr></table></figure>
+<p>　　从程序运行结果可以看出，作为Set集合的子类，HashSet和TreeSet中是不允许有重复元素的。其次，HashSet输出的顺序没有规律可循，而TreeSet的输出则是按照从小到大的顺序来排列的。<br>　　HashSet存储数据的方式是散列函数，而TreeSet存储数据的方式是红黑树。这也是他们输出元素顺序不同的原因。</p>
+<h2 id="5-Map接口及其子类"><a href="#5-Map接口及其子类" class="headerlink" title="5.Map接口及其子类"></a><strong>5.Map接口及其子类</strong></h2><p>　Collection保存单一的元素，而Map则是保存相关联的键值对。Map是一种将对象与对象相关联的设计。它的子类HashMap主要设计用来实现快速访问的；TreeMap则是保持键始终处于排序状态；LinkedHashMap保持元素插入的顺序，但是也通过散列函数提供了快速访问的能力。<br> 可以通过示例进行比较。如下：<br> 用HashMap进行存储</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line">import java.util.*;</div><div class="line">public class MapTest &#123;</div><div class="line">  </div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Random rand = new Random(47);</div><div class="line">		Map&lt;Integer,Integer&gt; m = new HashMap&lt;Integer,Integer&gt;();</div><div class="line">		for(int i=0;i&lt;1000;i++)&#123;</div><div class="line">			int key = rand.nextInt(20);</div><div class="line">			Integer value=m.get(key);</div><div class="line">			m.put(key, value==null?1:value+1);	</div><div class="line">		&#125;</div><div class="line">		System.out.println(m);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="number">0</span>=<span class="number">42</span>, <span class="number">1</span>=<span class="number">44</span>, <span class="number">2</span>=<span class="number">53</span>, <span class="number">3</span>=<span class="number">43</span>, <span class="number">4</span>=<span class="number">44</span>, <span class="number">5</span>=<span class="number">53</span>, <span class="number">6</span>=<span class="number">42</span>, <span class="number">7</span>=<span class="number">53</span>, <span class="number">8</span>=<span class="number">46</span>, <span class="number">9</span>=<span class="number">56</span>, <span class="number">10</span>=<span class="number">58</span>, <span class="number">11</span>=<span class="number">55</span>, <span class="number">12</span>=<span class="number">48</span>, <span class="number">13</span>=<span class="number">55</span>, <span class="number">14</span>=<span class="number">52</span>, <span class="number">15</span>=<span class="number">50</span>, <span class="number">17</span>=<span class="number">50</span>, <span class="number">16</span>=<span class="number">53</span>, <span class="number">19</span>=<span class="number">52</span>, <span class="number">18</span>=<span class="number">51</span>&#125;</div></pre></td></tr></table></figure>
+<p>用TreeMap进行存储</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line">import java.util.*;</div><div class="line">public class MapTest &#123;</div><div class="line">  </div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Random rand = new Random(47);</div><div class="line">		Map&lt;Integer,Integer&gt; m = new TreeMap&lt;Integer,Integer&gt;();</div><div class="line">		for(int i=0;i&lt;1000;i++)&#123;</div><div class="line">			int key = rand.nextInt(20);</div><div class="line">			Integer value=m.get(key);</div><div class="line">			m.put(key, value==null?1:value+1);	</div><div class="line">		&#125;</div><div class="line">		System.out.println(m);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="number">0</span>=<span class="number">42</span>, <span class="number">1</span>=<span class="number">44</span>, <span class="number">2</span>=<span class="number">53</span>, <span class="number">3</span>=<span class="number">43</span>, <span class="number">4</span>=<span class="number">44</span>, <span class="number">5</span>=<span class="number">53</span>, <span class="number">6</span>=<span class="number">42</span>, <span class="number">7</span>=<span class="number">53</span>, <span class="number">8</span>=<span class="number">46</span>, <span class="number">9</span>=<span class="number">56</span>, <span class="number">10</span>=<span class="number">58</span>, <span class="number">11</span>=<span class="number">55</span>, <span class="number">12</span>=<span class="number">48</span>, <span class="number">13</span>=<span class="number">55</span>, <span class="number">14</span>=<span class="number">52</span>, <span class="number">15</span>=<span class="number">50</span>, <span class="number">16</span>=<span class="number">53</span>, <span class="number">17</span>=<span class="number">50</span>, <span class="number">18</span>=<span class="number">51</span>, <span class="number">19</span>=<span class="number">52</span>&#125;</div></pre></td></tr></table></figure>
+<p>用LinkedHashSet存储：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line">import java.util.*;</div><div class="line">public class MapTest &#123;</div><div class="line">  </div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Random rand = new Random(47);</div><div class="line">		Map&lt;Integer,Integer&gt; m = new LinkedHashMap&lt;Integer,Integer&gt;();</div><div class="line">		for(int i=0;i&lt;1000;i++)&#123;</div><div class="line">			int key = rand.nextInt(20);</div><div class="line">			Integer value=m.get(key);</div><div class="line">			m.put(key, value==null?1:value+1);	</div><div class="line">		&#125;</div><div class="line">		System.out.println(m);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="number">18</span>=<span class="number">51</span>, <span class="number">15</span>=<span class="number">50</span>, <span class="number">13</span>=<span class="number">55</span>, <span class="number">1</span>=<span class="number">44</span>, <span class="number">9</span>=<span class="number">56</span>, <span class="number">8</span>=<span class="number">46</span>, <span class="number">0</span>=<span class="number">42</span>, <span class="number">2</span>=<span class="number">53</span>, <span class="number">7</span>=<span class="number">53</span>, <span class="number">11</span>=<span class="number">55</span>, <span class="number">16</span>=<span class="number">53</span>, <span class="number">4</span>=<span class="number">44</span>, <span class="number">3</span>=<span class="number">43</span>, <span class="number">6</span>=<span class="number">42</span>, <span class="number">10</span>=<span class="number">58</span>, <span class="number">14</span>=<span class="number">52</span>, <span class="number">12</span>=<span class="number">48</span>, <span class="number">5</span>=<span class="number">53</span>, <span class="number">17</span>=<span class="number">50</span>, <span class="number">19</span>=<span class="number">52</span>&#125;</div></pre></td></tr></table></figure>
+<p>可以看出来，三者的共性是：<br>1）输出形式都是“Key=Value”，且结果用大括号｛｝包起来<br>2）输出的键值对的键值是没有重复的<br>不同点是：<br>1）HashSet输出的方式是无顺序的，TreeMap则是按照键值从小到大排序，而LinkedHashMap则是按照元素插入的顺序进行输出的。</p>
+<p>　　Map键值对的值总是与键绑定在一起的，如果把键值对看作一个整体，那么Map映射就与Set集合一样了。事实上，Set的底层实现是Map,Map是要存放两个值，key和value，key不能重复，而Set的实现是存放Map的key，所以Set的值也不能重复。</p>
+<h2 id="6-迭代器iterator"><a href="#6-迭代器iterator" class="headerlink" title="6. 迭代器iterator"></a><strong>6. 迭代器iterator</strong></h2><p>　　对于容器而言，最基本的方法有插入元素和取出元素。但是，对于不同的容器类型而言，其操作元素的方式不一样。比如，取出List中的元素，就可以通过get(int index)方法来进行。然而，对于Set和Map而言，它们并没有可供查找的索引值。因此，程序的健壮性和可拓展性就不是很好。<br>  　　为了解决这个问题，Java提供了迭代器来获取集合元素。迭代器是一个对象，他的工作就是遍历并选择序列中的对象，而客户端程序员不必知道该序列底层的数据结构。<br>    iterator的使用主要有以下几点注意<br>    1）<strong>iterator只能够单向移动</strong><br>    2）使用iterator()要求容器返回一个iterator，它将准备好返回序列的第一个元素。<br>    3）使用迭代器的next()方法能够获得集合中的下一个元素。<br>    4）使用hasNext()检查集合中是否还有元素，返回的是布尔值。<br>    5）<strong>使用removed()将迭代器新近返回的元素删除，在调用remove()之前必须要先调用next()</strong>。如果连续两次调用remove()方法，就会报错。<br>    如下示例用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class iteratorTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">		list.add(&quot;aaa&quot;);</div><div class="line">		list.add(&quot;bbb&quot;);</div><div class="line">		list.add(&quot;ccc&quot;);</div><div class="line">		list.add(&quot;ddd&quot;);</div><div class="line">		list.add(&quot;eee&quot;);</div><div class="line">		list.add(&quot;fff&quot;);</div><div class="line"></div><div class="line">       Iterator&lt;String&gt; its=list.iterator();</div><div class="line">       while(its.hasNext())&#123;</div><div class="line">    	   String it=its.next();</div><div class="line">    	   System.out.print(it+&quot;   &quot;);</div><div class="line">       &#125;</div><div class="line">       its=list.iterator();</div><div class="line">       for(int i=0;i&lt;3;i++)&#123;</div><div class="line">    	   its.next();</div><div class="line">    	   its.remove();</div><div class="line">       &#125;</div><div class="line">	   System.out.print(&quot;删除后的集合为&quot;+list);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aaa   bbb   ccc   ddd   eee   fff   删除后的集合为[ddd, eee, fff]</div></pre></td></tr></table></figure>
+<p>另外需要注意的是，对于Map映射集而言，不能直接用迭代器。必须首先将其转换为Set集，然后才能再用迭代器。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class MapIteratorTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Map&lt;String,String&gt; map=new HashMap&lt;String,String&gt;();</div><div class="line">		map.put("1", "zhangsan");</div><div class="line">		map.put("2", "lisi");</div><div class="line">		map.put("3", "wangwu");</div><div class="line"></div><div class="line">		Iterator&lt;Map.Entry&lt;String, String&gt;&gt; its=map.entrySet().iterator();</div><div class="line">		</div><div class="line">	   while(its.hasNext())&#123;</div><div class="line">		  Map.Entry&lt;String, String&gt; it= its.next();</div><div class="line">		  System.out.println("键为"+it.getKey()+" "+"值为"+it.getValue());</div><div class="line">	   &#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">键为<span class="number">3</span> 值为wangwu</div><div class="line">键为<span class="number">2</span> 值为lisi</div><div class="line">键为<span class="number">1</span> 值为zhangsan</div></pre></td></tr></table></figure>
+<p><strong>关于foreach和iterator</strong><br>foreach语法主要用于数组，但是它也可以用在Collection中，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">package CollectionTest;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class iteratorTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">		list.add("aaa");</div><div class="line">		list.add("bbb");</div><div class="line">		list.add("ccc");</div><div class="line">		list.add("ddd");</div><div class="line">		list.add("eee");</div><div class="line">		list.add("fff");</div><div class="line"></div><div class="line">       for(String l:list)</div><div class="line">	   System.out.println(l);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　这是因为在Java SE5之后引入了Iterable接口，它被foreach用来在序列中移动，它包含产生iterator的iterator()方法。如果创建了实现Iterable接口的类，都可以用foreach语法，所有的Collection类都实现了这个接口。<br>　　Map集合没有实现Iterable，所以不能直接使用foreach方法。必须通过entrySet()产生一个由Map.Entry的元素构成的Set，Set是一个Iterable，因此可以用于foreach循环。foreach在设计模式中的适配器方法中也有应用，以后学习设计模式的时候再学习。</p>
+<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7.总结"></a><strong>7.总结</strong></h2><ul>
+<li>数组可以保存对象和基本类型数据，但是一旦生成，容量不可变。而容器很好的解决了这一问题，它为对象的存储提供了统一的模式。</li>
+<li>迭代器将遍历操作同底层结构相分离，统一了对容器访问的方式。</li>
+<li>尽管容器种类多种多样，经常使用的只有ArrayList，HashSet和HashMap几类，需要根据应用场所进行选用。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/容器-集合-迭代器/" rel="tag"># 容器,集合,迭代器</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/16/《Java编程思想》之内部类/" rel="next" title="《Java编程思想》学习笔记之内部类">
+                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之内部类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-容器的大家庭"><span class="nav-number">1.</span> <span class="nav-text">1.容器的大家庭</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-容器工具类Arrays和Collections"><span class="nav-number">2.</span> <span class="nav-text">2. 容器工具类Arrays和Collections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-List接口及其子类"><span class="nav-number">3.</span> <span class="nav-text">3. List接口及其子类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-set接口及其子类"><span class="nav-number">4.</span> <span class="nav-text">4.set接口及其子类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Map接口及其子类"><span class="nav-number">5.</span> <span class="nav-text">5.Map接口及其子类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-迭代器iterator"><span class="nav-number">6.</span> <span class="nav-text">6. 迭代器iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-总结"><span class="nav-number">7.</span> <span class="nav-text">7.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
