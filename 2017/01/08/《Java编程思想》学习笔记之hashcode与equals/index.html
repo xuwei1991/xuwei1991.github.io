@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="新建,模板,小书匠," />
 
 
 
@@ -84,34 +84,19 @@
 
 
 
-<meta name="description" content="学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。    要点：
-
-final数据
-final方法
-final类
-
-1.final数据　　final修饰数据时又分为两种情况，即修饰基本类型数据和修饰类的对象引用。　　当用final修饰基本类型数据时">
+<meta name="description" content="在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。
+1234567891">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Java编程思想》学习笔记之final关键字概述">
-<meta property="og:url" content="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之final关键字概述/index.html">
+<meta property="og:title" content="《Java编程思想》学习笔记之hashcode与equals">
+<meta property="og:url" content="http://yoursite.com/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/index.html">
 <meta property="og:site_name" content="xuwei'blog">
-<meta property="og:description" content="学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。    要点：
-
-final数据
-final方法
-final类
-
-1.final数据　　final修饰数据时又分为两种情况，即修饰基本类型数据和修饰类的对象引用。　　当用final修饰基本类型数据时">
-<meta property="og:updated_time" content="2016-12-14T04:29:15.100Z">
+<meta property="og:description" content="在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。
+1234567891">
+<meta property="og:updated_time" content="2017-01-08T15:23:50.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《Java编程思想》学习笔记之final关键字概述">
-<meta name="twitter:description" content="学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。    要点：
-
-final数据
-final方法
-final类
-
-1.final数据　　final修饰数据时又分为两种情况，即修饰基本类型数据和修饰类的对象引用。　　当用final修饰基本类型数据时">
+<meta name="twitter:title" content="《Java编程思想》学习笔记之hashcode与equals">
+<meta name="twitter:description" content="在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。
+1234567891">
 
 
 
@@ -139,13 +124,13 @@ final类
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之final关键字概述/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/"/>
 
 
 
 
 
-  <title> 《Java编程思想》学习笔记之final关键字概述 | xuwei'blog </title>
+  <title> 《Java编程思想》学习笔记之hashcode与equals | xuwei'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +241,7 @@ final类
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/14/《Java编程思想》学习笔记之final关键字概述/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xuwei1991">
@@ -280,7 +265,7 @@ final类
             
             
               
-                《Java编程思想》学习笔记之final关键字概述
+                《Java编程思想》学习笔记之hashcode与equals
               
             
           </h1>
@@ -293,8 +278,8 @@ final类
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-14T12:28:41+08:00">
-                2016-12-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-08T23:22:12+08:00">
+                2017-01-08
               </time>
             
 
@@ -313,7 +298,7 @@ final类
 
           
           
-             <span id="/2016/12/14/《Java编程思想》学习笔记之final关键字概述/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之final关键字概述">
+             <span id="/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之hashcode与equals">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,26 +323,20 @@ final类
       
 
       
-        <p>　　学完继承之后，也把final关键字的使用方法学习了一下，在这里进行一个总结。<br>  　　对于一个自定义的类而言，我们需要定义它的成员数据和方法。那么，final关键字也就可以修饰成员数据，方法和类本身。<br>    要点：</p>
-<ul>
-<li>final数据</li>
-<li>final方法</li>
-<li>final类</li>
-</ul>
-<h2 id="1-final数据"><a href="#1-final数据" class="headerlink" title="1.final数据"></a><strong>1.final数据</strong></h2><p>　　final修饰数据时又分为两种情况，即修饰基本类型数据和修饰类的对象引用。<br>　　当用final修饰基本类型数据时，那就表示该数据是恒定不变的，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">final int i=5;</div></pre></td></tr></table></figure>
-<p>　　如果在程序中，我们再次尝试向i赋值，那么就会报错。<br>　　对于一个基本类型数据，还可以同时用static和final修饰，这与单独的final修饰还是有一点不同的。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">final int i = new Random().nextInt(20);</div><div class="line">static final int j = new Random().nextInt(20);</div></pre></td></tr></table></figure>
-<p>　　对于i而言，每次创建对象时，都会被初始化，随后在该对象中，这个值是不变的。但是，当我们再次创建一个新的对象后，又会初始化一次，该值对于该对象而言也是不变的。<br>  　　对于j而言，在类加载的时候已经被初始化，而不是每次创建对象时初始化，所以它的值是不会随着对象的创建而改变的。<br>  　　  final修饰对象应用时，它值的是该对象引用是指向某一个确定对象的，无法改变引用的指向。但是，该对象里面的值是可以变化的。<br>     　　在用final修饰数据时，可以不在定义处进行初始化，即空白final，我们可以在构造器中进行初始化。这样，可以保证一个final字段根据对象而有所不同。</p>
-<h2 id="2-final方法"><a href="#2-final方法" class="headerlink" title="2.final方法"></a><strong>2.final方法</strong></h2><p>　　在继承中，如果我们不希望父类的方法被子类覆盖时，可以将该方法用final关键字修饰，这样可以做到方法行为保持不变。当我们尝试对这类方法进行覆盖时，系统就会提示编译错误。<br>  　　<strong>关于private和final。</strong><br>  　　  “覆盖”只有在某方法是父类的接口的一部分时才会出现。<br>    　　当一个方法被private修饰之后，即对外界不可见。那么就无法取用private方法，所以也就谈不上方法的覆盖。所以对于这类方法，是默认final的。<br>      　　两者的区别是，仅仅被final修饰的方法，在子类中是可见的，能够被调用，但是不能够覆盖。而仅仅被private修饰的方法，在子类中不可见，也不能够被调用。</p>
-<h2 id="3-final类"><a href="#3-final类" class="headerlink" title="3.final类"></a><strong>3.final类</strong></h2><p>  当用final修饰类时，如：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">final class A&#123;</div><div class="line">int i =4;</div><div class="line">void method()&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>那么就表明，类A不允许被继承，也就是说，这个类不能够有子类。<br>对于final类中的字段，可以根据需要选择是否被final修饰。但是，对于final类中的方法，由于不能够被覆盖，所以是默认为被final修饰的。</p>
-<p><strong>总结：</strong></p>
-<ul>
-<li>在设计类时，我们可以根据实际情况的需要来将类，数据和方法指明为final.</li>
-<li>对于方法而言，需要谨慎使用final，因为遇见一个类如何被复用是困难的，尤其是对于通用的类库而言。</li>
-</ul>
+        <p>　　在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。<br>  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">  package test3;</div><div class="line"></div><div class="line">public class Person &#123;</div><div class="line">    private int age;</div><div class="line">    private String name;</div><div class="line">    public Person(String name,int age)&#123;</div><div class="line">    	this.age=age;</div><div class="line">    	this.name=name;</div><div class="line">    &#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public String toString()&#123;</div><div class="line">		return &quot;name=&quot;+name+&quot;  &quot;+&quot;age=&quot;+age+&quot;&quot;;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">package test3;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class HashTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Set&lt;Person&gt; set = new HashSet&lt;Person&gt;();</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		set.add(new Person(&quot;lisi&quot;,26));</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		System.out.println(set);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[name=lisi  age=<span class="number">26</span>, name=zhangsan  age=<span class="number">25</span>, name=zhangsan  age=<span class="number">25</span>]</div></pre></td></tr></table></figure>
+<p>　　输出结果中，发现一问题：name=zhangsan  age=25被重复添加了，不符合HashSet存储数据的要求。但是在之前的学习中，我添加的整型数据没有出现过这类的问题，这是为什么呢？<br>  　　经过学习，发现HashSet添加数据，判断是不是重复元素，是通过内部的equals方法实现的，euqals方法是根类Object提供的，默认的是比较元素的内存地址值。而对象的内存地址是hashcode实现的。<br>    　　当我们添加两次name=zhangsan  age=25时，生成的是两个不同的内存地址，在添加时，被看成是两个不同的对象。但是在实际应用时，我们认为这两个是同一个对象，不能够被重复加入，因此需要对此进行改进。改进的方法时同时复写Person类的hashcode()和equals()方法，这样能够根据自己的需要构建比较的基准，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">package test3;</div><div class="line"></div><div class="line">public class Person &#123;</div><div class="line">    private int age;</div><div class="line">    private String name;</div><div class="line">    public Person(String name,int age)&#123;</div><div class="line">    	this.age=age;</div><div class="line">    	this.name=name;</div><div class="line">    &#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public String toString()&#123;</div><div class="line">		return &quot;name=&quot;+name+&quot;  &quot;+&quot;age=&quot;+age+&quot;&quot;;</div><div class="line">	&#125;</div><div class="line">    public int hashCode()&#123;</div><div class="line">    	int result=47;</div><div class="line">    	result = 24*result+this.name.hashCode();</div><div class="line">    	result = 24*result+this.age;</div><div class="line">    	return result;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    public boolean equals(Object o)&#123;</div><div class="line">    	return o instanceof Person&amp;&amp;this.name.equals(((Person)o).name)&amp;&amp;this.age==(((Person)o).age);</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">package test3;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class HashTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Set&lt;Person&gt; set = new HashSet&lt;Person&gt;();</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		set.add(new Person(&quot;lisi&quot;,26));</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		System.out.println(set);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[name=lisi  age=<span class="number">26</span>, name=zhangsan  age=<span class="number">25</span>]</div></pre></td></tr></table></figure>
+<p>　　可以发现，重复的对象没有被添加进来。hashcode值基于对象的姓名和年龄进行了重新的定义，equals()也对姓名和年龄进行比较，当所有信息完全一致时，就认定为同一对象。<br>  　　为什么之前添加整型数据时，没有对整型的hashcode和equals复写，也能够自动识别重复对象呢？这是因为基本类型数据的对应装箱类型对象中，系统已经对这两个方法进行了重写，所以我们能够直接使用。而对于我们自己创建的对象而言，需要自己覆写这两个方法。</p>
+<h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a><strong>需要注意的是：</strong></h4><ol>
+<li>equals()和hashcode()是Object中的两个方法，需要<strong>同时</strong>被复写。</li>
+<li>对于两个比较的对象，如果euqals()方法返回的为真，则它们的哈希值一定相等，反之，如果它们的哈希值相等，equals()返回的值不一定为真。</li>
+<li>Java集合中判断两个对象的原则是：如果这两个对象的哈希值不相等，则两个对象不相同，如果两个对象的哈希值相等，进而通过euqals()方法的返回值来判断对象的属性是否相同，如果返回为真，则这两个对象相同，反之，则两个对象不同。<br>4.这两个方法在HashMap也应用较多，需要加以学习。</li>
+</ol>
 
       
     </div>
@@ -379,13 +358,19 @@ final类
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/新建-模板-小书匠/" rel="tag"># 新建,模板,小书匠</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/14/《java编程思想》学习笔记之复用类/" rel="next" title="《Java编程思想》学习笔记之复用类">
-                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之复用类
+              <a href="/2017/01/08/《Java编程思想》学习笔记之泛型/" rel="next" title="《Java编程思想》学习笔记之泛型">
+                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之泛型
               </a>
             
           </div>
@@ -393,10 +378,6 @@ final类
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/14/《Java编程思想》学习笔记之多态/" rel="prev" title="《Java编程思想》学习笔记之多态">
-                《Java编程思想》学习笔记之多态 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -524,7 +505,7 @@ var duoshuoQuery = {short_name:"xuwei1234"};
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-final数据"><span class="nav-number">1.</span> <span class="nav-text">1.final数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-final方法"><span class="nav-number">2.</span> <span class="nav-text">2.final方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-final类"><span class="nav-number">3.</span> <span class="nav-text">3.final类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#需要注意的是："><span class="nav-number">1.</span> <span class="nav-text">需要注意的是：</span></a></li></ol></div>
             
 
           </div>
