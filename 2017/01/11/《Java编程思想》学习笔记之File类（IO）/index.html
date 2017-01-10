@@ -1,0 +1,815 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="File,IO,方法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="对于任何一种计算机语言来说，IO系统都是一个复杂而且重要的部分。Java通过IO类库提供了大量的类来解决IO问题，IO流中的大部分类是对文件中的数据进行操作的，而File类是与文件及文件目录本身有关系的类。它主要有创建、获取、判断、删除更改方法。本章主要对File类的特点和应用进行学习。  本章要点：
+
+File构造方法
+File 类的创建功能
+File 类的获取功能
+File 类的判断功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《java编程思想》学习笔记之File类(IO)">
+<meta property="og:url" content="http://yoursite.com/2017/01/11/《Java编程思想》学习笔记之File类（IO）/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="对于任何一种计算机语言来说，IO系统都是一个复杂而且重要的部分。Java通过IO类库提供了大量的类来解决IO问题，IO流中的大部分类是对文件中的数据进行操作的，而File类是与文件及文件目录本身有关系的类。它主要有创建、获取、判断、删除更改方法。本章主要对File类的特点和应用进行学习。  本章要点：
+
+File构造方法
+File 类的创建功能
+File 类的获取功能
+File 类的判断功能">
+<meta property="og:updated_time" content="2017-01-10T16:23:03.626Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《java编程思想》学习笔记之File类(IO)">
+<meta name="twitter:description" content="对于任何一种计算机语言来说，IO系统都是一个复杂而且重要的部分。Java通过IO类库提供了大量的类来解决IO问题，IO流中的大部分类是对文件中的数据进行操作的，而File类是与文件及文件目录本身有关系的类。它主要有创建、获取、判断、删除更改方法。本章主要对File类的特点和应用进行学习。  本章要点：
+
+File构造方法
+File 类的创建功能
+File 类的获取功能
+File 类的判断功能">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/11/《Java编程思想》学习笔记之File类（IO）/"/>
+
+
+
+
+
+  <title> 《java编程思想》学习笔记之File类(IO) | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/11/《Java编程思想》学习笔记之File类（IO）/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《java编程思想》学习笔记之File类(IO)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T00:20:21+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/11/《Java编程思想》学习笔记之File类（IO）/" class="leancloud_visitors" data-flag-title="《java编程思想》学习笔记之File类(IO)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　对于任何一种计算机语言来说，IO系统都是一个复杂而且重要的部分。Java通过IO类库提供了大量的类来解决IO问题，IO流中的大部分类是对文件中的数据进行操作的，而File类是与文件及文件目录本身有关系的类。它主要有创建、获取、判断、删除更改方法。本章主要对File类的特点和应用进行学习。<br>  本章要点：</p>
+<ul>
+<li>File构造方法</li>
+<li>File 类的创建功能</li>
+<li>File 类的获取功能</li>
+<li>File 类的判断功能</li>
+<li>File类的删除与更改功能</li>
+<li>总结</li>
+</ul>
+<h2 id="1-File构造方法"><a href="#1-File构造方法" class="headerlink" title="1. File构造方法"></a><strong>1. File构造方法</strong></h2><p>　　通过向File类的构造方法传入相应的路径参数来创建File实例，常用的主要有以下几种构造方法。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">File</span><span class="params">(String pathname)</span></span>  <span class="comment">//通过将给定路径名字符串转换为抽象路径名来创建一个新 File 实例</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">File</span><span class="params">(String parent,String child)</span></span>  <span class="comment">//根据 parent 路径名字符串和 child 路径名字符串创建一个新 File 实例</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">File</span><span class="params">(File parent,String child)</span></span> <span class="comment">//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例</span></div></pre></td></tr></table></figure>
+<p>　　比如，我们想要将D盘的FileTest文件夹下的某个文本文件封装成一个File文件，通过这几个构造方法，分别可以采用如下的格式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">package FileTest;</div><div class="line">import java.io.*;</div><div class="line"></div><div class="line">public class test1 &#123;</div><div class="line">	</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">         //通过第一个构造方法创建File对象</div><div class="line">		 File file1 = new File("D:\\FileTest\\1.txt");</div><div class="line">         </div><div class="line">         //通过第二个构造方法创建File对象</div><div class="line">         File file2 = new File("D:\\/FileTest","2.txt");</div><div class="line">         </div><div class="line">         //通过第三个构造方法创建File对象</div><div class="line">         File file3 = new File("D:\\FileTest");</div><div class="line">         File file4 = new File(file3,"3.txt");	</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-File-类的创建功能"><a href="#2-File-类的创建功能" class="headerlink" title="2. File 类的创建功能"></a><strong>2. File 类的创建功能</strong></h2><p>　　File类中，可以完成创建功能的方法主要有以下几种。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">createNewFile</span><span class="params">()</span></span> <span class="comment">//检查文件是否存在，若不存在则创建该文件。如果指定的文件不存在并成功地创建，则返回 true；如果指定的文件已经存在，则返回 false</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">mkdirs</span><span class="params">()</span></span><span class="comment">//创建此抽象路径名指定的目录，包括所有必需但不存在的父目录。如果该目录(或多级目录)能被创建则为 true；否则为 fals</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">mkdir</span><span class="params">()</span></span><span class="comment">//只能在已经存在的目录中创建创建目录。如果该目录能被创建则为 true；否则为 false</span></div></pre></td></tr></table></figure>
+<p>　　在D盘下进行操作，对这三个方法进行验证。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">package FileTest;</div><div class="line">import java.io.*;</div><div class="line"></div><div class="line">public class test1 &#123;</div><div class="line">	</div><div class="line">	public static void main(String[] args) throws IOException &#123;</div><div class="line">		 File file1 = new File("D:\\1.txt");</div><div class="line">		 System.out.println(file1.createNewFile());</div><div class="line">		 </div><div class="line">		 File file2 = new File("D:\\a\\b");</div><div class="line">		 System.out.println(file2.mkdirs());</div><div class="line">		 </div><div class="line">		 File file3 = new File("D:\\c\\d");</div><div class="line">		 System.out.println(file3.mkdir());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一次运行结果为</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">true</div><div class="line">true</div><div class="line">false</div></pre></td></tr></table></figure>
+<p>　　第一次运行时，D盘下没有1.txt文件，所以创建该文件，并返回结果为true;D盘下没有a文件夹和b文件夹，mkdirs()能够创建多重目录，并且返回为true；D盘下没有c文件夹和d文件夹，mkdir()不能够创建多重目录，返回为false<br>　　第二次的运行结果为:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">false</div><div class="line">false</div><div class="line">false</div></pre></td></tr></table></figure>
+<p>　　第一次创建后，D盘下已经存在1.txt文件和文件夹a以及文件夹b，所以返回值均为false。</p>
+<h2 id="3-File-类的获取功能"><a href="#3-File-类的获取功能" class="headerlink" title="3. File 类的获取功能"></a><strong>3. File 类的获取功能</strong></h2><p>　　File类中的获取功能主要有get相关的和list相关的，一般情况下，list相关的应用的较多，主要的几个方法如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">list</span><span class="params">()</span></span>  <span class="comment">//获取到的是目录下全部的文件和文件夹</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">list</span><span class="params">(FilenameFilter filter)</span></span> <span class="comment">// 获取到的是目录下满足过滤器的文件和文件夹</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">listFiles</span><span class="params">()</span></span><span class="comment">//返回带有绝对路径名的文件和文件夹</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">listFiles</span><span class="params">(FilenameFilter filter)</span></span><span class="comment">//返回满足过滤器的带有绝对路径名的文件和文件夹</span></div></pre></td></tr></table></figure>
+<p>　　通过示例进行验证，在D盘下手动建立名为abc的文件夹，在该文件夹下，有一个efg文件夹，一个123.txt文件，一个新建的word文档，一个新建的excel表格。程序如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">package FileTest;</div><div class="line">import java.io.*;</div><div class="line">import java.util.regex.Pattern;</div><div class="line"></div><div class="line">public class test1 &#123;</div><div class="line">	</div><div class="line">	public static void main(String[] args) throws IOException &#123;</div><div class="line">		 File file1 = new File("D:\\abc");</div><div class="line">		 String[] f1 =file1.list();</div><div class="line">		 for(String fl :f1)</div><div class="line">			 System.out.println(fl);</div><div class="line">		     System.out.println("------------------");</div><div class="line">		 </div><div class="line">		 String[] f2=file1.list(new FilenameFilter()&#123;</div><div class="line">			 private Pattern p=Pattern.compile(".+txt$");</div><div class="line">			 public boolean accept(File fir,String name)&#123;</div><div class="line">				 return p.matcher(name).matches();</div><div class="line">			 &#125;</div><div class="line">		 &#125;);</div><div class="line">		 for(String fi :f2)</div><div class="line">			 System.out.println(fi);</div><div class="line">		 System.out.println("------------------");</div><div class="line">		 </div><div class="line">		 File file2 = new File("D:\\abc");</div><div class="line">		 File[] f3 =file2.listFiles();</div><div class="line">		 for(File fi :f3)</div><div class="line">			 System.out.println(fi);</div><div class="line">		 System.out.println("------------------");</div><div class="line">		 </div><div class="line">		 File file3 = new File("D:\\abc");</div><div class="line">		 File[] f4 =file2.listFiles(new FilenameFilter()&#123;</div><div class="line">			 private Pattern p=Pattern.compile(".+txt$");</div><div class="line">			 public boolean accept(File fir,String name)&#123;</div><div class="line">				 return p.matcher(name).matches();</div><div class="line">			 &#125;</div><div class="line">		 &#125;);</div><div class="line">		 for(File fi :f4)</div><div class="line">			 System.out.println(fi);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>程序运行结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="number">123</span><span class="selector-class">.txt</span></div><div class="line">edf</div><div class="line">新建 Microsoft Excel 工作表<span class="selector-class">.xlsx</span></div><div class="line">新建 Microsoft Word 文档<span class="selector-class">.docx</span></div><div class="line">------------------</div><div class="line"><span class="number">123</span><span class="selector-class">.txt</span></div><div class="line">------------------</div><div class="line">D:\abc\<span class="number">123</span><span class="selector-class">.txt</span></div><div class="line">D:\abc\edf</div><div class="line">D:\abc\新建 Microsoft Excel 工作表<span class="selector-class">.xlsx</span></div><div class="line">D:\abc\新建 Microsoft Word 文档<span class="selector-class">.docx</span></div><div class="line">------------------</div><div class="line">D:\abc\<span class="number">123</span>.txt</div></pre></td></tr></table></figure>
+<p>　　注意，在使用list(FilenameFilter filter)和listFiles(FilenameFilter filter)时，传入的对象要实现FilenameFilter接口，通过正则表达式设定过滤器，在本例中，是通过匿名内部类实现的。</p>
+<h2 id="4-File-类的判断功能"><a href="#4-File-类的判断功能" class="headerlink" title="4. File 类的判断功能"></a><strong>4. File 类的判断功能</strong></h2><p>　　判断方法也是File类的一个重要功能，常用的主要有以下几种：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">exists</span><span class="params">()</span></span><span class="comment">// 判断一个文件或者文件夹是否存在</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">isFile</span><span class="params">()</span></span><span class="comment">// 测试此抽象路径名表示的文件是否是一个标准文件，如果是则返回为真，如果是文件目录，则返回为假</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">isDirectory</span><span class="params">()</span></span><span class="comment">//测试此抽象路径名表示的文件是否是一个目录，当且仅当此抽象路径名表示的文件存在且 是一个目录时，返回 true；否则返回 false</span></div></pre></td></tr></table></figure>
+<p>还是沿用D盘下的那个文件结构，验证上述方法如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">package FileTest;</div><div class="line"></div><div class="line">import java.io.File;</div><div class="line"></div><div class="line">public class test2 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		File file1 = new File("D:\\abc\\123.txt");</div><div class="line">		System.out.println(file1.isFile());</div><div class="line">		System.out.println(file1.exists());</div><div class="line">		System.out.println("------");</div><div class="line">		</div><div class="line">		File file2 = new File("D:\\abc\\edf");</div><div class="line">		System.out.println(file2.isFile());</div><div class="line">		System.out.println(file2.exists());</div><div class="line">		System.out.println("------");</div><div class="line">		</div><div class="line">		File file3 = new File("D:\\abc\\123.txt");</div><div class="line">		System.out.println(file3.isDirectory());</div><div class="line">		System.out.println(file3.exists());</div><div class="line">		System.out.println("------");</div><div class="line"></div><div class="line">		File file4 = new File("D:\\abc\\edf");</div><div class="line">		System.out.println(file4.isDirectory());</div><div class="line">		System.out.println(file4.exists());	</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回的结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">true</div><div class="line">true</div><div class="line">------</div><div class="line">false</div><div class="line">true</div><div class="line">------</div><div class="line">false</div><div class="line">true</div><div class="line">------</div><div class="line">true</div><div class="line">true</div></pre></td></tr></table></figure>
+<h2 id="5-File类的删除与更改功能"><a href="#5-File类的删除与更改功能" class="headerlink" title="5. File类的删除与更改功能"></a><strong>5. File类的删除与更改功能</strong></h2><p>File类中，常用的删除和更改功能是deleted和renameTo,如下;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">delete</span><span class="params">()</span></span><span class="comment">// 删除此抽象路径名表示的文件或目录。</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">renameTo</span><span class="params">()</span></span><span class="comment">// 重新命名此抽象路径名表示的文件,当且仅当重命名成功时，返回 true；否则返回 false</span></div></pre></td></tr></table></figure>
+<p>依旧用D盘的文件体系进行验证：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">package FileTest;</div><div class="line"></div><div class="line">import java.io.File;</div><div class="line">import java.io.IOException;</div><div class="line"></div><div class="line">public class test3 &#123;</div><div class="line">	public static void main(String[] args) throws IOException &#123;</div><div class="line">		File file1 = new File("D:\\abc\\123.txt");</div><div class="line">		File file2 = new File("D:\\abc\\edf\\456.txt");</div><div class="line">		System.out.println(file1.renameTo(file2));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">true</div></pre></td></tr></table></figure>
+<p>再运行一次，结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">false</div></pre></td></tr></table></figure>
+<p>关于renameTo方法，需要注意的是：<br>1.file1不管是代表一个目录，还是一个文件的路径都必须是在磁盘上存在的。<br>2.file2与file1相反，代表一个不存在的目录或文件路径（仅限最后一个’\’后面文件夹或文件的不存在，其余的目录必须已存在）。<br><strong><strong>两个条件必须同时具备，而且执行该操作后，file1文件将不再存在。</strong></strong><br>  delete方法应用比较简单，基于上面的操作后，程序示例如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">package FileTest;</div><div class="line"></div><div class="line">import java.io.File;</div><div class="line"></div><div class="line">public class test4 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		File file1 = new File("D:\\abc");</div><div class="line">		System.out.println(file1.delete());</div><div class="line">		</div><div class="line">		File file2 = new File("D:\\abc\\edf\\456.txt");</div><div class="line">		System.out.println(file2.delete());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">false</div><div class="line">true</div></pre></td></tr></table></figure>
+<p>　　需要注意的是：如果此路径名表示一个目录，则该目录必须为空才能删除。 当且仅当成功删除文件或目录时，返回 true；否则返回 false</p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6.总结"></a><strong>6.总结</strong></h2><ol>
+<li>File类是java.io类库中的重要部分，通过它可以对文件本身进行操作，其主要的方法有增删改查，增即创建文件，删即删除文件，改即重命名文件，查即获取文件。</li>
+<li>IO中除了对文件本身的操作，更重要的是对文件的内容进行操作，在后面要对IO流体系进行学习</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/File-IO-方法/" rel="tag"># File,IO,方法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/" rel="next" title="《Java编程思想》学习笔记之hashcode与equals">
+                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之hashcode与equals
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-File构造方法"><span class="nav-number">1.</span> <span class="nav-text">1. File构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-File-类的创建功能"><span class="nav-number">2.</span> <span class="nav-text">2. File 类的创建功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-File-类的获取功能"><span class="nav-number">3.</span> <span class="nav-text">3. File 类的获取功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-File-类的判断功能"><span class="nav-number">4.</span> <span class="nav-text">4. File 类的判断功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-File类的删除与更改功能"><span class="nav-number">5.</span> <span class="nav-text">5. File类的删除与更改功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-总结"><span class="nav-number">6.</span> <span class="nav-text">6.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
