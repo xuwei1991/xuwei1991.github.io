@@ -1,0 +1,808 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="序列化,对象输出流," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="之前所介绍的各种IO流都是把硬盘上的文件、字符数组和字符串进行写入和读取操作，如果是把对象写入流，或者把流恢复成对象，那就涉及到序列化与反序列化。  本章要点：
+
+序列化与反序列化的概念及优点
+序列化与反序列化的步骤
+序列化的控制
+总结1.序列化与反序列化的概念及优点　　在正常情况下我们根据需要创建对象，但是在程序终止时，对象也不会继续存在。但是在实际某些情况下，我们希望对象在程序不运行情况下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java编程思想》学习笔记之序列化与反序列化">
+<meta property="og:url" content="http://yoursite.com/2017/01/14/《Java编程思想》学习笔记之序列化与反序列化/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="之前所介绍的各种IO流都是把硬盘上的文件、字符数组和字符串进行写入和读取操作，如果是把对象写入流，或者把流恢复成对象，那就涉及到序列化与反序列化。  本章要点：
+
+序列化与反序列化的概念及优点
+序列化与反序列化的步骤
+序列化的控制
+总结1.序列化与反序列化的概念及优点　　在正常情况下我们根据需要创建对象，但是在程序终止时，对象也不会继续存在。但是在实际某些情况下，我们希望对象在程序不运行情况下">
+<meta property="og:updated_time" content="2017-01-14T15:17:30.626Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Java编程思想》学习笔记之序列化与反序列化">
+<meta name="twitter:description" content="之前所介绍的各种IO流都是把硬盘上的文件、字符数组和字符串进行写入和读取操作，如果是把对象写入流，或者把流恢复成对象，那就涉及到序列化与反序列化。  本章要点：
+
+序列化与反序列化的概念及优点
+序列化与反序列化的步骤
+序列化的控制
+总结1.序列化与反序列化的概念及优点　　在正常情况下我们根据需要创建对象，但是在程序终止时，对象也不会继续存在。但是在实际某些情况下，我们希望对象在程序不运行情况下">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/14/《Java编程思想》学习笔记之序列化与反序列化/"/>
+
+
+
+
+
+  <title> 《Java编程思想》学习笔记之序列化与反序列化 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/14/《Java编程思想》学习笔记之序列化与反序列化/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Java编程思想》学习笔记之序列化与反序列化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-14T23:08:24+08:00">
+                2017-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/14/《Java编程思想》学习笔记之序列化与反序列化/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之序列化与反序列化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　之前所介绍的各种IO流都是把硬盘上的文件、字符数组和字符串进行写入和读取操作，如果是把对象写入流，或者把流恢复成对象，那就涉及到序列化与反序列化。<br>  本章要点：</p>
+<ol>
+<li>序列化与反序列化的概念及优点</li>
+<li>序列化与反序列化的步骤</li>
+<li>序列化的控制</li>
+<li>总结<h2 id="1-序列化与反序列化的概念及优点"><a href="#1-序列化与反序列化的概念及优点" class="headerlink" title="1.序列化与反序列化的概念及优点"></a><strong>1.序列化与反序列化的概念及优点</strong></h2>　　在正常情况下我们根据需要创建对象，但是在程序终止时，对象也不会继续存在。但是在实际某些情况下，我们希望对象在程序不运行情况下仍保存信息，并且在下次重新启用程序时，上次留存的对象信息能够被恢复。Java中，对象的序列化与反序列化就能够实现这样的功能，而且能够弥补不同操作系统之间的差异。<br>　　<strong>对象的序列化</strong>是指将Java对象转化为字节序列的过程；<strong>反序列化</strong>是指将字节序列恢复为Java对象的过程。<br>对象的序列化有两个比较明显的优点；</li>
+</ol>
+<ol>
+<li><strong>持久性</strong>。通过将一个序列化对象写入磁盘，然后在重新调用程序时恢复这个对象，就能够实现对象的持久性。这就意味着一个对象的生存周期并不取决于程序是否在执行，它可以生存于程序的调用之间。</li>
+<li><strong>对象的调用</strong>。存活在其他计算机的对象通过序列化与反序列化能够在本机上进行使用，就像存在于本机上一样。<h2 id="2-序列化与反序列化的步骤"><a href="#2-序列化与反序列化的步骤" class="headerlink" title="2.序列化与反序列化的步骤"></a><strong>2.序列化与反序列化的步骤</strong></h2>　　Java中，完成对象的序列化与反序列化的IO流是ObjectOutputStream与ObjectInputStream，其次，对象要实现<strong>Serializable接口和Externalizable接口</strong>，具体的步骤如下：<br><strong>第一步</strong>：创建对象，并一定要实现Serializable接口或者Externalizable接口</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class Person implements Serializable&#123;&#125;</div></pre></td></tr></table></figure>
+<p>  <strong>第二步</strong>：创建一个对象输出流，包含一个其他类型的目标输出流，如文件输出流：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(“D:\\IOtest\\test11”));</div></pre></td></tr></table></figure>
+<p><strong>第三步</strong>：通过对象输出流的writeObject()方法把对象写入</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">out.writeObject(p1);</div></pre></td></tr></table></figure>
+<p><strong>第四步</strong>：创建一个对象的输入流，包含一个其他类型的输入流，如文件输入流：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ObjectInputStream in= new ObjectInputStream(new FileInputStream(“D:\\IOtest\\test11”));</div></pre></td></tr></table></figure></p>
+<p><strong>第五步</strong>：通过对象的readObject()方法读取对象，需要进行强制类型转换</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Person p1 = (Person)in.readObject();</div></pre></td></tr></table></figure>
+<p>具体的程序示例如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">//第一步：创建可以序列化的类</div><div class="line">package com.xuwei.serializable;</div><div class="line"></div><div class="line">import java.io.Serializable;</div><div class="line"></div><div class="line">public class Person implements Serializable&#123;</div><div class="line">	private String name;</div><div class="line">	private int age;</div><div class="line">	public Person(String name,int age)&#123;</div><div class="line">		this.name = name;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String toString() &#123;</div><div class="line">		return "Person [name=" + name + ", age=" + age + "]";</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">package com.xuwei.serializable;</div><div class="line">import java.io.*;</div><div class="line"></div><div class="line">public class SerializableTest1 &#123;</div><div class="line">	public static void main(String[] args) throws IOException, ClassNotFoundException &#123;</div><div class="line">		Person p1 = new Person("zhangsan",23);</div><div class="line">		Person p2 = new Person("lisi",24);</div><div class="line">		Person p3 = new Person("wangwu",25);</div><div class="line">        </div><div class="line">		//第二步：创建对象输出流</div><div class="line">		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("D:\\IOtest\\test11.txt"));</div><div class="line">        </div><div class="line">        //第三步：写入对象并关闭输出流</div><div class="line">		out.writeObject(p1);</div><div class="line">		out.writeObject(p2);</div><div class="line">		out.writeObject(p3);</div><div class="line">		out.close();</div><div class="line">        </div><div class="line">		//第四步：创建对象输入流</div><div class="line">		ObjectInputStream in= new ObjectInputStream(new FileInputStream("D:\\IOtest\\test11.txt"));</div><div class="line">        </div><div class="line">        //第五步：读取对象</div><div class="line">		 p1= (Person) in.readObject();</div><div class="line">		 p2= (Person) in.readObject();</div><div class="line">		 p3= (Person) in.readObject();</div><div class="line">		 System.out.println(p1);</div><div class="line">		 System.out.println(p2);</div><div class="line">		 System.out.println(p3);</div><div class="line">		 in.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Person [name=zhangsan, age=<span class="number">23</span>]</div><div class="line">Person [name=lisi, age=<span class="number">24</span>]</div><div class="line">Person [name=wangwu, age=<span class="number">25</span>]</div></pre></td></tr></table></figure>
+<p>需要注意的是，读取的对象要和写入的对象进行一一对应，也可以把对象写入容器中，读取时，直接把元素再放入容器中，更加简便，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.serializable;</div><div class="line"></div><div class="line">import java.io.*;</div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class SerializableTest1 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) throws IOException, ClassNotFoundException &#123;</div><div class="line">		Person p1 = new Person("zhangsan",23);</div><div class="line">		Person p2 = new Person("lisi",24);</div><div class="line">		Person p3 = new Person("wangwu",25);</div><div class="line">		List&lt;Person&gt; list = new ArrayList&lt;&gt;();</div><div class="line">		list.add(p1);</div><div class="line">		list.add(p2);</div><div class="line">		list.add(p3);</div><div class="line">		</div><div class="line">		</div><div class="line">		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("D:\\IOtest\\test11.txt"));</div><div class="line">		out.writeObject(list);</div><div class="line">		out.close();</div><div class="line">		</div><div class="line">		ObjectInputStream in= new ObjectInputStream(new FileInputStream("D:\\IOtest\\test11.txt"));</div><div class="line">		list = (List&lt;Person&gt;) in.readObject();</div><div class="line">		 for(Person li:list)</div><div class="line">			 System.out.println(li);</div><div class="line">		 in.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-序列化的控制"><a href="#3-序列化的控制" class="headerlink" title="3.序列化的控制"></a><strong>3.序列化的控制</strong></h2><h4 id="3-1-Externalizable接口"><a href="#3-1-Externalizable接口" class="headerlink" title="3.1 Externalizable接口"></a><strong>3.1 Externalizable接口</strong></h4><p>Externalizable接口继承自Serializable接口，使用它也可以完成完成对象的序列化，特别要注意一下几点：</p>
+<ul>
+<li>实现Externalizable接口的类必须要提供一个无参的构造器，且它的访问权限为public。因为使用Externalizable进行序列化，当读取对象时，会调用被序列化类的无参构造器去创建一个新的对象，然后再将被保存对象的字段的值分别填充到新对象中。</li>
+<li>Serializable没有提供任何方法，而Externalizable有两个方法，分别是writeExternal和readExternal，实现Externalizable的类必须重写这两个方法，它们用来传入字段，如果writeExternal()与readExternal()方法未作任何处理，那么该序列化行为将不会保存/读取任何一个字段。<br>使用的示例如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">//Person类：提供公共的无参构造方法并且重写接口的两个方法</div><div class="line">package com.xuwei.serializable;</div><div class="line"></div><div class="line">import java.io.Externalizable;</div><div class="line">import java.io.IOException;</div><div class="line">import java.io.ObjectInput;</div><div class="line">import java.io.ObjectOutput;</div><div class="line">import java.io.Serializable;</div><div class="line"></div><div class="line">public class Person implements Externalizable&#123;</div><div class="line">	private String name;</div><div class="line">	private int age;</div><div class="line">	public Person()&#123;&#125;</div><div class="line">	public Person(String name,int age)&#123;</div><div class="line">		this.name = name;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String toString() &#123;</div><div class="line">		return "Person [name=" + name + ", age=" + age + "]";</div><div class="line">	&#125;</div><div class="line">	@Override</div><div class="line">	public void writeExternal(ObjectOutput out) throws IOException &#123;</div><div class="line">		out.writeObject(name);</div><div class="line">		out.writeInt(age);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	@Override</div><div class="line">	public void readExternal(ObjectInput in) throws IOException,</div><div class="line">			ClassNotFoundException &#123;</div><div class="line">		name = (String)in.readObject();</div><div class="line">		age = in.readInt();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类不变</div><div class="line">package com.xuwei.serializable;</div><div class="line"></div><div class="line">import java.io.*;</div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class SerializableTest1 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) throws IOException, ClassNotFoundException &#123;</div><div class="line">		Person p1 = new Person("zhangsan",23);</div><div class="line">		Person p2 = new Person("lisi",24);</div><div class="line">		Person p3 = new Person("wangwu",25);</div><div class="line">		List&lt;Person&gt; list = new ArrayList&lt;&gt;();</div><div class="line">		list.add(p1);</div><div class="line">		list.add(p2);</div><div class="line">		list.add(p3);</div><div class="line">		</div><div class="line">		</div><div class="line">		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("D:\\IOtest\\test11.txt"));</div><div class="line">		out.writeObject(list);</div><div class="line">		out.close();</div><div class="line">		</div><div class="line">		ObjectInputStream in= new ObjectInputStream(new FileInputStream("D:\\IOtest\\test11.txt"));</div><div class="line">		list = (List&lt;Person&gt;) in.readObject();</div><div class="line">		 for(Person li:list)</div><div class="line">			 System.out.println(li);</div><div class="line">		 in.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Person [name=zhangsan, age=<span class="number">23</span>]</div><div class="line">Person [name=lisi, age=<span class="number">24</span>]</div><div class="line">Person [name=wangwu, age=<span class="number">25</span>]</div></pre></td></tr></table></figure>
+<p>如果去注释掉那两个重写方法里面的内容，如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public void writeExternal(ObjectOutput out) throws IOException &#123;</div><div class="line">    <span class="comment">//out.writeObject(name);</span></div><div class="line">   <span class="comment">// out.writeInt(age);</span></div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">public void readExternal(ObjectInput <span class="keyword">in</span>) throws IOException,</div><div class="line">        ClassNotFoundException &#123;</div><div class="line">   <span class="comment">// name = (String)in.readObject();</span></div><div class="line">   <span class="comment">//age = in.readInt();</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么运行结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Person [name=null, age=<span class="number">0</span>]</div><div class="line">Person [name=null, age=<span class="number">0</span>]</div><div class="line">Person [name=null, age=<span class="number">0</span>]</div></pre></td></tr></table></figure>
+<h4 id="3-2-transient关键字用法"><a href="#3-2-transient关键字用法" class="headerlink" title="3.2 transient关键字用法"></a><strong>3.2 transient关键字用法</strong></h4><p>如果对象中有一些信息是敏感信息，比如年龄age，我们不希望它被序列化恢复，可以有两种方法。一种是实现Externalizable接口，并且在writeExternal()与readExternal()方法中不传入这些信息。另外一种即使实现Serializable接口，把敏感信息用transient关键字修饰，那么进行序列化恢复时，就是显式的系统默认值。程序如下：<br>把年龄用transient修饰：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private transient int age;</div></pre></td></tr></table></figure>
+<p>运行程序后的结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Person [name=zhangsan, age=<span class="number">0</span>]</div><div class="line">Person [name=lisi, age=<span class="number">0</span>]</div><div class="line">Person [name=wangwu, age=<span class="number">0</span>]</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>记住序列化的两个流：ObjectOutputStream和ObjectInputStream；两个接口：Serializable接口和Externalizable接口</li>
+<li>记住序列化的五个步骤</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/序列化-对象输出流/" rel="tag"># 序列化,对象输出流</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/14/《Java编程思想》学习笔记之IO流体系/" rel="next" title="《Java编程思想》学习笔记之IO流体系">
+                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之IO流体系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-序列化与反序列化的概念及优点"><span class="nav-number">1.</span> <span class="nav-text">1.序列化与反序列化的概念及优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-序列化与反序列化的步骤"><span class="nav-number">2.</span> <span class="nav-text">2.序列化与反序列化的步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-序列化的控制"><span class="nav-number">3.</span> <span class="nav-text">3.序列化的控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Externalizable接口"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 Externalizable接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-transient关键字用法"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 transient关键字用法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
