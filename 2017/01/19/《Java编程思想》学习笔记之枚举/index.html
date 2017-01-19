@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="枚举,枚举集合," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="枚举在Java中的应用较为普遍，一般的用途是将一组具名的值集合在一起，作为一种的新的类型在程序组件中应用。  本章要点：
+
+枚举类型的基本应用
+switch语句中的枚举
+枚举类的常用方法
+枚举中添加方法
+枚举与接口
+枚举集合（enumset与enummap）
+总结1.枚举类型的基本应用　当我们需要用到一个常量的时候，一般会用static和final进行修饰，如下：
+
+1public stati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java编程思想》学习笔记之枚举">
+<meta property="og:url" content="http://yoursite.com/2017/01/19/《Java编程思想》学习笔记之枚举/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="枚举在Java中的应用较为普遍，一般的用途是将一组具名的值集合在一起，作为一种的新的类型在程序组件中应用。  本章要点：
+
+枚举类型的基本应用
+switch语句中的枚举
+枚举类的常用方法
+枚举中添加方法
+枚举与接口
+枚举集合（enumset与enummap）
+总结1.枚举类型的基本应用　当我们需要用到一个常量的时候，一般会用static和final进行修饰，如下：
+
+1public stati">
+<meta property="og:updated_time" content="2017-01-19T15:46:37.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Java编程思想》学习笔记之枚举">
+<meta name="twitter:description" content="枚举在Java中的应用较为普遍，一般的用途是将一组具名的值集合在一起，作为一种的新的类型在程序组件中应用。  本章要点：
+
+枚举类型的基本应用
+switch语句中的枚举
+枚举类的常用方法
+枚举中添加方法
+枚举与接口
+枚举集合（enumset与enummap）
+总结1.枚举类型的基本应用　当我们需要用到一个常量的时候，一般会用static和final进行修饰，如下：
+
+1public stati">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/19/《Java编程思想》学习笔记之枚举/"/>
+
+
+
+
+
+  <title> 《Java编程思想》学习笔记之枚举 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/19/《Java编程思想》学习笔记之枚举/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Java编程思想》学习笔记之枚举
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-19T23:46:27+08:00">
+                2017-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/19/《Java编程思想》学习笔记之枚举/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之枚举">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　枚举在Java中的应用较为普遍，一般的用途是将一组具名的值集合在一起，作为一种的新的类型在程序组件中应用。<br>  本章要点：</p>
+<ul>
+<li>枚举类型的基本应用</li>
+<li>switch语句中的枚举</li>
+<li>枚举类的常用方法</li>
+<li>枚举中添加方法</li>
+<li>枚举与接口</li>
+<li>枚举集合（enumset与enummap）</li>
+<li>总结<h2 id="1-枚举类型的基本应用"><a href="#1-枚举类型的基本应用" class="headerlink" title="1.枚举类型的基本应用"></a><strong>1.枚举类型的基本应用</strong></h2>　当我们需要用到一个常量的时候，一般会用static和final进行修饰，如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final double PI=3.14;</div></pre></td></tr></table></figure>
+<p>　　数学中的圆周率PI就可以用这种方式固定下来，之后可以很方便的对这个数学常量进行调用。而如果有一组相关的常量需要被应用，枚举类型是最好的选择。<br>  比如，一周有七天，从周一到周日，可以用枚举把它们组合在一起。如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public enum Week &#123; MON, TUE, WED, THU ,FRI, SAT, SUN&#125;</div></pre></td></tr></table></figure>
+<p>　　枚举类用关键字enum表示，用大括号表示值的集合。可以通过如下两种方式进行使用：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//第一种方式，直接用  枚举类名.值  进行调用</div><div class="line">package xuwei.enumtest.com;</div><div class="line">public class enumTest1 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		System.out.println("Today is  "+Week.MON);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//第二种方式，静态导入枚举类，就可以直接进行调用</div><div class="line">package xuwei.enumtest.com;</div><div class="line">import static xuwei.enumtest.com.Week.*;</div><div class="line">public class enumTest1 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		System.out.println("Today is  "+MON);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果均为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Today is  MON</div></pre></td></tr></table></figure>
+<p>　　如上就是枚举类最简单的用法，用关键字enum将一组具名的值的有限集合创建为一种新的类型，这些具名的值可以作为常规的程序组件使用。</p>
+<h2 id="2-switch语句中的枚举"><a href="#2-switch语句中的枚举" class="headerlink" title="2.switch语句中的枚举"></a><strong>2.switch语句中的枚举</strong></h2><p>　　switch语句是程序控制语句中的常用的一种，通过不同的值，选择不同的程序分支来运行。一般来说，在switch中只能使用整数值，但是枚举实例自身具有整数值的次数，可以在switch语句中使用，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">public class enumTest2 &#123;</div><div class="line">	Week day = Week.FRI;</div><div class="line">	public  void method()&#123;</div><div class="line">		switch(day)&#123;</div><div class="line">		case MON:</div><div class="line">			System.out.println("星期一，上班啦!!!");break;</div><div class="line">		case TUE:</div><div class="line">			System.out.println("星期二，上班啦!!!");break;</div><div class="line">		case WED:</div><div class="line">			System.out.println("星期三，上班啦!!!");break;</div><div class="line">		case THU:</div><div class="line">			System.out.println("星期四，上班啦!!!");break;</div><div class="line">		case FRI:</div><div class="line">			System.out.println("星期五，上班啦!!!");break;</div><div class="line">		case SAT:</div><div class="line">			System.out.println("星期六，放假啦!!!");break;</div><div class="line">		case SUN:</div><div class="line">			System.out.println("星期天，放假啦!!!");break;</div><div class="line">		&#125;	</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		enumTest2 et = new enumTest2();</div><div class="line">		et.method();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">星期五，上班啦!!!</div></pre></td></tr></table></figure>
+<p>需要注意的是：<strong>在case语句中可以直接使用枚举实例，不需要用枚举类型来修饰</strong>。</p>
+<h2 id="3-枚举类的常用方法"><a href="#3-枚举类的常用方法" class="headerlink" title="3.枚举类的常用方法"></a><strong>3.枚举类的常用方法</strong></h2><p>　　当我们创建枚举类时，编译器会生成一个相关的类，这个类继承自java.lang.Enum，它是所有 Java 语言枚举类型的公共基本类。它提供的一些基本方法，枚举也可以进行使用。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">ordinal</span><span class="params">()</span></span>  <span class="comment">//返回枚举实例在枚举声明中的位置，其中初始常量序数为零；</span></div><div class="line"><span class="function"><span class="title">compareTo</span><span class="params">()</span></span> <span class="comment">//比较枚举实例与指定对象的顺序；</span></div><div class="line"><span class="function"><span class="title">valueOf</span><span class="params">(Class&lt;T&gt; enumType, String name)</span></span><span class="comment">//根据指定的名称返回相应的enum实例；</span></div><div class="line"><span class="function"><span class="title">name</span><span class="params">()</span></span><span class="comment">//返回枚举实例的名称</span></div><div class="line"><span class="function"><span class="title">getDeclaringClass</span><span class="params">()</span></span><span class="comment">//返回枚举实例所对应的字节码文件</span></div><div class="line"><span class="function"><span class="title">equals</span><span class="params">(Object other)</span></span><span class="comment">//将指定对象和枚举实例进行对比</span></div><div class="line"><span class="function"><span class="title">hashCode</span><span class="params">()</span></span>  <span class="comment">//返回枚举实例的哈希值</span></div><div class="line"><span class="function"><span class="title">toString</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
+<p>通过示例对主要的方法进行验证：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">public class enumTest3 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//ordinal方法验证</div><div class="line">		System.out.println("ordinal方法验证---"+"星期五的位置为   "+Week.FRI.ordinal());</div><div class="line">		</div><div class="line">		//compareTo方法验证</div><div class="line">		System.out.println("compareTo方法验证---"+"枚举值的顺序差值"+Week.FRI.compareTo(Week.SUN));</div><div class="line">		</div><div class="line">		//valueOf方法验证</div><div class="line">		String s = "FRI" ;</div><div class="line">		Week day = Enum.valueOf(Week.class,s);</div><div class="line">		System.out.println("valueOf方法验证---"+"是否存在星期五"+day);</div><div class="line">		</div><div class="line">		//name()方法验证</div><div class="line">		System.out.println("name()方法验证---"+Week.FRI.name());</div><div class="line">		</div><div class="line">		//getDeclaringClass()方法验证</div><div class="line">		System.out.println("getDeclaringClass()方法验证---"+Week.FRI.getDeclaringClass());</div><div class="line">		</div><div class="line">		//equals()方法验证</div><div class="line">		System.out.println("equals()方法验证---"+Week.FRI.equals(Week.SUN));</div><div class="line">    	System.out.println("equals()方法验证---"+Week.FRI.equals(Week.FRI));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ordinal方法验证---星期五的位置为   <span class="number">4</span></div><div class="line">compareTo方法验证---枚举值的顺序差值-<span class="number">2</span></div><div class="line">alueOf方法验证---是否存在星期五FRI</div><div class="line"><span class="function"><span class="title">name</span><span class="params">()</span></span>方法验证---FRI</div><div class="line"><span class="function"><span class="title">getDeclaringClass</span><span class="params">()</span></span>方法验证---class xuwei<span class="selector-class">.enumtest</span><span class="selector-class">.com</span><span class="selector-class">.Week</span></div><div class="line"><span class="function"><span class="title">equals</span><span class="params">()</span></span>方法验证---false</div><div class="line"><span class="function"><span class="title">equals</span><span class="params">()</span></span>方法验证---true</div></pre></td></tr></table></figure>
+<h2 id="4-枚举中添加方法"><a href="#4-枚举中添加方法" class="headerlink" title="4.枚举中添加方法"></a><strong>4.枚举中添加方法</strong></h2><h4 id="4-1-添加对枚举实例的描述"><a href="#4-1-添加对枚举实例的描述" class="headerlink" title="4.1 添加对枚举实例的描述"></a><strong>4.1 添加对枚举实例的描述</strong></h4><p>　　之前学习的枚举都是简单的枚举实例，一般来说，我们也希望每个枚举示例能够返回对自身的描述。可以通过提供构造方法，负责处理描述信息，并添加方法，返回这个描述信息，如下；</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">public enum Week1 &#123;</div><div class="line">	MON("今天星期一"),TUE("今天星期二"),WED("今天星期三"),THU("今天星期四"),FRI("今天星期五"),SAT("今天星期六"),SUN("今天星期天");//最后一个分号不可少</div><div class="line">	</div><div class="line">	private String description;</div><div class="line">	private Week1(String description)&#123;this.description = description;&#125;</div><div class="line">	</div><div class="line">	public String getDescription()&#123;return description;&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		for(Week1 day:Week1.values())</div><div class="line">			System.out.println(day+":"+day.getDescription());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">MON:今天星期一</div><div class="line">TUE:今天星期二</div><div class="line">WED:今天星期三</div><div class="line">THU:今天星期四</div><div class="line">FRI:今天星期五</div><div class="line">SAT:今天星期六</div><div class="line">SUN:今天星期天</div></pre></td></tr></table></figure>
+<p>需要注意的是：</p>
+<ol>
+<li>枚举实例序列的最后必须添加一个分号；</li>
+<li>必须先定义枚举实例，然后才能定义方法和属性；</li>
+<li>枚举类的构造方法声明为私有，只在内部使用，也不允许外界通过构造方法创建实例<h4 id="4-2-覆盖toString方法"><a href="#4-2-覆盖toString方法" class="headerlink" title="4.2 覆盖toString方法"></a><strong>4.2 覆盖toString方法</strong></h4>通过覆写toString方法，也能够为枚举实例添加字符串描述：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">public enum Week3 &#123;</div><div class="line">	</div><div class="line">	MON, TUE, WED, THU ,FRI, SAT, SUN;</div><div class="line">	public String toString()&#123;return "Today is "+name();&#125;</div><div class="line">	</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		for(Week3 day:Week3.values())</div><div class="line">			System.out.println(day);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行的结果为:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Today is MON</div><div class="line">Today is TUE</div><div class="line">Today is WED</div><div class="line">Today is THU</div><div class="line">Today is FRI</div><div class="line">Today is SAT</div><div class="line">Today is SUN</div></pre></td></tr></table></figure>
+<h2 id="5-枚举与接口"><a href="#5-枚举与接口" class="headerlink" title="5.枚举与接口"></a><strong>5.枚举与接口</strong></h2><p>　　所有的枚举类都继承自java.lang.Enum，而Java不支持多继承，所以枚举类不能够再继承其他的类。但是，枚举类可以实现接口。如下代码所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">import java.util.Random;</div><div class="line"></div><div class="line">interface Do&lt;T&gt;&#123;</div><div class="line">	public T Show();</div><div class="line">&#125;</div><div class="line">//Week4实现Do接口，并重写了它里面的Show()方法</div><div class="line">public enum Week4 implements Do&lt;Week4&gt;&#123;</div><div class="line">	MON, TUE, WED, THU ,FRI, SAT, SUN;</div><div class="line">    private Random rand = new Random(47);</div><div class="line">	@Override</div><div class="line">	public Week4 Show() &#123;</div><div class="line">		return values()[rand.nextInt(values().length)];</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">public class enumTest5 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Week4 week = Week4.FRI;</div><div class="line">		System.out.println(week.Show());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SUN</div></pre></td></tr></table></figure>
+<p>　　除了从外部实现一个接口的方法，也可以在一个接口的内部，创建实现接口的枚举，从而通过接口组织枚举。如下;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line">//通过接口把枚举组合在一起</div><div class="line">public interface Food &#123;</div><div class="line">   enum Fruit implements Food&#123;Apple,Orange,Banana;&#125;</div><div class="line">   </div><div class="line">   enum Coffee implements Food&#123;BlackCoffee,Latte,Tea;&#125;//疑问？要分号和要分号都不报编译错误，貌似都可行，为何？</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类调用枚举</div><div class="line">package xuwei.enumtest.com;</div><div class="line">import static xuwei.enumtest.com.Food.*;</div><div class="line">public class enumTest6 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">       //都是Food型，可以用Food接收</div><div class="line">		Food food = Fruit.Apple;</div><div class="line">		food = Coffee.Latte;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="6-枚举集合（EnumSet与EnumMap）"><a href="#6-枚举集合（EnumSet与EnumMap）" class="headerlink" title="6.枚举集合（EnumSet与EnumMap）"></a><strong>6.枚举集合（EnumSet与EnumMap）</strong></h2><h4 id="6-1-EnumSet"><a href="#6-1-EnumSet" class="headerlink" title="6.1 EnumSet"></a><strong>6.1 EnumSet</strong></h4><p>　　EnumSet是与枚举类型一起使用的专用 Set 实现。引入EnumSet是为了通过枚举创建一种替代品，用来替代传统的基于int的“位标志”（表示开关信息）。EnumSet的优点在于：它在说明一个二进制位是否存在时，具有更好的表达能力，并且不需要担心性能。<br>  　　EnumSet的基本使用方法如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">import java.util.EnumSet;</div><div class="line"></div><div class="line">public class EnumSetTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建一个具有Week枚举类型的空EnumSet，参数类型为枚举的字节码文件</div><div class="line">		EnumSet&lt;Week&gt; es = EnumSet.noneOf(Week.class);</div><div class="line">		</div><div class="line">		//利用add()方法把枚举实例添加到EnumSet中</div><div class="line">		es.add(Week.MON);</div><div class="line">		System.out.println(es);</div><div class="line">		</div><div class="line">		//返回包含指定元素的枚举类型，并将其添加</div><div class="line">		es.addAll(EnumSet.of(Week.TUE,Week.WED));</div><div class="line">		System.out.println(es);</div><div class="line">		</div><div class="line">		//创建一个包含所有指定枚举类型实例的EnumSet，参数类型是枚举的字节码文件</div><div class="line">		es=EnumSet.allOf(Week.class);</div><div class="line">		System.out.println(es);</div><div class="line">		</div><div class="line">		//通过removeAll()移除指定的枚举实例</div><div class="line">		es.removeAll(EnumSet.of(Week.SAT, Week.SUN));</div><div class="line">		System.out.println(es);</div><div class="line">		</div><div class="line">		//移除EnumSet某一范围内的枚举实例</div><div class="line">		es.removeAll(EnumSet.range(Week.MON, Week.WED));</div><div class="line">		System.out.println(es);</div><div class="line">		</div><div class="line">		//原有的EnumSet的补集</div><div class="line">		es=EnumSet.complementOf(es);</div><div class="line">		System.out.println(es);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[MON]</div><div class="line">[MON, TUE, WED]</div><div class="line">[MON, TUE, WED, THU, FRI, SAT, SUN]</div><div class="line">[MON, TUE, WED, THU, FRI]</div><div class="line">[THU, FRI]</div><div class="line">[MON, TUE, WED, SAT, SUN]</div></pre></td></tr></table></figure>
+<h4 id="6-2-EnumMap"><a href="#6-2-EnumMap" class="headerlink" title="6.2 EnumMap"></a><strong>6.2 EnumMap</strong></h4><p>　　EnumMap是与枚举类型一起使用的专用Map实现。它要求其中的键（Key）必须来自于一个枚举类型。EnumMap的优点在于允许程序员改变值对象（？暂时还不理解）。示例如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">package xuwei.enumtest.com;</div><div class="line"></div><div class="line">import java.util.EnumMap;</div><div class="line">import java.util.Map;</div><div class="line"></div><div class="line">interface Command&#123;void say();&#125;</div><div class="line">public class EnumMapTest &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//以Week枚举的字节码文件为参数，构建EnumMap</div><div class="line">		EnumMap&lt;Week,Command&gt; em = new EnumMap&lt;Week,Command&gt;(Week.class);</div><div class="line">		</div><div class="line">		em.put(Week.MON, new Command()&#123;public void say()&#123;System.out.println("上班啦!!!");&#125;&#125;);</div><div class="line">		</div><div class="line">		em.put(Week.SAT, new Command()&#123;public void say()&#123;System.out.println("放假啦!!!");&#125;&#125;);</div><div class="line">		//返回EnumMap中包含的映射关系的 set 视图</div><div class="line">		for(Map.Entry&lt;Week, Command&gt; e: em.entrySet())&#123;</div><div class="line">			System.out.print(e.getKey()+":");</div><div class="line">			e.getValue().say();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为；</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MON:上班啦!!!</div><div class="line">SAT:放假啦!!!</div></pre></td></tr></table></figure>
+<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7.总结"></a><strong>7.总结</strong></h2><ol>
+<li>枚举类都是继承自java.lang.Enum类的，通过关键字enum来表示。</li>
+<li>枚举可以将一组具名的值的有限集合创建为一种新的类型，并对其加以描述。</li>
+<li>枚举与接口、泛型、多态以及集合均有交叉应用，需要加以学习。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/枚举-枚举集合/" rel="tag"># 枚举,枚举集合</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/14/《Java编程思想》学习笔记之序列化与反序列化/" rel="next" title="《Java编程思想》学习笔记之序列化与反序列化">
+                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之序列化与反序列化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-枚举类型的基本应用"><span class="nav-number">1.</span> <span class="nav-text">1.枚举类型的基本应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-switch语句中的枚举"><span class="nav-number">2.</span> <span class="nav-text">2.switch语句中的枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-枚举类的常用方法"><span class="nav-number">3.</span> <span class="nav-text">3.枚举类的常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-枚举中添加方法"><span class="nav-number">4.</span> <span class="nav-text">4.枚举中添加方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-添加对枚举实例的描述"><span class="nav-number">4.0.1.</span> <span class="nav-text">4.1 添加对枚举实例的描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-覆盖toString方法"><span class="nav-number">4.0.2.</span> <span class="nav-text">4.2 覆盖toString方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-枚举与接口"><span class="nav-number">5.</span> <span class="nav-text">5.枚举与接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-枚举集合（EnumSet与EnumMap）"><span class="nav-number">6.</span> <span class="nav-text">6.枚举集合（EnumSet与EnumMap）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-EnumSet"><span class="nav-number">6.0.1.</span> <span class="nav-text">6.1 EnumSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-EnumMap"><span class="nav-number">6.0.2.</span> <span class="nav-text">6.2 EnumMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-总结"><span class="nav-number">7.</span> <span class="nav-text">7.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
