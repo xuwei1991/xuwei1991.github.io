@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="简单工厂模式,工厂模式,抽象工厂模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="工厂方法模式和抽象工厂方法模式是Java创建型模式的一种，是用来更方便的创建对象的。另外，简单工厂方法也是学习它们的基础，本章主要对这三个模式进行学习。  本章要点：
+
+简单工厂方法模式
+工厂方法模式
+抽象工厂方法模式
+总结
+
+1. 简单工厂方法模式1.1 概念及由来　　通常，我们需要用到一个对象时，都是采用关键字new来进行创建。举例来说，小米手机有多个产品，如果我们想到用到手机的功能，通常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式之工厂方法模式+抽象工厂方法模式">
+<meta property="og:url" content="http://yoursite.com/2017/02/14/Java设计模式之工厂方法模式-抽象工厂方法模式/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="工厂方法模式和抽象工厂方法模式是Java创建型模式的一种，是用来更方便的创建对象的。另外，简单工厂方法也是学习它们的基础，本章主要对这三个模式进行学习。  本章要点：
+
+简单工厂方法模式
+工厂方法模式
+抽象工厂方法模式
+总结
+
+1. 简单工厂方法模式1.1 概念及由来　　通常，我们需要用到一个对象时，都是采用关键字new来进行创建。举例来说，小米手机有多个产品，如果我们想到用到手机的功能，通常">
+<meta property="og:updated_time" content="2017-02-14T13:37:13.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java设计模式之工厂方法模式+抽象工厂方法模式">
+<meta name="twitter:description" content="工厂方法模式和抽象工厂方法模式是Java创建型模式的一种，是用来更方便的创建对象的。另外，简单工厂方法也是学习它们的基础，本章主要对这三个模式进行学习。  本章要点：
+
+简单工厂方法模式
+工厂方法模式
+抽象工厂方法模式
+总结
+
+1. 简单工厂方法模式1.1 概念及由来　　通常，我们需要用到一个对象时，都是采用关键字new来进行创建。举例来说，小米手机有多个产品，如果我们想到用到手机的功能，通常">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/14/Java设计模式之工厂方法模式-抽象工厂方法模式/"/>
+
+
+
+
+
+  <title> Java设计模式之工厂方法模式+抽象工厂方法模式 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/14/Java设计模式之工厂方法模式-抽象工厂方法模式/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java设计模式之工厂方法模式+抽象工厂方法模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T21:35:51+08:00">
+                2017-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/02/14/Java设计模式之工厂方法模式-抽象工厂方法模式/" class="leancloud_visitors" data-flag-title="Java设计模式之工厂方法模式+抽象工厂方法模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　工厂方法模式和抽象工厂方法模式是Java创建型模式的一种，是用来更方便的创建对象的。另外，简单工厂方法也是学习它们的基础，本章主要对这三个模式进行学习。<br>  本章要点：</p>
+<ul>
+<li>简单工厂方法模式</li>
+<li>工厂方法模式</li>
+<li>抽象工厂方法模式</li>
+<li>总结</li>
+</ul>
+<h2 id="1-简单工厂方法模式"><a href="#1-简单工厂方法模式" class="headerlink" title="1. 简单工厂方法模式"></a><strong>1. 简单工厂方法模式</strong></h2><h4 id="1-1-概念及由来"><a href="#1-1-概念及由来" class="headerlink" title="1.1 概念及由来"></a><strong>1.1 概念及由来</strong></h4><p>　　通常，我们需要用到一个对象时，都是采用关键字new来进行创建。举例来说，小米手机有多个产品，如果我们想到用到手机的功能，通常都是在主函数中new出手机对象，然后再进行方法的调用。<br>  如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line">//小米1产品类</div><div class="line">class Mi1&#123;</div><div class="line">	public void call()&#123;</div><div class="line">		//小米1打电话功能</div><div class="line">		System.out.println("用小米1手机打电话");</div><div class="line">		&#125;</div><div class="line">     	//小米1发短信功能</div><div class="line">	public void sendmessage()&#123;</div><div class="line">		System.out.println("用小米1手机发短信");</div><div class="line">		&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//小米2产品类</div><div class="line">class Mi2&#123;</div><div class="line">	public void call()&#123;</div><div class="line">		//小米2打电话功能</div><div class="line">		System.out.println("用小米2手机打电话");</div><div class="line">		&#125;</div><div class="line">	    //小米2发短信功能</div><div class="line">	public void sendmessage()&#123;</div><div class="line">		System.out.println("用小米2手机发短信");</div><div class="line">		&#125;</div><div class="line">&#125;</div><div class="line">public class FactoryDemo1 &#123;</div><div class="line">   public static void main(String[] args)&#123;</div><div class="line">	   //创建小米1和小米2对象</div><div class="line">	   Mi1 m1 = new Mi1();</div><div class="line">	   Mi2 m2 = new Mi2();</div><div class="line">	   //调用小米1的方法</div><div class="line">	   m1.call();</div><div class="line">	   m1.sendmessage();</div><div class="line">	   //调用小米2的方法</div><div class="line">	   m2.call();</div><div class="line">	   m2.sendmessage();	      </div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　如上面的示例所示，能够完成我们需要达到的功能。但是，存在两个缺点：</p>
+<ol>
+<li>客户端进行创建对象时，创建过程是对客户端可见的，不符合程序的封装特性；</li>
+<li>上述示例中对象创建比较简单，如果某个对象的创建需要多种初始化设置，那么在客户端进行创建对象就是不合适的，不利于代码的简洁和可读性；<br>　　可以通过简单工厂方法来解决这个问题。在上述示例中，小米手机的系列产品的功能方法是一致的，可以把小米手机作为父类抽取出来，后续的方法调用可以采用多态的形式进行。另外可以建造工厂，专门生产小米手机，把代码放置在工厂类中，向客户隐藏了哪种具体产品类将被实例化这一细节，用户只需要关心所需产品对应的工厂，无须关心创建细节，甚至无须知道具体产品类的类名。<h4 id="1-2-简单工厂设计模式的主要角色"><a href="#1-2-简单工厂设计模式的主要角色" class="headerlink" title="1.2 简单工厂设计模式的主要角色"></a><strong>1.2 简单工厂设计模式的主要角色</strong></h4>　　作为简单工厂设计模式，它有效的简化了对象的创建，并封装了代码。它有三个主要的角色：</li>
+</ol>
+<ol>
+<li><strong>抽象产品角色</strong>：它是具体产品抽取而来的父类或者是接口，定义了具体产品要实现基本的方法；</li>
+<li><strong>具体产品角色</strong>：具体产品的实现类，重写父类的方法，实现自己的功能；</li>
+<li><strong>工厂类角色</strong>：简单工厂方法的核心角色，通过工厂类角色实现产品的具体创建过程；<h4 id="1-3-简单工厂设计模式的代码体现"><a href="#1-3-简单工厂设计模式的代码体现" class="headerlink" title="1.3 简单工厂设计模式的代码体现"></a><strong>1.3 简单工厂设计模式的代码体现</strong></h4>　　通过上面的分析，可以建三个类来实现简单工厂设计模式。首先创建抽象产品角色，把小米手机作为父类，提供打电话和发短信的功能，再创建具体类角色，分别定义小米1和小米2，并重写它们的功能，然后再建立工厂，在小米工厂中生产小米1和小米2。在客户端进行对象创建时，只需要调用工厂，用工厂进行调用即可。<br>　　代码示例如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">    package com.xuwei.DesignPattern;</div><div class="line">//抽象产品类，定义抽象方法</div><div class="line">abstract class Mi&#123;</div><div class="line">	abstract void call();</div><div class="line">	abstract void sendsendmessage();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品小米1继承抽象产品小米手机，并复写方法；</div><div class="line">class Mi1 extends Mi&#123;</div><div class="line">	@Override</div><div class="line">	void call() &#123;</div><div class="line">		System.out.println(&quot;用小米1手机打电话&quot;);		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void sendsendmessage() &#123;</div><div class="line">		System.out.println(&quot;用小米1手机发短信&quot;);	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品小米2继承抽象产品小米手机，并复写方法；</div><div class="line">class Mi2 extends Mi&#123;</div><div class="line">	@Override</div><div class="line">	void call() &#123;</div><div class="line">		System.out.println(&quot;用小米2手机打电话&quot;);		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void sendsendmessage() &#123;</div><div class="line">		System.out.println(&quot;用小米2手机发短信&quot;);	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//工厂类，负责生产小米1和小米2</div><div class="line">class MiFactory&#123;	</div><div class="line">	public  static Mi createMi(int MiType)&#123;</div><div class="line">		//通过传入的类型来选择生产的具体产品类</div><div class="line">		switch(MiType)&#123;</div><div class="line">		//如果传入的是1，就生产小米1</div><div class="line">		case 1:</div><div class="line">			return new Mi1();</div><div class="line">		//如果传入的是2，就生产小米2</div><div class="line">		case 2:</div><div class="line">			return new Mi2();</div><div class="line">		default:</div><div class="line">			break;</div><div class="line">		&#125;</div><div class="line">		return null;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class FactoryDemo2 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		//通过向工厂传入参数来创建小米1产品和小米2产品</div><div class="line">		Mi m1 = MiFactory .createMi(1);</div><div class="line">		Mi m2 =MiFactory.createMi(2);</div><div class="line">		//调用小米1和小米2的方法</div><div class="line">		m1.call();</div><div class="line">		m1.sendsendmessage();</div><div class="line">		m2.call();</div><div class="line">		m2.sendsendmessage();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　通过采用简单工厂方法，解决了系列产品对象的创建问题，有效的封装了代码，并且使得调用者更加方便的使用。</p>
+<h2 id="2-工厂方法模式"><a href="#2-工厂方法模式" class="headerlink" title="2. 工厂方法模式"></a><strong>2. 工厂方法模式</strong></h2><h4 id="2-1-工厂方法模式的概念和由来"><a href="#2-1-工厂方法模式的概念和由来" class="headerlink" title="2.1 工厂方法模式的概念和由来"></a><strong>2.1 工厂方法模式的概念和由来</strong></h4><p>　　工厂方法模式和简单工厂模式属于一个系列，都是用来创建对象的设计模式，工厂方法模式是基于简单工厂方法之上的。拿上面的例子来说，目前两个产品都可以在工厂类中进行生产。如果小米3又出来了，需要在工厂中进行生产，那么，就必须修改工厂方法的代码，这样就不符合了设计模式的开闭原则，不利于后续的拓展。由此提出来了工厂方法模式，将工厂类进行抽象，具体的工厂来负责生产具体的产品。</p>
+<h4 id="2-2-工厂方法设计模式的主要角色"><a href="#2-2-工厂方法设计模式的主要角色" class="headerlink" title="2.2 工厂方法设计模式的主要角色"></a><strong>2.2 工厂方法设计模式的主要角色</strong></h4><p>　　工厂方法设计模式减少了工厂方法压力，让具体的产品生产在子类工厂中进行实现，它主要有四种主要的角色：</p>
+<p> 1.<strong>抽象产品角色</strong>：它是具体产品抽取而来的父类或者是接口，定义了具体产品要实现基本的方法；</p>
+<p> 2.<strong>具体产品角色</strong>：具体产品的实现类，重写父类的方法，实现自己的功能；</p>
+<p>3.<strong>抽象工厂角色</strong>：具体工厂类要继承的父类或要实现的接口，定义生产方法；</p>
+<p>4.<strong>具体工厂角色</strong>：重写或实现抽象工厂的方法，生产具体的产品；</p>
+<h4 id="2-3工厂方法设计模式的程序示例"><a href="#2-3工厂方法设计模式的程序示例" class="headerlink" title="2.3工厂方法设计模式的程序示例"></a><strong>2.3工厂方法设计模式的程序示例</strong></h4><p>　　加入添加新的产品小米3，通过改进程序代码，能够解决问题。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">abstract class Mi&#123;</div><div class="line">	abstract void call();</div><div class="line">	abstract void sendsendmessage();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品小米1继承抽象产品小米手机，并复写方法；</div><div class="line">class Mi1 extends Mi&#123;</div><div class="line">	@Override</div><div class="line">	void call() &#123;</div><div class="line">		System.out.println("用小米1手机打电话");		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void sendsendmessage() &#123;</div><div class="line">		System.out.println("用小米1手机发短信");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品小米2继承抽象产品小米手机，并复写方法；</div><div class="line">class Mi2 extends Mi&#123;</div><div class="line">	@Override</div><div class="line">	void call() &#123;</div><div class="line">		System.out.println("用小米2手机打电话");		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void sendsendmessage() &#123;</div><div class="line">		System.out.println("用小米2手机发短信");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品小米3继承抽象产品小米手机，并复写方法；</div><div class="line">class Mi3 extends Mi&#123;</div><div class="line">	@Override</div><div class="line">	void call() &#123;</div><div class="line">		System.out.println("用小米3手机打电话");		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void sendsendmessage() &#123;</div><div class="line">		System.out.println("用小米3手机发短信");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//抽象工厂类，定义抽象的生产方法</div><div class="line">abstract class MiFactory&#123;</div><div class="line">	abstract Mi createMi();</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Mi1_Factory extends MiFactory&#123;</div><div class="line">    //覆写工厂类的生产方法，生产小米1</div><div class="line">	Mi createMi() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi1();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Mi2_Factory extends MiFactory&#123;</div><div class="line">    //覆写工厂类的生产方法，生产小米2</div><div class="line">	Mi createMi() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi2();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Mi3_Factory extends MiFactory&#123;</div><div class="line">    //覆写工厂类的生产方法，生产小米3</div><div class="line">	Mi createMi() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi3();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">public class FactoryDemo3 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Mi1_Factory mf1 = new Mi1_Factory();</div><div class="line">		Mi m1 = mf1.createMi();</div><div class="line">		m1.call();</div><div class="line">		m1.sendsendmessage();</div><div class="line">		</div><div class="line">		Mi2_Factory mf2 = new Mi2_Factory();</div><div class="line">		Mi m2 = mf2.createMi();</div><div class="line">		m2.call();</div><div class="line">		m2.sendsendmessage();</div><div class="line">		</div><div class="line">		Mi3_Factory mf3 = new Mi3_Factory();</div><div class="line">		Mi m3 = mf3.createMi();</div><div class="line">		m3.call();</div><div class="line">		m3.sendsendmessage();	</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果后续要在生产小米4，只需要添加小米4产品类和小米4工厂类，不需要修改已有的代码。上述代码做到了低耦合性，也负责设计模式的开闭原则。</p>
+<h2 id="3-抽象工厂方法模式"><a href="#3-抽象工厂方法模式" class="headerlink" title="3.抽象工厂方法模式"></a><strong>3.抽象工厂方法模式</strong></h2><h4 id="3-1-抽象工厂方法模式的概念及由来"><a href="#3-1-抽象工厂方法模式的概念及由来" class="headerlink" title="3.1 抽象工厂方法模式的概念及由来"></a><strong>3.1 抽象工厂方法模式的概念及由来</strong></h4><p>　　抽象工厂方法模式和前两种工厂模式同属一个系列，但是用来解决不同的问题，它的适用场所是存在产品族的情况。假如，上述示例中，小米1还要生产CPU和电池，小米2也要声场CPU和电池，两个产品分别配备各自的电池。那么就存在了一个产品序列。引进抽象工厂模式，可以处理具有相同（或者相似）等级结构的多个产品族中的产品对象的创建问题。</p>
+<h4 id="3-2-抽象工厂方法模式的主要角色"><a href="#3-2-抽象工厂方法模式的主要角色" class="headerlink" title="3.2 抽象工厂方法模式的主要角色"></a><strong>3.2 抽象工厂方法模式的主要角色</strong></h4><p>　　和工厂方法模式一样，抽象工厂方法模式也有四个主要的角色，但是和工厂方法模式的角色内容有点不一样。</p>
+<ol>
+<li>抽象产品角色：有多个抽象产品类，每个抽象产品类派生出多个具体的产品类</li>
+<li>具体产品类：实现抽象产品类的方法</li>
+<li>抽象工厂类：一个抽象工厂，定义生产产品族的方法</li>
+<li>具体工厂类：每个工厂类实现多个产品的制造方法，这些产品同属一个产品族；<h4 id="3-3-抽象工厂方法模式的程序示例"><a href="#3-3-抽象工厂方法模式的程序示例" class="headerlink" title="3.3 抽象工厂方法模式的程序示例"></a><strong>3.3 抽象工厂方法模式的程序示例</strong></h4>　　假如有两个产品，分别是小米1和小米2，而每个产品又有CPU和电池，构成了一个产品族。如果用之前学到的工厂方法模式，那么就要建立四个工厂，彼此之间没有形成联系，客户端进行调用时，也要具体的指明产品信息，较为繁琐。采用抽象工厂方法模式，能够简化代码，如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line">//抽象产品CPU</div><div class="line">abstract class CPU&#123;&#125;</div><div class="line"></div><div class="line">//具体产品类，小米1的电CPU</div><div class="line">class Mi1_cpu extends CPU&#123;</div><div class="line">	public Mi1_cpu()&#123;System.out.println("小米1的CPU被生产了");&#125;</div><div class="line">&#125;</div><div class="line">//具体产品类，小米2的CPU</div><div class="line">class Mi2_cpu extends CPU&#123;</div><div class="line">	public Mi2_cpu()&#123;System.out.println("小米2的CPU被生产了");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//抽象产品电池</div><div class="line">abstract class DianChi&#123;&#125;</div><div class="line"></div><div class="line">//具体产品类，小米1的电池</div><div class="line">class Mi1_DianChi extends DianChi&#123;</div><div class="line">	public Mi1_DianChi()&#123;System.out.println("小米1的电池被生产了");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品类，小米2的电池</div><div class="line">class Mi2_DianChi extends DianChi&#123;</div><div class="line">	public Mi2_DianChi()&#123;System.out.println("小米2的电池被生产了");&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//抽象工厂，定义生产电池和生产CPU的方法</div><div class="line"> interface Factory&#123;</div><div class="line">	public CPU createCPU();</div><div class="line">	public  DianChi createDianChi();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体工厂，小米1的工厂，同时生产小米1的CPU和电池 </div><div class="line"> class Mi1_Factory implements Factory&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public CPU createCPU() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi1_cpu();</div><div class="line">	&#125;</div><div class="line">	@Override</div><div class="line">	public DianChi createDianChi() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi1_DianChi();</div><div class="line">	&#125;	 </div><div class="line"> &#125;</div><div class="line"> </div><div class="line">//具体工厂，小米2的工厂，同时生产小米2的CPU和电池 </div><div class="line"> class Mi2_Factory implements Factory&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public CPU createCPU() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi2_cpu();</div><div class="line">	&#125;</div><div class="line">	@Override</div><div class="line">	public DianChi createDianChi() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Mi2_DianChi();</div><div class="line">	&#125;	 </div><div class="line"> &#125;</div><div class="line"> </div><div class="line"></div><div class="line"></div><div class="line">public class FactoryDemo4 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建一个小米1的工厂，通过工厂生产需要的电池和CPU</div><div class="line">		Mi1_Factory mf1 = new Mi1_Factory();</div><div class="line">		mf1.createCPU();</div><div class="line">		mf1.createDianChi();</div><div class="line">		</div><div class="line">		//创建一个小米2的工厂，通过工厂生产需要的电池和CPU</div><div class="line">		Mi2_Factory mf2 = new Mi2_Factory();</div><div class="line">		mf2.createCPU();</div><div class="line">		mf2.createDianChi();</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码较好的解决了产品族的问题。但是同时也存在一个缺点，如果再加入其他的产品对象，比如要生产手机屏幕，那么代码就要大幅度修改，不再适用。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a><strong>4. 总结</strong></h2><ol>
+<li>无论是哪种工厂方法模式，最终的目的都是封装代码和解耦。</li>
+<li>工厂模式和抽象工厂模式的区别是，工厂方法模式的具体工厂类只能创建一个具体产品类的实例，而抽象工厂模式可以创建多个。抽象工厂更多的应用在产品族情况中。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/简单工厂模式-工厂模式-抽象工厂模式/" rel="tag"># 简单工厂模式,工厂模式,抽象工厂模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/12/Java设计模式概述/" rel="next" title="java设计模式概述">
+                <i class="fa fa-chevron-left"></i> java设计模式概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简单工厂方法模式"><span class="nav-number">1.</span> <span class="nav-text">1. 简单工厂方法模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-概念及由来"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 概念及由来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-简单工厂设计模式的主要角色"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 简单工厂设计模式的主要角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-简单工厂设计模式的代码体现"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3 简单工厂设计模式的代码体现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-工厂方法模式"><span class="nav-number">2.</span> <span class="nav-text">2. 工厂方法模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-工厂方法模式的概念和由来"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 工厂方法模式的概念和由来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-工厂方法设计模式的主要角色"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 工厂方法设计模式的主要角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3工厂方法设计模式的程序示例"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3工厂方法设计模式的程序示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-抽象工厂方法模式"><span class="nav-number">3.</span> <span class="nav-text">3.抽象工厂方法模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-抽象工厂方法模式的概念及由来"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 抽象工厂方法模式的概念及由来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-抽象工厂方法模式的主要角色"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 抽象工厂方法模式的主要角色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-抽象工厂方法模式的程序示例"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.3 抽象工厂方法模式的程序示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4. 总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
