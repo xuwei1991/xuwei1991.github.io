@@ -1,0 +1,790 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="创建者设计模式,建造者设计模式,导演类," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="建造者设计模式也是属于创建型模式的一种，是用来更好的创建复杂对象的，它与工厂类设计模式也有很多相似的地方。本章主要对建造者设计模式进行学习。  本章学习要点：
+
+建造者设计模式的概念和由来
+建造者设计模式的主要角色
+建造者设计模式的代码示例
+建造者设计模式与工厂类设计模式的区别
+总结1. 建造者设计模式的概念和由来　　建造者模式的定义是：将一个复杂对象的构建和它的表示相分离，使得同样的构建过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式之建造者模式">
+<meta property="og:url" content="http://yoursite.com/2017/02/19/Java设计模式之建造者模式/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="建造者设计模式也是属于创建型模式的一种，是用来更好的创建复杂对象的，它与工厂类设计模式也有很多相似的地方。本章主要对建造者设计模式进行学习。  本章学习要点：
+
+建造者设计模式的概念和由来
+建造者设计模式的主要角色
+建造者设计模式的代码示例
+建造者设计模式与工厂类设计模式的区别
+总结1. 建造者设计模式的概念和由来　　建造者模式的定义是：将一个复杂对象的构建和它的表示相分离，使得同样的构建过程">
+<meta property="og:updated_time" content="2017-02-19T15:54:06.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java设计模式之建造者模式">
+<meta name="twitter:description" content="建造者设计模式也是属于创建型模式的一种，是用来更好的创建复杂对象的，它与工厂类设计模式也有很多相似的地方。本章主要对建造者设计模式进行学习。  本章学习要点：
+
+建造者设计模式的概念和由来
+建造者设计模式的主要角色
+建造者设计模式的代码示例
+建造者设计模式与工厂类设计模式的区别
+总结1. 建造者设计模式的概念和由来　　建造者模式的定义是：将一个复杂对象的构建和它的表示相分离，使得同样的构建过程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/19/Java设计模式之建造者模式/"/>
+
+
+
+
+
+  <title> Java设计模式之建造者模式 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/19/Java设计模式之建造者模式/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java设计模式之建造者模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-19T23:53:42+08:00">
+                2017-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/02/19/Java设计模式之建造者模式/" class="leancloud_visitors" data-flag-title="Java设计模式之建造者模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　建造者设计模式也是属于创建型模式的一种，是用来更好的创建复杂对象的，它与工厂类设计模式也有很多相似的地方。本章主要对建造者设计模式进行学习。<br>  本章学习要点：</p>
+<ol>
+<li>建造者设计模式的概念和由来</li>
+<li>建造者设计模式的主要角色</li>
+<li>建造者设计模式的代码示例</li>
+<li>建造者设计模式与工厂类设计模式的区别</li>
+<li>总结<h2 id="1-建造者设计模式的概念和由来"><a href="#1-建造者设计模式的概念和由来" class="headerlink" title="1. 建造者设计模式的概念和由来"></a><strong>1. 建造者设计模式的概念和由来</strong></h2>　　建造者模式的定义是：将一个复杂对象的构建和它的表示相分离，使得同样的构建过程可以创建不同的表示。<br>　　建造者模式的关键在于将产品创建的过程固定并封装在程序内部，每个产品的创建都会遵从设定的流程。通常，建造者设计模式在以下两个情况下使用较多：<br>第一：创建复杂对象的算法独立于组成对象的部件。也就是说创建复杂对象的流程是固定的，对于每一个产品的创建，都是一样的流程。<br>第二：同一个创建过程需要有不同的内部表象的产品对象。也就是说创建流程确定之后，根据流程可以生产出不同的产品对象。<h2 id="2-建造者设计模式的主要角色"><a href="#2-建造者设计模式的主要角色" class="headerlink" title="2.建造者设计模式的主要角色"></a><strong>2.建造者设计模式的主要角色</strong></h2>对于建造者设计模式而言，主要的角色有四种，分别如下：</li>
+<li>产品角色。产品角色一般是个复杂的对象，有较多的部件，创建过程也比较复杂。产品角色可以是具体类，但一般是有抽线类和具体实现类构成。</li>
+<li>抽象建造者角色。主要是给出一个抽象接口，规范产品各个组成部分的构建。它一般有两种方法，一个建造方法，一种是向外界提供的返回方法。其中，建造方法的数量应当与零件数量一致的。</li>
+<li>具体建造者角色。具体实现抽象建造者角色里面的方法，主要是两个功能，构建具体产品和返回产品。</li>
+<li>导演者角色。导演者调用具体的建造者来组建产品对象，它不予产品类直接发生关系，而是与具体建造者进行交互。导演者直到如何来构建产品，它通常负责整体的构建算法。<h2 id="3-建造者设计模式的代码示例"><a href="#3-建造者设计模式的代码示例" class="headerlink" title="3. 建造者设计模式的代码示例"></a><strong>3. 建造者设计模式的代码示例</strong></h2>　　参考大话设计模式的示例，进行代码的演示。假设女娲造人，分别有男人和女人，那么男人和女人都属于产品类。定义抽象建造者，定义建造一个人所的抽象方法，并且，定义具体建造者，分别实现这些方法去建造男人和女人的部件。最后，定义一个导演类，负责规范造人的步骤。示例如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//产品类，人类，有三个成员变量，分别有set和get方法</div><div class="line">class Person&#123;</div><div class="line">	private String head;</div><div class="line">	private String body;</div><div class="line">	private String foot;</div><div class="line">	public String getHead() &#123;</div><div class="line">		return head;</div><div class="line">	&#125;</div><div class="line">	public void setHead(String head) &#123;</div><div class="line">		this.head = head;</div><div class="line">	&#125;</div><div class="line">	public String getBody() &#123;</div><div class="line">		return body;</div><div class="line">	&#125;</div><div class="line">	public void setBody(String body) &#123;</div><div class="line">		this.body = body;</div><div class="line">	&#125;</div><div class="line">	public String getFoot() &#123;</div><div class="line">		return foot;</div><div class="line">	&#125;</div><div class="line">	public void setFoot(String foot) &#123;</div><div class="line">		this.foot = foot;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品类，男人和女人继承自人类</div><div class="line">class Man extends Person&#123;&#125;</div><div class="line">class Woman extends Person&#123;&#125;</div><div class="line"></div><div class="line">//抽象建造者，定义构造人所需要的方法</div><div class="line"> interface Builder&#123;</div><div class="line">	 public void bulidHead();</div><div class="line">	 public void buildBody();</div><div class="line">	 public void buildFoot();</div><div class="line">	 public Person buildPerson();	</div><div class="line">&#125;</div><div class="line"></div><div class="line"> </div><div class="line">//具体建造者，定义如果建造一个男人的头、身体和脚</div><div class="line">class ManBuilder implements Builder&#123;</div><div class="line">	Person person;</div><div class="line">	public ManBuilder()&#123;</div><div class="line">		person = new Man();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void bulidHead() &#123;</div><div class="line">		person.setHead("建造男人的头");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildBody() &#123;</div><div class="line">		person.setBody("建造男人的身体");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildFoot() &#123;</div><div class="line">		person.setFoot("建造男人的脚");;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public Person buildPerson() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return person;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体建造者，定义如何建造一个女人的头、身体和脚</div><div class="line">class WomanBuilder implements Builder&#123;</div><div class="line">	Person person;</div><div class="line">	public WomanBuilder()&#123;</div><div class="line">		person = new Woman();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void bulidHead() &#123;</div><div class="line">		person.setHead("建造女人的头");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildBody() &#123;</div><div class="line">		person.setBody("建造女人的身体");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildFoot() &#123;</div><div class="line">		person.setFoot("建造女人的脚");;</div><div class="line">	&#125;</div><div class="line">	@Override</div><div class="line">	public Person buildPerson() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return person;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//导演类，定义了构造人类所需的步骤和流程</div><div class="line">class PersonDirector&#123;</div><div class="line">	public Person ConstructPerson(Builder b)&#123;</div><div class="line">		b.bulidHead();</div><div class="line">		b.buildBody();</div><div class="line">		b.buildFoot();</div><div class="line">		return b.buildPerson();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">public class BuilderPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//定义一个导演类</div><div class="line">		PersonDirector pd = new PersonDirector();</div><div class="line">		//向导演类传入具体建造者，创建对象并获取成员变量</div><div class="line">		Person person = pd.ConstructPerson(new WomanBuilder());</div><div class="line">		System.out.println(person.getHead());</div><div class="line">		System.out.println(person.getBody());</div><div class="line">		System.out.println(person.getFoot());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="4-建造者设计模式与工厂类设计模式的区别"><a href="#4-建造者设计模式与工厂类设计模式的区别" class="headerlink" title="4.建造者设计模式与工厂类设计模式的区别"></a><strong>4.建造者设计模式与工厂类设计模式的区别</strong></h2><p>　　如果把建造者设计模式的导演类去掉，作为测试类进行使用，那么建造者模式就和抽象工厂模式几乎一模一样，同样作为创建者设计模式的一种，它们有以下区别和联系：</p>
+<ul>
+<li>建造者模式和工厂模式都属于创建者设计模式，都是为创建复杂对象服务的</li>
+<li>建造者模式的建造者角色负责的是产品具体零件的生产，而把组装放置在导演角色中，更加规范生产的流程和规范；工厂模式的工厂角色直接负责产品的生产</li>
+</ul>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a><strong>5.总结</strong></h2><p>　　建造者设计模式是创建型设计模式的一种：</p>
+<ul>
+<li>当构造过程必须允许被构造的对象有不同表示时（相同的方法，不同的执行顺序，产生不同的结果时），可以采用建造者设计模式。如上，需要先要创建身体，再去创建头，只需要创建一个新的导演类重新规范流程就行</li>
+<li>使用建造者设计模式使得客户端调用时不必直到产品的具体细节，起到了封装的作用</li>
+<li>使用建造者设计模式能够在代码中规范产品创建的流程，不会导致部件的缺失</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/创建者设计模式-建造者设计模式-导演类/" rel="tag"># 创建者设计模式,建造者设计模式,导演类</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/15/Java设计模式之单例设计模式/" rel="next" title="Java设计模式之单例设计模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之单例设计模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-建造者设计模式的概念和由来"><span class="nav-number">1.</span> <span class="nav-text">1. 建造者设计模式的概念和由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-建造者设计模式的主要角色"><span class="nav-number">2.</span> <span class="nav-text">2.建造者设计模式的主要角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-建造者设计模式的代码示例"><span class="nav-number">3.</span> <span class="nav-text">3. 建造者设计模式的代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-建造者设计模式与工厂类设计模式的区别"><span class="nav-number">4.</span> <span class="nav-text">4.建造者设计模式与工厂类设计模式的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
