@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="新建,模板,小书匠," />
+  <meta name="keywords" content="创建者设计模式,原型设计模式,拷贝," />
 
 
 
@@ -84,19 +84,37 @@
 
 
 
-<meta name="description" content="在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。
-1234567891">
+<meta name="description" content="原型设计模式也是创建型设计模式的一种，利用原型设计模式能够通过拷贝创建新对象。本章主要对原型设计模式进行学习：  本章要点：
+
+原型设计模式的概念
+原型设计模式的主要角色
+原型设计模式的要点
+原型设计模式的代码示例
+总结
+1.原型设计模式的概念和用法　　原型设计模式定义：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。　　它主要用来实现对象的复制。当我们需要创建一个类的很多对象">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Java编程思想》学习笔记之hashcode与equals">
-<meta property="og:url" content="http://yoursite.com/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/index.html">
+<meta property="og:title" content="Java设计模式之原型设计模式">
+<meta property="og:url" content="http://yoursite.com/2017/02/20/Java设计模式之原型模式/index.html">
 <meta property="og:site_name" content="xuwei'blog">
-<meta property="og:description" content="在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。
-1234567891">
-<meta property="og:updated_time" content="2017-01-08T15:23:50.112Z">
+<meta property="og:description" content="原型设计模式也是创建型设计模式的一种，利用原型设计模式能够通过拷贝创建新对象。本章主要对原型设计模式进行学习：  本章要点：
+
+原型设计模式的概念
+原型设计模式的主要角色
+原型设计模式的要点
+原型设计模式的代码示例
+总结
+1.原型设计模式的概念和用法　　原型设计模式定义：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。　　它主要用来实现对象的复制。当我们需要创建一个类的很多对象">
+<meta property="og:updated_time" content="2017-02-20T14:43:03.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《Java编程思想》学习笔记之hashcode与equals">
-<meta name="twitter:description" content="在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。
-1234567891">
+<meta name="twitter:title" content="Java设计模式之原型设计模式">
+<meta name="twitter:description" content="原型设计模式也是创建型设计模式的一种，利用原型设计模式能够通过拷贝创建新对象。本章主要对原型设计模式进行学习：  本章要点：
+
+原型设计模式的概念
+原型设计模式的主要角色
+原型设计模式的要点
+原型设计模式的代码示例
+总结
+1.原型设计模式的概念和用法　　原型设计模式定义：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。　　它主要用来实现对象的复制。当我们需要创建一个类的很多对象">
 
 
 
@@ -124,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/20/Java设计模式之原型模式/"/>
 
 
 
 
 
-  <title> 《Java编程思想》学习笔记之hashcode与equals | xuwei'blog </title>
+  <title> Java设计模式之原型设计模式 | xuwei'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/20/Java设计模式之原型模式/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xuwei1991">
@@ -265,7 +283,7 @@
             
             
               
-                《Java编程思想》学习笔记之hashcode与equals
+                Java设计模式之原型设计模式
               
             
           </h1>
@@ -278,8 +296,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-08T23:22:12+08:00">
-                2017-01-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T22:42:40+08:00">
+                2017-02-20
               </time>
             
 
@@ -298,7 +316,7 @@
 
           
           
-             <span id="/2017/01/08/《Java编程思想》学习笔记之hashcode与equals/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之hashcode与equals">
+             <span id="/2017/02/20/Java设计模式之原型模式/" class="leancloud_visitors" data-flag-title="Java设计模式之原型设计模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -323,20 +341,30 @@
       
 
       
-        <p>　　在对容器进行进一步的学习时，发现hashcode和equals方法也是其中一个很重要的知识点。在容器类中，使用hash算法的有HashSet、HashMap、LinkedHashSet、LinkedHashMap。以HashSet为例，它不允许加入重复的元素，且拥有较快的查询速度。<br>  　　如下，创建一个Person类，并建立容器HashSet，往里面添加Person元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">  package test3;</div><div class="line"></div><div class="line">public class Person &#123;</div><div class="line">    private int age;</div><div class="line">    private String name;</div><div class="line">    public Person(String name,int age)&#123;</div><div class="line">    	this.age=age;</div><div class="line">    	this.name=name;</div><div class="line">    &#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public String toString()&#123;</div><div class="line">		return &quot;name=&quot;+name+&quot;  &quot;+&quot;age=&quot;+age+&quot;&quot;;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">package test3;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class HashTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Set&lt;Person&gt; set = new HashSet&lt;Person&gt;();</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		set.add(new Person(&quot;lisi&quot;,26));</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		System.out.println(set);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行的结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[name=lisi  age=<span class="number">26</span>, name=zhangsan  age=<span class="number">25</span>, name=zhangsan  age=<span class="number">25</span>]</div></pre></td></tr></table></figure>
-<p>　　输出结果中，发现一问题：name=zhangsan  age=25被重复添加了，不符合HashSet存储数据的要求。但是在之前的学习中，我添加的整型数据没有出现过这类的问题，这是为什么呢？<br>  　　经过学习，发现HashSet添加数据，判断是不是重复元素，是通过内部的equals方法实现的，euqals方法是根类Object提供的，默认的是比较元素的内存地址值。而对象的内存地址是hashcode实现的。<br>    　　当我们添加两次name=zhangsan  age=25时，生成的是两个不同的内存地址，在添加时，被看成是两个不同的对象。但是在实际应用时，我们认为这两个是同一个对象，不能够被重复加入，因此需要对此进行改进。改进的方法时同时复写Person类的hashcode()和equals()方法，这样能够根据自己的需要构建比较的基准，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">package test3;</div><div class="line"></div><div class="line">public class Person &#123;</div><div class="line">    private int age;</div><div class="line">    private String name;</div><div class="line">    public Person(String name,int age)&#123;</div><div class="line">    	this.age=age;</div><div class="line">    	this.name=name;</div><div class="line">    &#125;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">	public String toString()&#123;</div><div class="line">		return &quot;name=&quot;+name+&quot;  &quot;+&quot;age=&quot;+age+&quot;&quot;;</div><div class="line">	&#125;</div><div class="line">    public int hashCode()&#123;</div><div class="line">    	int result=47;</div><div class="line">    	result = 24*result+this.name.hashCode();</div><div class="line">    	result = 24*result+this.age;</div><div class="line">    	return result;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    public boolean equals(Object o)&#123;</div><div class="line">    	return o instanceof Person&amp;&amp;this.name.equals(((Person)o).name)&amp;&amp;this.age==(((Person)o).age);</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">package test3;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class HashTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Set&lt;Person&gt; set = new HashSet&lt;Person&gt;();</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		set.add(new Person(&quot;lisi&quot;,26));</div><div class="line">		set.add(new Person(&quot;zhangsan&quot;,25));</div><div class="line">		System.out.println(set);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行的结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[name=lisi  age=<span class="number">26</span>, name=zhangsan  age=<span class="number">25</span>]</div></pre></td></tr></table></figure>
-<p>　　可以发现，重复的对象没有被添加进来。hashcode值基于对象的姓名和年龄进行了重新的定义，equals()也对姓名和年龄进行比较，当所有信息完全一致时，就认定为同一对象。<br>  　　为什么之前添加整型数据时，没有对整型的hashcode和equals复写，也能够自动识别重复对象呢？这是因为基本类型数据的对应装箱类型对象中，系统已经对这两个方法进行了重写，所以我们能够直接使用。而对于我们自己创建的对象而言，需要自己覆写这两个方法。</p>
-<h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a><strong>需要注意的是：</strong></h4><ol>
-<li>equals()和hashcode()是Object中的两个方法，需要<strong>同时</strong>被复写。</li>
-<li>对于两个比较的对象，如果euqals()方法返回的为真，则它们的哈希值一定相等，反之，如果它们的哈希值相等，equals()返回的值不一定为真。</li>
-<li>Java集合中判断两个对象的原则是：如果这两个对象的哈希值不相等，则两个对象不相同，如果两个对象的哈希值相等，进而通过euqals()方法的返回值来判断对象的属性是否相同，如果返回为真，则这两个对象相同，反之，则两个对象不同。<br>4.这两个方法在HashMap也应用较多，需要加以学习。</li>
-</ol>
+        <p>　　原型设计模式也是创建型设计模式的一种，利用原型设计模式能够通过拷贝创建新对象。本章主要对原型设计模式进行学习：<br>  本章要点：</p>
+<ul>
+<li>原型设计模式的概念</li>
+<li>原型设计模式的主要角色</li>
+<li>原型设计模式的要点</li>
+<li>原型设计模式的代码示例</li>
+<li><p>总结</p>
+<h2 id="1-原型设计模式的概念和用法"><a href="#1-原型设计模式的概念和用法" class="headerlink" title="1.原型设计模式的概念和用法"></a><strong>1.原型设计模式的概念和用法</strong></h2><p>　　<strong>原型设计模式定义：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</strong><br>　　它主要用来实现对象的复制。当我们需要创建一个类的很多对象时，通常的做法是用new关键字进行创建，但是new关键字创建对象比较耗费时间。而采用原型设计模式，shou’xian创建该类的一个对象，然后不断的复制该对象，能够达到同样的目的，而且复制操作直接操作内存里面的数据，能够节约时间。</p>
+<h2 id="2-原型设计模式的主要角色"><a href="#2-原型设计模式的主要角色" class="headerlink" title="2.原型设计模式的主要角色"></a><strong>2.原型设计模式的主要角色</strong></h2><p>　　作为创建型设计模式的一种，原型设计模式主要有三个角色。</p>
+</li>
+<li><p>抽象原型类角色。该角色为接口或抽象类，是原型设计模式的核心角色，它有两个要点。第一，必须实现cloneable接口。只有实现了这个接口，才能够调用类的clone方法，否则会抛出CloneNotSupportedException异常。第二，要重写clone方法。clone方法是Object类的方法，但是作用范围是protected，一般的类无法进行调用，必须把作用范围改为public。</p>
+</li>
+<li>具体原型角色。该角色是被复制的对象，需要实现抽象原型角色的接口。</li>
+<li>客户角色。创建具体的对象，并进行克隆操作<h2 id="3-原型设计模式的要点"><a href="#3-原型设计模式的要点" class="headerlink" title="3.原型设计模式的要点"></a><strong>3.原型设计模式的要点</strong></h2><h4 id="3-1-原型设计模式与单例设计模式"><a href="#3-1-原型设计模式与单例设计模式" class="headerlink" title="3.1 原型设计模式与单例设计模式"></a><strong>3.1 原型设计模式与单例设计模式</strong></h4>　　原型设计模式通过复制来创建新对象，通过clone方法直接在内存调用数据，不会调用构造方法。构造方法内的代码不会得到执行，且访问权限对原型设计模式无效。而单例设计模式是通过控制构造方法的权限，组织外界通过new关键字创建对象，自己在内部进行创建。因此，原型设计模式与单例设计模式是冲突的。<h4 id="3-2-深拷贝与浅拷贝"><a href="#3-2-深拷贝与浅拷贝" class="headerlink" title="3.2 深拷贝与浅拷贝"></a><strong>3.2 深拷贝与浅拷贝</strong></h4>　　浅拷贝：仅仅拷贝对象本身，而不包含对象所包含的引用指定的对象。<br>　　深拷贝：不仅拷贝对象本身，也拷贝对象所包含的引用所指定的全部对象<br> 　　在Java中，可以对基本数据类型及其包装类型进行完全的拷贝，而如果要对String类型、数组类型和容器类型进行复制，就必须进行深拷贝。<h2 id="4-原型设计模式的代码示例"><a href="#4-原型设计模式的代码示例" class="headerlink" title="4.原型设计模式的代码示例"></a><strong>4.原型设计模式的代码示例</strong></h2>　　假设通过原型模式，对学生的基本信息进行复制创建。代码示例如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//原型类，实现Cloneable接口，重写clone方法</div><div class="line">class prototype implements Cloneable&#123;</div><div class="line">	public prototype clone()&#123;</div><div class="line">		prototype p =null;</div><div class="line">		try &#123;</div><div class="line">			p=(prototype)super.clone();</div><div class="line">		&#125; catch (CloneNotSupportedException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		return p;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//学生类，继承自原型类，并提供学生的一些信息</div><div class="line">class Student extends prototype&#123;</div><div class="line">	private int age;</div><div class="line">	private String name;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//客户端类，创建一个对象，并通过复制又创建另一个对象，打印第二个对象的信息</div><div class="line">public class PrototypePattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Student s1 = new Student();</div><div class="line">		s1.setAge(25);</div><div class="line">		s1.setName("张三");</div><div class="line">		Student s2 = (Student)s1.clone();</div><div class="line">		System.out.println("学生2的名字是"+s2.getName()+"，，，学生2的年龄是"+s2.getAge());</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">学生<span class="number">2</span>的名字是张三，，，学生<span class="number">2</span>的年龄是<span class="number">25</span></div></pre></td></tr></table></figure>
+<p>疑问，没有进行深拷贝，String类型也可以复制下来了啊。只复制了引用，没有复制对象？内存中只有一个姓名“张三”？</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a><strong>5.总结</strong></h2><ul>
+<li>可以通过原型模式来获得新对象</li>
+<li>clone分为深拷贝和浅拷贝，需要根据需要进行选择</li>
+<li>原型模式里面的数据复制发生在内存中，不会调用构造方法，能够省去大部分的时间开销</li>
+</ul>
 
       
     </div>
@@ -360,7 +388,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/新建-模板-小书匠/" rel="tag"># 新建,模板,小书匠</a>
+            <a href="/tags/创建者设计模式-原型设计模式-拷贝/" rel="tag"># 创建者设计模式,原型设计模式,拷贝</a>
           
         </div>
       
@@ -369,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/08/《Java编程思想》学习笔记之泛型/" rel="next" title="《Java编程思想》学习笔记之泛型">
-                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之泛型
+              <a href="/2017/02/19/Java设计模式之建造者模式/" rel="next" title="Java设计模式之建造者模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之建造者模式
               </a>
             
           </div>
@@ -378,10 +406,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/11/《Java编程思想》学习笔记之File类（IO）/" rel="prev" title="《java编程思想》学习笔记之File类(IO)">
-                《java编程思想》学习笔记之File类(IO) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -509,7 +533,7 @@ var duoshuoQuery = {short_name:"xuwei1234"};
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#需要注意的是："><span class="nav-number">1.</span> <span class="nav-text">需要注意的是：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原型设计模式的概念和用法"><span class="nav-number">1.</span> <span class="nav-text">1.原型设计模式的概念和用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-原型设计模式的主要角色"><span class="nav-number">2.</span> <span class="nav-text">2.原型设计模式的主要角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原型设计模式的要点"><span class="nav-number">3.</span> <span class="nav-text">3.原型设计模式的要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-原型设计模式与单例设计模式"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 原型设计模式与单例设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-深拷贝与浅拷贝"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 深拷贝与浅拷贝</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-原型设计模式的代码示例"><span class="nav-number">4.</span> <span class="nav-text">4.原型设计模式的代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5.总结</span></a></li></ol></div>
             
 
           </div>
