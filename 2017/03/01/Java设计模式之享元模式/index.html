@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="新建,模板,小书匠," />
 
 
 
@@ -84,16 +84,34 @@
 
 
 
-<meta name="description" content="就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把这些东西作为对象或者方法进行了封装，而在主函数中进行的直接调用，控制程序流程仍然是程序设计的基础。">
+<meta name="description" content="享元模式也是构建型模式的一种，能有效的提高程序效率和性能，加快程序的运行速度。本章主要对享元模式进行学习。  本章要点：
+
+享元模式的概念和用途
+享元模式的主要角色
+享元模式的程序示例
+总结
+1.享元模式的概念和用途　　享元模式，即Flyweight Pattern，从字面意思来理解，就是轻量级的设计模式，这也很直观的解释了享元模式的主要用途。　　作为面向对象语言，其原则就是一切都是对象。但是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Java编程思想》学习笔记之控制程序流程（第三章）">
-<meta property="og:url" content="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/index.html">
+<meta property="og:title" content="Java设计模式之享元模式">
+<meta property="og:url" content="http://yoursite.com/2017/03/01/Java设计模式之享元模式/index.html">
 <meta property="og:site_name" content="xuwei'blog">
-<meta property="og:description" content="就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把这些东西作为对象或者方法进行了封装，而在主函数中进行的直接调用，控制程序流程仍然是程序设计的基础。">
-<meta property="og:updated_time" content="2016-11-28T14:17:04.181Z">
+<meta property="og:description" content="享元模式也是构建型模式的一种，能有效的提高程序效率和性能，加快程序的运行速度。本章主要对享元模式进行学习。  本章要点：
+
+享元模式的概念和用途
+享元模式的主要角色
+享元模式的程序示例
+总结
+1.享元模式的概念和用途　　享元模式，即Flyweight Pattern，从字面意思来理解，就是轻量级的设计模式，这也很直观的解释了享元模式的主要用途。　　作为面向对象语言，其原则就是一切都是对象。但是">
+<meta property="og:updated_time" content="2017-03-01T13:29:16.799Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《Java编程思想》学习笔记之控制程序流程（第三章）">
-<meta name="twitter:description" content="就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把这些东西作为对象或者方法进行了封装，而在主函数中进行的直接调用，控制程序流程仍然是程序设计的基础。">
+<meta name="twitter:title" content="Java设计模式之享元模式">
+<meta name="twitter:description" content="享元模式也是构建型模式的一种，能有效的提高程序效率和性能，加快程序的运行速度。本章主要对享元模式进行学习。  本章要点：
+
+享元模式的概念和用途
+享元模式的主要角色
+享元模式的程序示例
+总结
+1.享元模式的概念和用途　　享元模式，即Flyweight Pattern，从字面意思来理解，就是轻量级的设计模式，这也很直观的解释了享元模式的主要用途。　　作为面向对象语言，其原则就是一切都是对象。但是">
 
 
 
@@ -121,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/01/Java设计模式之享元模式/"/>
 
 
 
 
 
-  <title> 《Java编程思想》学习笔记之控制程序流程（第三章） | xuwei'blog </title>
+  <title> Java设计模式之享元模式 | xuwei'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/01/Java设计模式之享元模式/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xuwei1991">
@@ -262,7 +280,7 @@
             
             
               
-                《Java编程思想》学习笔记之控制程序流程（第三章）
+                Java设计模式之享元模式
               
             
           </h1>
@@ -275,8 +293,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-28T22:16:22+08:00">
-                2016-11-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-01T21:29:06+08:00">
+                2017-03-01
               </time>
             
 
@@ -295,7 +313,7 @@
 
           
           
-             <span id="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之控制程序流程（第三章）">
+             <span id="/2017/03/01/Java设计模式之享元模式/" class="leancloud_visitors" data-flag-title="Java设计模式之享元模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -320,22 +338,28 @@
       
 
       
-        <hr>
-<p>　　<em>就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。</em><br>　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把这些东西作为对象或者方法进行了封装，而在主函数中进行的直接调用，控制程序流程仍然是程序设计的基础。<br>  　　在本章的学习中，一些和C语言共性的基础知识不再单独记录，着重介绍Java与之不同的两个细节。</p>
+        <p>　　享元模式也是构建型模式的一种，能有效的提高程序效率和性能，加快程序的运行速度。本章主要对享元模式进行学习。<br>  本章要点：</p>
 <ul>
-<li><strong>equals()方法和“==”操作符的差异</strong></li>
-<li><strong>循环语句判断条件的不同</strong></li>
+<li>享元模式的概念和用途</li>
+<li>享元模式的主要角色</li>
+<li>享元模式的程序示例</li>
+<li><p>总结</p>
+<h2 id="1-享元模式的概念和用途"><a href="#1-享元模式的概念和用途" class="headerlink" title="1.享元模式的概念和用途"></a><strong>1.享元模式的概念和用途</strong></h2><p>　　享元模式，即Flyweight Pattern，从字面意思来理解，就是轻量级的设计模式，这也很直观的解释了享元模式的主要用途。<br>　　作为面向对象语言，其原则就是一切都是对象。但是在用起来的时候，对象会很庞大，比如一个文字处理软件，一个文字就是一个对象，如果一篇文章几万字，那么处理量就会很庞大，耗费较多的内存。享元设计模式就是求同存异，把相同的类设计为元类，进行共享。那么英语就只有大小写52个字母，汉字就是常用汉字3000多个。<br>　　<strong>享元模式的定义是：运用共享技术有效的支持大量细粒度的对象</strong>。关键字就是共享，通过共享，减少内存的占用。对于享元模式而言，它有两种状态，分别是内蕴状态和外蕴状态。内蕴状态可以共享的，存储在享元内部，不会随时间改变而有所不同；外蕴状态是不可以共享的，由客户端进行保存，随环境的变化而变化。</p>
+<h2 id="2-享元模式的主要角色"><a href="#2-享元模式的主要角色" class="headerlink" title="2.享元模式的主要角色"></a><strong>2.享元模式的主要角色</strong></h2><p>　　对于享元模式而言，主要有三个角色：</p>
+</li>
+<li><p>抽象享元角色：它是具体享元类的超类，提供公共接口，需要外蕴状态的操作可以通过方法的参数传递；</p>
+</li>
+<li>具体享元角色：实现抽象享元角色的接口，为内蕴状态提供空间。</li>
+<li>享元工厂角色：负责创建和管理享元角色。享元工厂角色类似于单例设计模式，它会检查系统中是否已经存在享元对象，如果有就提供该对象，如果没有就创建新的享元对象。<h2 id="3-享元模式的程序示例"><a href="#3-享元模式的程序示例" class="headerlink" title="3.享元模式的程序示例"></a><strong>3.享元模式的程序示例</strong></h2>　　假如要进行这样的操作，向系统中录入学生的信息，主要是姓名和年龄，但是姓名较多是相同的（现实中不太可能存在，仅作示例），于是把姓名作为内蕴状态，年龄作为外蕴状态，利用享元设计模式节约内存，示例如下：</li>
 </ul>
-<p> 1.<strong><em>equals()方法和“==”操作符的差异</em></strong><br>　　 “==”属于关系操作符，生成的是一个布尔结果，也即是true或者false。对于基本类型数据来说，它比较的是数据值是否相等，而对于java中的对象而言，比较的是对象的引用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	   int i;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int n1=1;</div><div class="line">		int n2=1;</div><div class="line">	System.out.println("n1和n2是否相等"+"   "+(n1==n2));</div><div class="line">		</div><div class="line">		equalsTest et1 = new equalsTest();</div><div class="line">		equalsTest et2 = new equalsTest();</div><div class="line">		</div><div class="line">		et1.i=2;</div><div class="line">		et2.i=2;</div><div class="line">	System.out.println("et1和et2是否相等"+"   "+(et1==et2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div><div class="line">et1和et2是否相等   false</div></pre></td></tr></table></figure>
-<p>　　通过程序的运行结果可以看出，n1和n2是相等的。而et1和et2的唯一的值尽管是相同的，运行的结果仍然是false。<br>  　　因为et1和et2是在堆内存中new出来的两个不同的对象，尽管对象里面的值是一样的，但是在内存中还是占据两个位置，对应在栈内存中的也是两个不同的引用，所以结果是false。<br>    　　那如果我们把et1和et2的比较用et1.euqals(et2)来表示呢，在eclipse中验证如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	   int i;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int n1=1;</div><div class="line">		int n2=1;</div><div class="line">	System.out.println(&quot;n1和n2是否相等&quot;+&quot;   &quot;+(n1==n2));</div><div class="line">		</div><div class="line">		equalsTest et1 = new equalsTest();</div><div class="line">		equalsTest et2 = new equalsTest();</div><div class="line">		</div><div class="line">		et1.i=2;</div><div class="line">		et2.i=2;</div><div class="line">	System.out.println(&quot;et1和et2是否相等&quot;+&quot;   &quot;+et1.equals(et2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div><div class="line">et1和et2是否相等   false</div></pre></td></tr></table></figure></p>
-<p>　　可以发现，et1和et2的比较返回来的布尔值仍然是false。这说明，在equals()方法中，默认比较的仍然是对象的引用。<br>  　　<br>    　　但是在实际使用中，也发现这样一种情况，实例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Integer n1 = new Integer(28);</div><div class="line">		Integer n2 = new Integer(28);</div><div class="line">		</div><div class="line">		System.out.println(&quot;n1和n2是否相等&quot;+&quot;   &quot;+n1.equals(n2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div></pre></td></tr></table></figure>
-<p>　　n1和n2也是属于不同的对象，返回的比较值结果确是true。这是因为Integer是基本类型的包装类型，在这些类中，Java的类库已经完成了对equals()方法的覆写，以便用来比较对象的内容，而非对象的引用。<br>  　　而在我们自己所写的类中，需要根据自己的需要<strong>覆写equals方法</strong>，否则，仍然是继承自超类object，比较的是对象的引用。</p>
-<p>2.<strong><em>循环语句判断条件的不同</em></strong><br>　　while-do，if-else,do-while语句是用来控制循环的，循环语句的执行条件是由条件表达式的真或假来决定的。<br>　　在C语言和C++中，循环条件允许我们用数字作为布尔值使用，如while(a),当a为非零值时，条件表达式为真，当a为零时，条件表达式为假。<br>  　　而在Java中，不允许这种用法，如果想用非布尔值作为循环判断条件，则必须先将它转换成布尔值，如while(a!=0).。</p>
-<blockquote>
-<p>小结：<br>基本数据类型值的比较可以用“==”运算符，对于Java中类的比较需要用到equals()方法。equals()默认的是比较对象的引用，对于我们自己建造的类，如果根据自己的需要进行类中对象的比较，需要进行方法的覆写。<br>对于Java而言，条件表达式必须是布尔值，不能是单纯的数字。</p>
-</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">import java.util.Hashtable;</div><div class="line"></div><div class="line">//抽象享元角色</div><div class="line">interface flyweight&#123;</div><div class="line">	//提供公共方法，传递外蕴状态</div><div class="line">	void method(int age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体享元角色</div><div class="line">class concreteFlyweight implements flyweight&#123;</div><div class="line">	//为内蕴状态提供空间</div><div class="line">    private String name;</div><div class="line">    concreteFlyweight(String name)&#123;</div><div class="line">    	this.name =name;	</div><div class="line">    	&#125;</div><div class="line">	public void method(int age) &#123;</div><div class="line">		System.out.println("姓名为:"+name+",年龄为"+age);	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//享元工厂角色</div><div class="line">class FlyweightFactory&#123;</div><div class="line">	//利用哈希表存储内蕴状态</div><div class="line">	private Hashtable flyweights = new Hashtable();</div><div class="line">	public flyweight getFlyweight(String name)&#123;</div><div class="line">		concreteFlyweight cf = (concreteFlyweight)flyweights.get(name);</div><div class="line">		//对象是否为空判断</div><div class="line">		if(cf == null)&#123;</div><div class="line">			cf = new concreteFlyweight(name);</div><div class="line">			flyweights.put(name, cf);</div><div class="line">		&#125;</div><div class="line">		return cf;</div><div class="line">	&#125;</div><div class="line">	//返回内蕴状态的数量</div><div class="line">	public int getSize()&#123;return flyweights.size();&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//客户端类</div><div class="line">public class FlyweightPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		FlyweightFactory factory = new FlyweightFactory();</div><div class="line">		//创建对象，并通过方法传递外蕴状态</div><div class="line">		flyweight f1 = factory.getFlyweight("张三");</div><div class="line">		f1.method(23);</div><div class="line">		</div><div class="line">		flyweight f2 = factory.getFlyweight("张三");</div><div class="line">		f2.method(24);</div><div class="line"></div><div class="line">		flyweight f3 = factory.getFlyweight("李四");</div><div class="line">		f3.method(25);</div><div class="line"></div><div class="line">		flyweight f4 = factory.getFlyweight("王五");</div><div class="line">		f4.method(26);</div><div class="line"></div><div class="line">		flyweight f5 = factory.getFlyweight("张三");</div><div class="line">		f5.method(27);</div><div class="line"></div><div class="line">		flyweight f6 = factory.getFlyweight("张三");</div><div class="line">		f6.method(28);</div><div class="line">		</div><div class="line">		System.out.println("共享的名字一共有"+factory.getSize()+"个");</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">姓名为:张三,年龄为<span class="number">23</span></div><div class="line">姓名为:张三,年龄为<span class="number">24</span></div><div class="line">姓名为:李四,年龄为<span class="number">25</span></div><div class="line">姓名为:王五,年龄为<span class="number">26</span></div><div class="line">姓名为:张三,年龄为<span class="number">27</span></div><div class="line">姓名为:张三,年龄为<span class="number">28</span></div><div class="line">共享的名字一共有<span class="number">3</span>个</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>当一个应用程序使用了大量的对象，从而造成了较大的内存开销，可以考虑采用享元设计模式；</li>
+<li>区分外蕴状态和内蕴状态，外蕴状态由客户端保存，并且彼此之间是独立的；</li>
+<li>享元模式能够使程序较高效率的执行，节约内存空进，但是也使程序的逻辑复杂化；</li>
+</ol>
 
       
     </div>
@@ -357,13 +381,19 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/新建-模板-小书匠/" rel="tag"># 新建,模板,小书匠</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" rel="next" title="《Java编程思想》学习笔记之一切都是对象（第二章）">
-                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之一切都是对象（第二章）
+              <a href="/2017/02/26/Java设计模式之桥接模式/" rel="next" title="Java设计模式之桥接模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之桥接模式
               </a>
             
           </div>
@@ -371,10 +401,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" rel="prev" title="《Java编程思想》学习笔记之初始化（第四章）">
-                《Java编程思想》学习笔记之初始化（第四章） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -436,8 +462,17 @@ var duoshuoQuery = {short_name:"xuwei1234"};
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -483,6 +518,22 @@ var duoshuoQuery = {short_name:"xuwei1234"};
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-享元模式的概念和用途"><span class="nav-number">1.</span> <span class="nav-text">1.享元模式的概念和用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-享元模式的主要角色"><span class="nav-number">2.</span> <span class="nav-text">2.享元模式的主要角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-享元模式的程序示例"><span class="nav-number">3.</span> <span class="nav-text">3.享元模式的程序示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
