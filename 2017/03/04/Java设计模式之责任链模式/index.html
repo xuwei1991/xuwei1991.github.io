@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="行为型模式,责任链模式," />
 
 
 
@@ -84,16 +84,34 @@
 
 
 
-<meta name="description" content="大部分工科生都接触过C语言，对于面向过程的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为">
+<meta name="description" content="责任链模式也是行为型模式的一种，本章主要对责任链模式进行学习。　　本章要点：
+
+责任链模式的概念和用途
+责任链模式的主要角色
+责任链模式的程序示例
+总结
+1.责任链模式的概念和用途　　责任链模式是一种对象的行为模式。在责任链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《Java编程思想》学习笔记之对象导论（第一章）">
-<meta property="og:url" content="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/index.html">
+<meta property="og:title" content="Java设计模式之责任链模式">
+<meta property="og:url" content="http://yoursite.com/2017/03/04/Java设计模式之责任链模式/index.html">
 <meta property="og:site_name" content="xuwei'blog">
-<meta property="og:description" content="大部分工科生都接触过C语言，对于面向过程的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为">
-<meta property="og:updated_time" content="2016-11-20T04:23:00.117Z">
+<meta property="og:description" content="责任链模式也是行为型模式的一种，本章主要对责任链模式进行学习。　　本章要点：
+
+责任链模式的概念和用途
+责任链模式的主要角色
+责任链模式的程序示例
+总结
+1.责任链模式的概念和用途　　责任链模式是一种对象的行为模式。在责任链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理">
+<meta property="og:updated_time" content="2017-03-04T15:47:02.359Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《Java编程思想》学习笔记之对象导论（第一章）">
-<meta name="twitter:description" content="大部分工科生都接触过C语言，对于面向过程的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为">
+<meta name="twitter:title" content="Java设计模式之责任链模式">
+<meta name="twitter:description" content="责任链模式也是行为型模式的一种，本章主要对责任链模式进行学习。　　本章要点：
+
+责任链模式的概念和用途
+责任链模式的主要角色
+责任链模式的程序示例
+总结
+1.责任链模式的概念和用途　　责任链模式是一种对象的行为模式。在责任链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理">
 
 
 
@@ -121,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/04/Java设计模式之责任链模式/"/>
 
 
 
 
 
-  <title> 《Java编程思想》学习笔记之对象导论（第一章） | xuwei'blog </title>
+  <title> Java设计模式之责任链模式 | xuwei'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/Java设计模式之责任链模式/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xuwei1991">
@@ -262,7 +280,7 @@
             
             
               
-                《Java编程思想》学习笔记之对象导论（第一章）
+                Java设计模式之责任链模式
               
             
           </h1>
@@ -275,8 +293,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-20T09:05:13+08:00">
-                2016-11-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T23:46:43+08:00">
+                2017-03-04
               </time>
             
 
@@ -295,7 +313,7 @@
 
           
           
-             <span id="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" class="leancloud_visitors" data-flag-title="《Java编程思想》学习笔记之对象导论（第一章）">
+             <span id="/2017/03/04/Java设计模式之责任链模式/" class="leancloud_visitors" data-flag-title="Java设计模式之责任链模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -320,17 +338,26 @@
       
 
       
-        <p>　　大部分工科生都接触过C语言，对于<strong>面向过程</strong>的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。<br>　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为（C++）–，因为Java它在C++的基础上舍弃了一些东西，只保留了面向对象的部分，并且进行了拓展。<br>  　　关于面向对象语言，Alan Kay总结了5个基本特性。</p>
-<p>　　 1. <strong>万物皆对象</strong>。刚接触面向对象语言和Java时，就被这五个字洗脑。但是抛开宽泛的概念，在现实生活中，这五个字也有具体的表现。譬如我们每个人使用的笔记本电脑，手机，电视机等等，他们都是具体的对象存在。每个对象具有自己的状态和行为。就手机而言，手机的硬件配置和颜色就是它的状态，而打电话发短信和上网就是它的行为。<br>　　 2. <strong>程序是对象的集合，它们通过发送消息来告知彼此所要做的</strong>。关于这一点，我理解的就是属于面向对象的封装特性。我们把需要的信息和行为封装到具体对象和方法中，通过调用来实现具体功能。比如最简单的加法运算。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class addDemo &#123;</div><div class="line">int a;</div><div class="line">int b;</div><div class="line">public int add(int a,int b)&#123;</div><div class="line">	return a+b;</div><div class="line">&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		addDemo ad = new addDemo();</div><div class="line">		int count = ad.add(1, 1);</div><div class="line">		System.out.println(count);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在这段程序中，主函数中并没有计算方法，计算方法被封装在add()中，需要用的时候只需要进行调用，复用性非常好。<br>　　 3. <strong>每个对象都有自己的有其他对象所构成的存储</strong>。我所理解的这里指的是面向对象的继承特征，通过这个特征可以构建复杂的体系并且简化重复代码的书写。<br>　　 4. <strong>每个对象都有其类型</strong>。类是对象的抽象。我们经常用的含有类词语，比如人类，这也是一个类型。里面包含有各种不同的对象，如男人，女人。我们所用的手机也是，苹果手机是一个大类，里面的各种不同型号是它的小类，每一个小类又有其许多独立的对象，共同构成了一个体系。<br>　　 5. <strong>某一特定类型的所有对象都可以接受同样的消息</strong>。关于这一点我所理解的就是面对象的多态特性。<br>　　<br>Java作为面向对象语言所特有的一些性质。</p>
+        <p>　　责任链模式也是行为型模式的一种，本章主要对责任链模式进行学习。<br>　　本章要点：</p>
 <ul>
-<li>对象的创建位置在堆内存，用new关键字开辟空间，缺点是运行开销大。</li>
-<li>Java不同与C++，它是单继承结构，有良好的继承体系。</li>
-<li>Java有垃圾回收器，可以用来处理内存释放问题，不必手动清理内存，编程更加灵活。</li>
-<li>Java内置异常处理机制，将运行代码和异常处理代码分开，有利于编写更加大型和健壮的代码。</li>
-<li>Java语言内置线程机制，有利于程序的并发处理。</li>
+<li>责任链模式的概念和用途</li>
+<li>责任链模式的主要角色</li>
+<li>责任链模式的程序示例</li>
+<li><p>总结</p>
+<h2 id="1-责任链模式的概念和用途"><a href="#1-责任链模式的概念和用途" class="headerlink" title="1.责任链模式的概念和用途"></a><strong>1.责任链模式的概念和用途</strong></h2><p>　　<strong>责任链模式是一种对象的行为模式。在责任链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织和分配责任。</strong>—-百度百科<br>　　用户只需要将请求发送到责任链上，而不必关心请求是如何传递以及请求由谁处理，责任链模式很好的将请求的发送者和请求的处理者进行解耦，这也正是责任链模式的主要用途。</p>
+<h2 id="2-责任链模式的主要角色"><a href="#2-责任链模式的主要角色" class="headerlink" title="2.责任链模式的主要角色"></a><strong>2.责任链模式的主要角色</strong></h2><p>　　对于责任链模式而言，其主要有两个角色：</p>
+</li>
+<li><p>抽象处理者角色：该角色通常是抽象类或者是接口。该角色定义一个方法设定和返回对下家的引用，同时，定义一个抽象方法规范子类对请求的处理；</p>
+</li>
+<li>具体处理者角色：实现抽象处理者的方法，对于接收的请求，进行处理或者传递给下家进行处理；<h2 id="3-责任链模式的程序示例"><a href="#3-责任链模式的程序示例" class="headerlink" title="3.责任链模式的程序示例"></a><strong>3.责任链模式的程序示例</strong></h2>责任链模式的程序示例如下：</li>
 </ul>
-<p><strong>小结</strong>：OOP和Java有较大优势，但并不是适合所有的场合。java代码编写更加简单，层次性较好，也便于理解。但是缺点是效率相对较低（相比较于C和C++），所以在追求高速度高效率的场合，C用的也较多。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//抽象处理者</div><div class="line">abstract class Handler&#123;</div><div class="line">	//持有处理者的引用</div><div class="line">	protected Handler successor;</div><div class="line">	//设定下家</div><div class="line">	void setSuccessor(Handler successor)&#123;</div><div class="line">		this.successor = successor;</div><div class="line">	&#125;</div><div class="line">	//取下家引用的值</div><div class="line">	public Handler getSuccessor()&#123;return successor;&#125;</div><div class="line">	//处理请求</div><div class="line">	public abstract void handleRequest();</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//具体处理者</div><div class="line">class ConcreteHandler extends Handler&#123;</div><div class="line">	@Override</div><div class="line">	//具体的处理逻辑</div><div class="line">	public void handleRequest() &#123;</div><div class="line">		//如果还有下家，则转移给下家</div><div class="line">		if(getSuccessor()!=null)&#123;</div><div class="line">			System.out.println("将请求传递给下一个处理者");</div><div class="line">			&#125;</div><div class="line">		//如果没有下家，则进行处理</div><div class="line">		else&#123;</div><div class="line">			System.out.println("处理请求");</div><div class="line">		&#125;		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public class ChainPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		</div><div class="line">		//组建责任链：1.创建两个处理者  2.把第二个处理者作为第一个处理者的下家</div><div class="line">		Handler handler1 = new ConcreteHandler();</div><div class="line">		Handler handler2 = new ConcreteHandler();</div><div class="line">		handler1.setSuccessor(handler2);</div><div class="line">		</div><div class="line">		//处理请求示意</div><div class="line">		handler1.handleRequest();</div><div class="line">		handler2.handleRequest();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">将请求传递给下一个处理者</div><div class="line">处理请求</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>Handler 类是主要类，它保有自己的引用，在 HanleRequest 里判断是否合适，如果没达到条件则向下传递，向谁传递之前先进行设置；</li>
+<li>责任链模式能够降低耦合度，增强了给对象指派责任的灵活性；</li>
+</ol>
 
       
     </div>
@@ -352,13 +379,19 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/行为型模式-责任链模式/" rel="tag"># 行为型模式,责任链模式</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/13/写在之前/" rel="next" title="写在之前">
-                <i class="fa fa-chevron-left"></i> 写在之前
+              <a href="/2017/03/04/Java设计模式之迭代器模式/" rel="next" title="Java设计模式之迭代器模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之迭代器模式
               </a>
             
           </div>
@@ -366,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" rel="prev" title="《Java编程思想》学习笔记之一切都是对象（第二章）">
-                《Java编程思想》学习笔记之一切都是对象（第二章） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -431,8 +460,17 @@ var duoshuoQuery = {short_name:"xuwei1234"};
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -478,6 +516,22 @@ var duoshuoQuery = {short_name:"xuwei1234"};
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-责任链模式的概念和用途"><span class="nav-number">1.</span> <span class="nav-text">1.责任链模式的概念和用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-责任链模式的主要角色"><span class="nav-number">2.</span> <span class="nav-text">2.责任链模式的主要角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-责任链模式的程序示例"><span class="nav-number">3.</span> <span class="nav-text">3.责任链模式的程序示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
