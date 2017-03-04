@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="设计模式," />
+  <meta name="keywords" content="行为型模式,迭代器模式," />
 
 
 
@@ -84,34 +84,34 @@
 
 
 
-<meta name="description" content="设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。————来自百度百科  　　本章要点：
+<meta name="description" content="迭代器模式是行为型设计模式的一种，本章主要对迭代器模式进行学习。　　本章要点：
 
-设计模式的原则
-设计模式的种类及分类
+迭代器模式的概念及作用
+迭代器模式的主要角色
+迭代器模式的程序示例
 总结
-1.设计模式的原则　　采用设计模式是为了代码复用，增强可维护性。为了达到这个目的，设计模式一般要遵从以下原则。
-1.1 开闭原则">
+1.迭代器模式的概念及作用　　迭代器模式（Iterator）定义：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。　　在程序设计中，对于对象中元素的访问一直是个比较重要的部分。但是，数据元素是以不同的数据结构进行存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java设计模式概述">
-<meta property="og:url" content="http://yoursite.com/2017/02/12/Java设计模式概述/index.html">
+<meta property="og:title" content="Java设计模式之迭代器模式">
+<meta property="og:url" content="http://yoursite.com/2017/03/04/Java设计模式之迭代器模式/index.html">
 <meta property="og:site_name" content="xuwei'blog">
-<meta property="og:description" content="设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。————来自百度百科  　　本章要点：
+<meta property="og:description" content="迭代器模式是行为型设计模式的一种，本章主要对迭代器模式进行学习。　　本章要点：
 
-设计模式的原则
-设计模式的种类及分类
+迭代器模式的概念及作用
+迭代器模式的主要角色
+迭代器模式的程序示例
 总结
-1.设计模式的原则　　采用设计模式是为了代码复用，增强可维护性。为了达到这个目的，设计模式一般要遵从以下原则。
-1.1 开闭原则">
-<meta property="og:updated_time" content="2017-02-12T04:29:07.511Z">
+1.迭代器模式的概念及作用　　迭代器模式（Iterator）定义：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。　　在程序设计中，对于对象中元素的访问一直是个比较重要的部分。但是，数据元素是以不同的数据结构进行存">
+<meta property="og:updated_time" content="2017-03-04T13:55:59.813Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java设计模式概述">
-<meta name="twitter:description" content="设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。————来自百度百科  　　本章要点：
+<meta name="twitter:title" content="Java设计模式之迭代器模式">
+<meta name="twitter:description" content="迭代器模式是行为型设计模式的一种，本章主要对迭代器模式进行学习。　　本章要点：
 
-设计模式的原则
-设计模式的种类及分类
+迭代器模式的概念及作用
+迭代器模式的主要角色
+迭代器模式的程序示例
 总结
-1.设计模式的原则　　采用设计模式是为了代码复用，增强可维护性。为了达到这个目的，设计模式一般要遵从以下原则。
-1.1 开闭原则">
+1.迭代器模式的概念及作用　　迭代器模式（Iterator）定义：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。　　在程序设计中，对于对象中元素的访问一直是个比较重要的部分。但是，数据元素是以不同的数据结构进行存">
 
 
 
@@ -139,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/12/Java设计模式概述/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/04/Java设计模式之迭代器模式/"/>
 
 
 
 
 
-  <title> java设计模式概述 | xuwei'blog </title>
+  <title> Java设计模式之迭代器模式 | xuwei'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/12/Java设计模式概述/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/Java设计模式之迭代器模式/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xuwei1991">
@@ -280,7 +280,7 @@
             
             
               
-                java设计模式概述
+                Java设计模式之迭代器模式
               
             
           </h1>
@@ -293,8 +293,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-12T12:28:58+08:00">
-                2017-02-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-04T21:55:50+08:00">
+                2017-03-04
               </time>
             
 
@@ -313,7 +313,7 @@
 
           
           
-             <span id="/2017/02/12/Java设计模式概述/" class="leancloud_visitors" data-flag-title="java设计模式概述">
+             <span id="/2017/03/04/Java设计模式之迭代器模式/" class="leancloud_visitors" data-flag-title="Java设计模式之迭代器模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,26 +338,28 @@
       
 
       
-        <p>　　设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。————来自百度百科<br>  　　本章要点：</p>
-<ol>
-<li>设计模式的原则</li>
-<li>设计模式的种类及分类</li>
+        <p>　　迭代器模式是行为型设计模式的一种，本章主要对迭代器模式进行学习。<br>　　本章要点：</p>
+<ul>
+<li>迭代器模式的概念及作用</li>
+<li>迭代器模式的主要角色</li>
+<li>迭代器模式的程序示例</li>
 <li><p>总结</p>
-<h2 id="1-设计模式的原则"><a href="#1-设计模式的原则" class="headerlink" title="1.设计模式的原则"></a><strong>1.设计模式的原则</strong></h2><p>　　采用设计模式是为了代码复用，增强可维护性。为了达到这个目的，设计模式一般要遵从以下原则。</p>
-<h4 id="1-1-开闭原则"><a href="#1-1-开闭原则" class="headerlink" title="1.1 开闭原则"></a><strong>1.1 开闭原则</strong></h4><p>　　开闭原则是由Bertrand Meyer提出的。原文是：“Software entities should be open for extension,but closed for modification”。就是说模块应<strong>对扩展开放，而对修改关闭</strong>。也就是说在拓展程序时，尽量不要修改原有的代码。</p>
-<h4 id="1-2-里氏代换原则"><a href="#1-2-里氏代换原则" class="headerlink" title="1.2 里氏代换原则"></a><strong>1.2 里氏代换原则</strong></h4><p>　　里氏代换原则是由Barbara Liskov提出的。原则是父类可以出现的地方子类一定能够出现。里氏代换原则是继承复用的一个基础，Java程序在编译的时候也会检查这一个原则。在Java继承中有这样一个原则，子类复写父类的方法时，方法的权限不能够比父类的方法权限小，这样，在父类方法可以用到的地方，子类也有权限进行使用。</p>
-<h4 id="1-3-依赖倒转原则"><a href="#1-3-依赖倒转原则" class="headerlink" title="1.3 依赖倒转原则"></a><strong>1.3 依赖倒转原则</strong></h4><p>　　指在软件里面，把父类都替换成它的子类，程序的行为没有变化。简单的说，子类型能够替换掉它们的父类型。依赖性倒转其实可以说是面向对象设计的标志，用哪种语言编程并不是很重要。—–来自baike</p>
-<h4 id="1-4-接口隔离原则"><a href="#1-4-接口隔离原则" class="headerlink" title="1.4 接口隔离原则"></a><strong>1.4 接口隔离原则</strong></h4><p>　　这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。尽量让每个接口干单一的事，能够降低耦合性。</p>
-<h4 id="1-5-迪米特法则（最少知道原则）"><a href="#1-5-迪米特法则（最少知道原则）" class="headerlink" title="1.5 迪米特法则（最少知道原则）"></a><strong>1.5 迪米特法则（最少知道原则）</strong></h4><p>　　一个实体对象应当尽量与其他实体对象相隔离，保持各自的独立。</p>
-<h4 id="1-6-合成复用原则"><a href="#1-6-合成复用原则" class="headerlink" title="1.6 合成复用原则"></a><strong>1.6 合成复用原则</strong></h4><p>　　在程序中，应当尽量使用合成复用，而不是使用继承。</p>
-<h2 id="2-设计模式的种类及分类"><a href="#2-设计模式的种类及分类" class="headerlink" title="2. 设计模式的种类及分类"></a><strong>2. 设计模式的种类及分类</strong></h2><p>　　按照字典顺序排序，Java设计模式一共有23种，分别如下：</p>
-<h4 id="2-1-设计模式种类"><a href="#2-1-设计模式种类" class="headerlink" title="2.1 设计模式种类"></a><strong>2.1 设计模式种类</strong></h4><p>　　Abstract Factory（<strong>抽象工厂模式</strong>）：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。<br>　　Adapter（<strong>适配器模式</strong>）：将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。<br>　　Bridge（<strong>桥接模式</strong>）：将抽象部分与它的实现部分分离，使它们都可以独立地变化。<br>　　Builder（<strong>建造者模式</strong>）：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。<br>　　Chain of Responsibility（<strong>责任链模式</strong>）：为解除请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。<br>　　Command（<strong>命令模式</strong>）：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可取消的操作。<br>　　Composite（<strong>组合模式</strong>）：将对象组合成树形结构以表示“部分-整体”的层次结构。它使得客户对单个对象和复合对象的使用具有一致性。<br>　　Decorator（<strong>装饰模式</strong>）：动态地给一个对象添加一些额外的职责。就扩展功能而言， 它比生成子类方式更为灵活。<br>　　Facade（<strong>外观模式</strong>）：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。<br>　　Factory Method（<strong>工厂模式</strong>）：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。Factory Method使一个类的实例化延迟到其子类。<br>　　Flyweight（<strong>享元模式</strong>）：运用共享技术有效地支持大量细粒度的对象。<br>　　Interpreter（<strong>解析器模式</strong>）：给定一个语言, 定义它的文法的一种表示，并定义一个解释器, 该解释器使用该表示来解释语言中的句子。<br>　　Iterator（<strong>迭代器模式</strong>）：提供一种方法顺序访问一个聚合对象中各个元素，而又不需暴露该对象的内部表示。<br>　　Mediator（<strong>中介模式</strong>）：用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。<br>　　Memento（<strong>备忘录模式</strong>）：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到保存的状态。<br>　　Observer（<strong>观察者模式</strong>）：定义对象间的一种一对多的依赖关系,以便当一个对象的状态发生改变时,所有依赖于它的对象都得到通知并自动刷新。<br>　　Prototype（<strong>原型模式</strong>）：用原型实例指定创建对象的种类，并且通过拷贝这个原型来创建新的对象。<br>　　Proxy（<strong>代理模式</strong>）：为其他对象提供一个代理以控制对这个对象的访问。<br>　　Singleton（<strong>单例模式</strong>）：保证一个类仅有一个实例，并提供一个访问它的全局访问点。 单例模式是最简单的设计模式之一，但是对于Java的开发者来说，它却有很多缺陷。在九月的专栏中，David Geary探讨了单例模式以及在面对多线程（multi-threading）、类装载器（class loaders）和序列化（serialization）时如何处理这些缺陷。<br>　　State（<strong>状态模式</strong>）：允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它所属的类。<br>　　Strategy（<strong>策略模式</strong>）：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。本模式使得算法的变化可独立于使用它的客户。<br>　　Template Method（<strong>模板方法模式</strong>）：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。<br>　　Visitor（<strong>访问者模式</strong>）：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。</p>
-<h4 id="2-2-设计模式分类"><a href="#2-2-设计模式分类" class="headerlink" title="2.2 设计模式分类"></a><strong>2.2 设计模式分类</strong></h4><p>按照使用功能，设计模式一共分为以下三个大类：</p>
+<h2 id="1-迭代器模式的概念及作用"><a href="#1-迭代器模式的概念及作用" class="headerlink" title="1.迭代器模式的概念及作用"></a><strong>1.迭代器模式的概念及作用</strong></h2><p>　　<strong>迭代器模式（Iterator）定义：提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。</strong><br>　　在程序设计中，对于对象中元素的访问一直是个比较重要的部分。但是，数据元素是以不同的数据结构进行存储的，而对于不同的数据结构，其访问方式又不一样，为了对数据更好的进行访问，那么就要知道其内部表示。这样不利于程序的封装和程序的安全性，迭代器很好的解决了这个问题，它能够在不暴露对象内部的情况下进行元素访问，很好的分离了数据结构和操作数据结构的算法。</p>
+<h2 id="2-迭代器模式的主要角色"><a href="#2-迭代器模式的主要角色" class="headerlink" title="2.迭代器模式的主要角色"></a><strong>2.迭代器模式的主要角色</strong></h2><p>　　对于迭代器模式而言，它主要有四个角色，分别是：</p>
 </li>
-<li><p><strong>创建型模式</strong>，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。</p>
+<li><p>抽象容器角色：一般是一个接口，内部提供iterator()方法，比如之前学习的List接口，Set接口都是属于抽象容器类；</p>
 </li>
-<li><strong>结构型模式</strong>，共七种：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。</li>
-<li><strong>行为型模式</strong>，共十一种：策略模式、模板方法模式、观察者模式、迭代器模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a><strong>3. 总结</strong></h2>　　设计模式是编程经验的总结，系统的学习设计模式有利于项目的构建，接下来会对每个设计模式进行详细的学习。</li>
+<li>具体容器角色：实现抽象容器的接口方法，比如对于Java已有的容器类而言，ArrayList和HashSet就是具体容器类了；</li>
+<li>抽象迭代器角色：定义遍历元素所需要的方法，一般有hasNext()，判断遍历是否结束，Next()，取出下一个元素的方法；</li>
+<li>具体迭代器角色：实现抽象迭代器中的方法；<h2 id="3-迭代器模式的程序示例"><a href="#3-迭代器模式的程序示例" class="headerlink" title="3.迭代器模式的程序示例"></a><strong>3.迭代器模式的程序示例</strong></h2>　　迭代器模式的程序示例如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">//抽象迭代器角色</div><div class="line">interface Iterator&#123;</div><div class="line">	//定义两个抽象方法，分别是Next()和hasNext()</div><div class="line">	public Object Next();</div><div class="line">	public boolean hasNext();	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体迭代器角色</div><div class="line">class ConcreteIterator implements Iterator&#123;</div><div class="line">	//创建内部容器，并通过构造方法进行传递</div><div class="line">    private List list =  new ArrayList();</div><div class="line">    public ConcreteIterator(List list)&#123;this.list = list;&#125;</div><div class="line">    private int i = 0;</div><div class="line">	@Override</div><div class="line">	//覆写Next方法，当容器元素不为空时，取出元素，下标向后移一位</div><div class="line">	public Object Next() &#123;</div><div class="line">		Object obj = null;</div><div class="line">		if(this.hasNext())&#123;</div><div class="line">			obj = this.list.get(i++);</div><div class="line">		&#125;</div><div class="line">		return obj;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	//覆写hasNext方法，如果取值的下标达到了集合的尺寸，返回为假，反之为真</div><div class="line">	public boolean hasNext() &#123;</div><div class="line">		if(list.size() == i)&#123;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">		return true;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//抽象容器类角色</div><div class="line">interface Aggregate&#123;</div><div class="line">	//定义增加删除方法</div><div class="line">	public void add(Object obj);</div><div class="line">	public void remove(Object obj);</div><div class="line">	//定义iterator方法，返回一个迭代器</div><div class="line">	public Iterator iterator();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体容器角色</div><div class="line">class ConcreteAggregate implements Aggregate&#123;</div><div class="line">	//定义一个list集合存放元素</div><div class="line">    private List list  = new ArrayList();</div><div class="line">    //覆写增加元素方法</div><div class="line">	public void add(Object obj) &#123;</div><div class="line">		list.add(obj);	</div><div class="line">	&#125;</div><div class="line">    //覆写移除元素方法</div><div class="line">	public void remove(Object obj) &#123;</div><div class="line">	   list.remove(obj);</div><div class="line">	&#125;</div><div class="line">    //覆写iterator方法，返回一个具体的迭代器角色</div><div class="line">	public Iterator iterator() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new ConcreteIterator(list);</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">public class IteratorPattern &#123;</div><div class="line">    </div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建一个具体的容器角色，并向里面添加元素</div><div class="line">		ConcreteAggregate ca = new ConcreteAggregate();</div><div class="line">		ca.add(123);</div><div class="line">		ca.add(456);</div><div class="line">		ca.add(789);</div><div class="line">		ca.add("abc");</div><div class="line">		ca.add("xyz");</div><div class="line">		//创建容器的一个迭代器</div><div class="line">		Iterator i = ca.iterator();</div><div class="line">		//通过迭代器进行元素的访问</div><div class="line">		while(i.hasNext())&#123;</div><div class="line">			System.out.println(i.Next());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">123</span></div><div class="line"><span class="number">456</span></div><div class="line"><span class="number">789</span></div><div class="line">abc</div><div class="line">xyz</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>迭代器访问元素的方式把数据结构和操作数据结构的算法相分离，提供了一种对集合容器的同一访问方式；</li>
+<li>迭代器模式中所定义的容器也是基于Java已有的容器类；</li>
+<li>迭代器与集合是共生死的，一般有集合类，也会提供一个迭代器进行访问；</li>
 </ol>
 
       
@@ -382,7 +384,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+            <a href="/tags/行为型模式-迭代器模式/" rel="tag"># 行为型模式,迭代器模式</a>
           
         </div>
       
@@ -391,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/11/《Java编程思想》学习笔记之并发/" rel="next" title="《Java编程思想》学习笔记之并发">
-                <i class="fa fa-chevron-left"></i> 《Java编程思想》学习笔记之并发
+              <a href="/2017/03/04/Java设计模式之观察者模式/" rel="next" title="Java设计模式之观察者模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之观察者模式
               </a>
             
           </div>
@@ -400,10 +402,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/14/Java设计模式之工厂方法模式-抽象工厂方法模式/" rel="prev" title="Java设计模式之工厂方法模式+抽象工厂方法模式">
-                Java设计模式之工厂方法模式+抽象工厂方法模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -531,7 +529,7 @@ var duoshuoQuery = {short_name:"xuwei1234"};
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-设计模式的原则"><span class="nav-number">1.</span> <span class="nav-text">1.设计模式的原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-开闭原则"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 开闭原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-里氏代换原则"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 里氏代换原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-依赖倒转原则"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3 依赖倒转原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-接口隔离原则"><span class="nav-number">1.0.4.</span> <span class="nav-text">1.4 接口隔离原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-迪米特法则（最少知道原则）"><span class="nav-number">1.0.5.</span> <span class="nav-text">1.5 迪米特法则（最少知道原则）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-合成复用原则"><span class="nav-number">1.0.6.</span> <span class="nav-text">1.6 合成复用原则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-设计模式的种类及分类"><span class="nav-number">2.</span> <span class="nav-text">2. 设计模式的种类及分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-设计模式种类"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 设计模式种类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-设计模式分类"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 设计模式分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number">3.</span> <span class="nav-text">3. 总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-迭代器模式的概念及作用"><span class="nav-number">1.</span> <span class="nav-text">1.迭代器模式的概念及作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-迭代器模式的主要角色"><span class="nav-number">2.</span> <span class="nav-text">2.迭代器模式的主要角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-迭代器模式的程序示例"><span class="nav-number">3.</span> <span class="nav-text">3.迭代器模式的程序示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
             
 
           </div>
