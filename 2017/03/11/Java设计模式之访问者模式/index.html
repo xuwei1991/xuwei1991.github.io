@@ -1,0 +1,783 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="新建,模板,小书匠," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="访问者模式也是行为型模式的一种，本章主要对访问者模式进行学习。　　本章要点：
+
+访问者模式的概念和用途
+访问者模式的主要角色
+访问者模式的程序示例
+总结1.访问者模式的概念和用途　　访问者模式的定义：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素类的前提下定义作用于这些元素的新操作。　　在实际的软件开发过程中，对于对象中的元素我们可能会有不同的操作，有时在原有的操作上我们可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式之访问者模式">
+<meta property="og:url" content="http://yoursite.com/2017/03/11/Java设计模式之访问者模式/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="访问者模式也是行为型模式的一种，本章主要对访问者模式进行学习。　　本章要点：
+
+访问者模式的概念和用途
+访问者模式的主要角色
+访问者模式的程序示例
+总结1.访问者模式的概念和用途　　访问者模式的定义：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素类的前提下定义作用于这些元素的新操作。　　在实际的软件开发过程中，对于对象中的元素我们可能会有不同的操作，有时在原有的操作上我们可">
+<meta property="og:updated_time" content="2017-03-11T04:52:47.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java设计模式之访问者模式">
+<meta name="twitter:description" content="访问者模式也是行为型模式的一种，本章主要对访问者模式进行学习。　　本章要点：
+
+访问者模式的概念和用途
+访问者模式的主要角色
+访问者模式的程序示例
+总结1.访问者模式的概念和用途　　访问者模式的定义：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素类的前提下定义作用于这些元素的新操作。　　在实际的软件开发过程中，对于对象中的元素我们可能会有不同的操作，有时在原有的操作上我们可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/11/Java设计模式之访问者模式/"/>
+
+
+
+
+
+  <title> Java设计模式之访问者模式 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/11/Java设计模式之访问者模式/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java设计模式之访问者模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-11T12:52:41+08:00">
+                2017-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/11/Java设计模式之访问者模式/" class="leancloud_visitors" data-flag-title="Java设计模式之访问者模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　访问者模式也是行为型模式的一种，本章主要对访问者模式进行学习。<br>　　本章要点：</p>
+<ul>
+<li>访问者模式的概念和用途</li>
+<li>访问者模式的主要角色</li>
+<li>访问者模式的程序示例</li>
+<li>总结<h2 id="1-访问者模式的概念和用途"><a href="#1-访问者模式的概念和用途" class="headerlink" title="1.访问者模式的概念和用途"></a><strong>1.访问者模式的概念和用途</strong></h2>　　<strong>访问者模式的定义：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素类的前提下定义作用于这些元素的新操作。</strong><br>　　在实际的软件开发过程中，对于对象中的元素我们可能会有不同的操作，有时在原有的操作上我们可能需要增加新的操作，访问者模式能够很好的解决这类问题。访问者模式封装了施加于数据结构之上的数据操作方法，改变数据操作的条件下可以不用修改数据结构。在不改变原有代码的条件下增加新的数据操作方式是访问者设计模式的目的。<h2 id="2-访问者模式的主要角色"><a href="#2-访问者模式的主要角色" class="headerlink" title="2.访问者模式的主要角色"></a><strong>2.访问者模式的主要角色</strong></h2>对于访问者设计模式而言，它有以下几个主要的角色：</li>
+<li>抽象访问者角色：为该对象结构中具体元素角色声明一个访问操作接口。该操作接口的名字和参数标识了发送访问请求给具体访问者的具体元素角色，这样访问者就可以通过该元素角色的特定接口直接访问它。</li>
+<li>具体访问者角色：实现抽象访问者角色所定义的接口方法，对具体元素进行访问。</li>
+<li>抽象元素角色：定义一个accept()方法，里面传入访问者角色参数。</li>
+<li>具体元素操作：实现抽象元素角色的方法。</li>
+<li>结构对象角色：访问者模式的关键角色，能枚举它的元素。可以提供一个高层的接口以允许该访问者访问它的元素。可以是一个复合或是一个集合，如一个列表或一个无序集合。</li>
+</ul>
+<h2 id="3-访问者模式的程序示例"><a href="#3-访问者模式的程序示例" class="headerlink" title="3.访问者模式的程序示例"></a><strong>3.访问者模式的程序示例</strong></h2><p>访问者模式的程序示例如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">import java.util.*;</div><div class="line"></div><div class="line">//抽象访问者角色</div><div class="line">interface Visitor&#123;</div><div class="line">	//定义抽象的元素访问方法</div><div class="line">	void visitA(ElementA ea);</div><div class="line">	void visitB(ElementB eb);	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体访问者角色1</div><div class="line">class Visitor1 implements Visitor&#123;</div><div class="line">    //用第一种方法实现抽象的元素访问方法</div><div class="line">	@Override</div><div class="line">	public void visitA(ElementA ea) &#123;</div><div class="line">		System.out.println("用第一种方式访问元素A");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void visitB(ElementB eb) &#123;</div><div class="line">		System.out.println("用第一种方式访问元素B");		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体访问者角色2</div><div class="line">class Visitor2 implements Visitor&#123;</div><div class="line">    //用第二种方法实现抽象的元素访问方法</div><div class="line">	@Override</div><div class="line">	public void visitA(ElementA ea) &#123;</div><div class="line">		System.out.println("用第二种方式访问元素A");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void visitB(ElementB eb) &#123;</div><div class="line">		System.out.println("用第二种方式访问元素B");		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//抽象元素角色</div><div class="line">interface Element&#123;</div><div class="line">	//定义accept方法，接收访问者角色为参数</div><div class="line">	void accept(Visitor visitor);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体元素角色A</div><div class="line">class ElementA implements Element&#123;</div><div class="line">	//复写accept方法</div><div class="line">	@Override</div><div class="line">	public void accept(Visitor visitor) &#123;</div><div class="line">		visitor.visitA(this);	</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体元素角色B</div><div class="line">class ElementB implements Element&#123;</div><div class="line">	//复写accept方法</div><div class="line">	@Override</div><div class="line">	public void accept(Visitor visitor) &#123;</div><div class="line">		visitor.visitB(this);	</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//结构对象角色</div><div class="line">class ObjectStruture&#123;</div><div class="line">	//创建容器，放置元素</div><div class="line">	List&lt;Element&gt; list = new ArrayList&lt;Element&gt;();</div><div class="line">	//定义增加元素方法</div><div class="line">	public void attach(Element element)&#123;</div><div class="line">		list.add(element);</div><div class="line">	&#125;</div><div class="line">	//定义删除元素方法</div><div class="line">	public void detach(Element element)&#123;</div><div class="line">		list.remove(element);</div><div class="line">	&#125;</div><div class="line">	//显示方法，遍历各个元素，调用accept方法</div><div class="line">	public void show(Visitor visitor)&#123;</div><div class="line">		for(Element element:list)&#123;</div><div class="line">			element.accept(visitor);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//测试类</div><div class="line">public class VisitorPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建一个结构对象</div><div class="line">		ObjectStruture os = new ObjectStruture();</div><div class="line">		//往里面添加四个元素，有重复</div><div class="line">		os.attach(new ElementA());</div><div class="line">		os.attach(new ElementB());</div><div class="line">		os.attach(new ElementB());</div><div class="line">		os.attach(new ElementA());</div><div class="line">		</div><div class="line">		//创建第一个访问者，用第一种方式对元素进行访问</div><div class="line">		Visitor visitor1 = new Visitor1();</div><div class="line">		os.show(visitor1);</div><div class="line">		System.out.println("--------我是分割线-------");</div><div class="line">		//创建第二个访问者，用第二种方式对元素进行访问</div><div class="line">		Visitor visitor2 = new Visitor2();</div><div class="line">		os.show(visitor2);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">用第一种方式访问元素A</div><div class="line">用第一种方式访问元素B</div><div class="line">用第一种方式访问元素B</div><div class="line">用第一种方式访问元素A</div><div class="line">--------我是分割线-------</div><div class="line">用第二种方式访问元素A</div><div class="line">用第二种方式访问元素B</div><div class="line">用第二种方式访问元素B</div><div class="line">用第二种方式访问元素A</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ul>
+<li>访问者模式使得用户在不改变数据结构的条件下，可以方便的增加对数据的操作，适用于对象结构很少变化的类</li>
+<li>客户端用户只依赖于Visitor接口与ObjectStructure类，较好的实现了封装；</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/新建-模板-小书匠/" rel="tag"># 新建,模板,小书匠</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/11/Java设计模式之状态模式/" rel="next" title="Java设计模式之状态模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之状态模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-访问者模式的概念和用途"><span class="nav-number">1.</span> <span class="nav-text">1.访问者模式的概念和用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-访问者模式的主要角色"><span class="nav-number">2.</span> <span class="nav-text">2.访问者模式的主要角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-访问者模式的程序示例"><span class="nav-number">3.</span> <span class="nav-text">3.访问者模式的程序示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
