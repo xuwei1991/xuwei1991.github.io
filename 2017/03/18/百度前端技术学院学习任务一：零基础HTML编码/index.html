@@ -1,0 +1,803 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="html," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本章为百度前端技术学院学习任务一的学习记录，主要对html基本标签进行学习，并实现要求的效果。　　本章要点：
+
+任务及Demo地址
+html标签
+总结1.任务及Demo地址1.1 任务目的
+了解HTML的定义、概念、发展简史
+掌握常用HTML标签的含义、用法
+能够基于设计稿来合理规划HTML文档结构
+理解语义化，合理地使用HTML标签来构建页面1.2 任务要求的效果图
+
+1.3 完成的效果图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百度前端技术学院学习任务一：零基础HTML编码">
+<meta property="og:url" content="http://yoursite.com/2017/03/18/百度前端技术学院学习任务一：零基础HTML编码/index.html">
+<meta property="og:site_name" content="xuwei'blog">
+<meta property="og:description" content="本章为百度前端技术学院学习任务一的学习记录，主要对html基本标签进行学习，并实现要求的效果。　　本章要点：
+
+任务及Demo地址
+html标签
+总结1.任务及Demo地址1.1 任务目的
+了解HTML的定义、概念、发展简史
+掌握常用HTML标签的含义、用法
+能够基于设计稿来合理规划HTML文档结构
+理解语义化，合理地使用HTML标签来构建页面1.2 任务要求的效果图
+
+1.3 完成的效果图">
+<meta property="og:image" content="http://yoursite.com/./images/task_1_1_1.jpg">
+<meta property="og:image" content="http://yoursite.com/./images/task01.jpg">
+<meta property="og:updated_time" content="2017-03-18T12:10:17.035Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="百度前端技术学院学习任务一：零基础HTML编码">
+<meta name="twitter:description" content="本章为百度前端技术学院学习任务一的学习记录，主要对html基本标签进行学习，并实现要求的效果。　　本章要点：
+
+任务及Demo地址
+html标签
+总结1.任务及Demo地址1.1 任务目的
+了解HTML的定义、概念、发展简史
+掌握常用HTML标签的含义、用法
+能够基于设计稿来合理规划HTML文档结构
+理解语义化，合理地使用HTML标签来构建页面1.2 任务要求的效果图
+
+1.3 完成的效果图">
+<meta name="twitter:image" content="http://yoursite.com/./images/task_1_1_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/18/百度前端技术学院学习任务一：零基础HTML编码/"/>
+
+
+
+
+
+  <title> 百度前端技术学院学习任务一：零基础HTML编码 | xuwei'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xuwei'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/18/百度前端技术学院学习任务一：零基础HTML编码/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xuwei1991">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="xuwei'blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="xuwei'blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                百度前端技术学院学习任务一：零基础HTML编码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-18T20:05:03+08:00">
+                2017-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/18/百度前端技术学院学习任务一：零基础HTML编码/" class="leancloud_visitors" data-flag-title="百度前端技术学院学习任务一：零基础HTML编码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　本章为百度前端技术学院学习任务一的学习记录，主要对html基本标签进行学习，并实现要求的效果。<br>　　本章要点：</p>
+<ul>
+<li>任务及Demo地址</li>
+<li>html标签</li>
+<li>总结<h2 id="1-任务及Demo地址"><a href="#1-任务及Demo地址" class="headerlink" title="1.任务及Demo地址"></a><strong>1.任务及Demo地址</strong></h2><h4 id="1-1-任务目的"><a href="#1-1-任务目的" class="headerlink" title="1.1 任务目的"></a><strong>1.1 任务目的</strong></h4></li>
+<li>了解HTML的定义、概念、发展简史</li>
+<li>掌握常用HTML标签的含义、用法</li>
+<li>能够基于设计稿来合理规划HTML文档结构</li>
+<li>理解语义化，合理地使用HTML标签来构建页面<h4 id="1-2-任务要求的效果图"><a href="#1-2-任务要求的效果图" class="headerlink" title="1.2 任务要求的效果图"></a><strong>1.2 任务要求的效果图</strong></h4><img src="./images/task_1_1_1.jpg" alt="enter description here"></li>
+</ul>
+<h4 id="1-3-完成的效果图"><a href="#1-3-完成的效果图" class="headerlink" title="1.3 完成的效果图"></a><strong>1.3 完成的效果图</strong></h4><p><img src="./images/task01.jpg" alt="enter description here"></p>
+<h4 id="1-4代码地址"><a href="#1-4代码地址" class="headerlink" title="1.4代码地址"></a><strong>1.4代码地址</strong></h4><p>代码已上传至github中，具体地址如下：<br><a href="https://github.com/xuwei1991/Test" target="_blank" rel="external">https://github.com/xuwei1991/Test</a></p>
+<h2 id="2-html标签"><a href="#2-html标签" class="headerlink" title="2.html标签"></a><strong>2.html标签</strong></h2><p>html中文名为超文本标记语言，是一种解释性语言，主要是由标签组成，具体用到和涉及的标签总结了以下，如下：</p>
+<h4 id="2-1-常用到的单标签"><a href="#2-1-常用到的单标签" class="headerlink" title="2.1 常用到的单标签"></a><strong>2.1 常用到的单标签</strong></h4><p>单标签单个使用，不用成对<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;br&gt;   换行</div><div class="line">&lt;hr&gt;  水平分割线</div></pre></td></tr></table></figure></p>
+<h4 id="2-2-常用的双标签"><a href="#2-2-常用的双标签" class="headerlink" title="2.2 常用的双标签"></a><strong>2.2 常用的双标签</strong></h4><p>双标签成对出现，闭合标签加斜杠<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;&lt;/div&gt;    块标签</div><div class="line">&lt;h1&gt;&lt;/h1&gt;      标题标签，从h1到h6，对应的加粗和变大</div><div class="line">&lt;p&gt;&lt;/p&gt;        段落标签</div><div class="line">&lt;a href=”去往的路径”  title=”提示文本”  target=”_self  |  _blank”&gt;链接文本&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="2-3-列表标签"><a href="#2-3-列表标签" class="headerlink" title="2.3 列表标签"></a><strong>2.3 列表标签</strong></h4><p>列表分为无序列表和有序列表，标签分别如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">无序列表</div><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;/li&gt;</div><div class="line">      ......</div><div class="line">&lt;/ul&gt;</div><div class="line"></div><div class="line"></div><div class="line">有序列表</div><div class="line">&lt;ol&gt;</div><div class="line">    &lt;li&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;/li&gt;</div><div class="line">      ......</div><div class="line">&lt;/ol&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-4-表格标签"><a href="#2-4-表格标签" class="headerlink" title="2.4 表格标签"></a><strong>2.4 表格标签</strong></h4><p>表格标签是用来设置表格的，也可以用来页面布局，主要格式如下</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;table&gt;</div><div class="line">      &lt;tr&gt;               <span class="comment">//行标签</span></div><div class="line">          &lt;th&gt;&lt;/th&gt;      <span class="comment">//属性栏</span></div><div class="line">          &lt;th&gt;&lt;/th&gt;</div><div class="line">      &lt;/tr&gt;</div><div class="line">      &lt;tr&gt;</div><div class="line">          &lt;td&gt;&lt;/td&gt;       <span class="comment">//列标签</span></div><div class="line">          &lt;td&gt;&lt;/td&gt;</div><div class="line">      &lt;/tr&gt;</div><div class="line">      &lt;tr&gt;</div><div class="line">          &lt;td&gt;&lt;/td&gt;</div><div class="line">          &lt;td&gt;&lt;/td&gt;</div><div class="line">      &lt;/tr&gt;      </div><div class="line">&lt;/table&gt;</div><div class="line"></div><div class="line"></div><div class="line">单元格中常用的属性设置：</div><div class="line">Height=”<span class="number">300</span>”       高</div><div class="line">cellspacing=”像素值”    单元格与单元格的距离</div><div class="line">cellpadding=”像素值”    内容距边框的距离</div><div class="line">align=”<span class="attribute">left</span>  |  right  |  center”  </div><div class="line">如果直接给表格用align=”center”  表格居中</div><div class="line">如果给tr或者td使用   ，tr或者td内容居中</div><div class="line"></div><div class="line">colspan=”数字”  合并同一行上的单元格</div><div class="line">rowspan=”数字”  合并同一列上的单元格</div></pre></td></tr></table></figure>
+<h2 id="2-5-表单标签"><a href="#2-5-表单标签" class="headerlink" title="2.5 表单标签"></a><strong>2.5 表单标签</strong></h2><p>表单标签有文本输入框，密码框，单选框，多选框，下拉列表，文本区域，提交按钮，重置按钮等组成。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line"><span class="comment">//文本输入框</span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">"mailaddress"</span>&gt;邮箱：&lt;/label&gt;</div><div class="line">		&lt;<span class="selector-tag">input</span> type=<span class="string">"text"</span>  name=<span class="string">"mailaddress"</span> value=<span class="string">"请输入邮箱地址"</span>/&gt;</div><div class="line">        </div><div class="line"><span class="comment">//密码输入框</span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">"password"</span>&gt;密码：&lt;/label&gt;</div><div class="line">		&lt;<span class="selector-tag">input</span> type=<span class="string">"password"</span> name=<span class="string">"password"</span> /&gt;</div><div class="line">        </div><div class="line"><span class="comment">//单选框        </span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">"sex"</span>&gt;性别&lt;/label&gt;</div><div class="line">		&lt;<span class="selector-tag">input</span> type=<span class="string">"radio"</span> name=<span class="string">"sex"</span> value=<span class="string">"man"</span>/&gt;男</div><div class="line">		&lt;<span class="selector-tag">input</span> type=<span class="string">"radio"</span> name=<span class="string">"sex"</span> value=<span class="string">"woman"</span>/&gt;女</div><div class="line">        </div><div class="line"><span class="comment">//多选框        </span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">"interest"</span>&gt;爱好&lt;/label&gt;</div><div class="line">&lt;<span class="selector-tag">input</span> type=<span class="string">"checkbox"</span>  name=<span class="string">"interest"</span> value=<span class="string">"basketball"</span>/&gt;篮球</div><div class="line">&lt;<span class="selector-tag">input</span> type=<span class="string">"checkbox"</span>  name=<span class="string">"interest"</span> value=<span class="string">"football"</span>/&gt;足球</div><div class="line">&lt;<span class="selector-tag">input</span> type=<span class="string">"checkbox"</span>  name=<span class="string">"interest"</span> value=<span class="string">"waterball"</span>/&gt;水球        </div><div class="line"></div><div class="line"><span class="comment">//下拉列表</span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">"city"</span>&gt;城市&lt;/label&gt;</div><div class="line">		&lt;select name=<span class="string">"city"</span> id=<span class="string">""</span>&gt;</div><div class="line">			&lt;option value=<span class="string">"beijing"</span>&gt;北京&lt;/option&gt;</div><div class="line">			&lt;option value=<span class="string">"tianjing"</span>&gt;天津&lt;/option&gt;</div><div class="line">		&lt;/select&gt;</div><div class="line">        </div><div class="line"><span class="comment">//文本区域        </span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">"say"</span>&gt;留言&lt;/label&gt;</div><div class="line">		&lt;<span class="selector-tag">textarea</span> name=<span class="string">"say"</span> id=<span class="string">""</span> cols=<span class="string">"30"</span> rows=<span class="string">"10"</span>&gt;&lt;/textarea&gt;</div><div class="line">        </div><div class="line"><span class="comment">//提交按钮        </span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">""</span> &gt;</div><div class="line">					&lt;<span class="selector-tag">input</span> class=<span class="string">"submit"</span> type=<span class="string">"submit"</span> value=<span class="string">"确认提交"</span>/&gt;</div><div class="line">					&lt;/label&gt;</div><div class="line">                    </div><div class="line"><span class="comment">//重置按钮                    </span></div><div class="line">&lt;<span class="selector-tag">label</span> <span class="keyword">for</span>=<span class="string">""</span> &gt;</div><div class="line">					&lt;<span class="selector-tag">input</span> class=<span class="string">"reset"</span> type=<span class="string">"submit"</span> value=<span class="string">"确认提交"</span>/&gt;</div><div class="line">					&lt;/label&gt;                    </div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a><strong>3.总结</strong></h2><p>通过基础知识的学习和完成任务一，对html的标签使用有了基本的了解。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/12/java设计模式之解释器模式/" rel="next" title="java设计模式之解释器模式">
+                <i class="fa fa-chevron-left"></i> java设计模式之解释器模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <section id="comment">  
+  <!-- ��˵���ۿ� start -->
+	<div class="ds-thread" data-thread-key="<%= page.path %>" data-title="<%= page.title %>" data-url="https://xuwei1991.github.io/<%= page.permalink %>"></div>
+<!-- ��˵���ۿ� end -->
+<!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"xuwei1234"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- ��˵����JS���� end -->
+ 
+</section>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xuwei1991" />
+          <p class="site-author-name" itemprop="name">xuwei1991</p>
+          <p class="site-description motion-element" itemprop="description">The Best or Nothing</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-任务及Demo地址"><span class="nav-number">1.</span> <span class="nav-text">1.任务及Demo地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-任务目的"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 任务目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-任务要求的效果图"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 任务要求的效果图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-完成的效果图"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3 完成的效果图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4代码地址"><span class="nav-number">1.0.4.</span> <span class="nav-text">1.4代码地址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-html标签"><span class="nav-number">2.</span> <span class="nav-text">2.html标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-常用到的单标签"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 常用到的单标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-常用的双标签"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 常用的双标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-列表标签"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 列表标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-表格标签"><span class="nav-number">2.0.4.</span> <span class="nav-text">2.4 表格标签</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-表单标签"><span class="nav-number">3.</span> <span class="nav-text">2.5 表单标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number">4.</span> <span class="nav-text">3.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuwei1991</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("PlM9fkBu5Xsbaz55LCTKph3O-gzGzoHsz", "Ro21MawN38aeHbNOxyQiQCOC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
