@@ -326,21 +326,43 @@
       
         
           
-          　　对于程序设计而言，初始化是重要的命题，涉及到程序安全和程序运行效率。程序设计时，忘记对某些变量（必须用户进行初始化）进行初始化可能造成程序的错误。
- 本章笔记：
+            <p>　　对于程序设计而言，初始化是重要的命题，涉及到程序安全和程序运行效率。程序设计时，忘记对某些变量（必须用户进行初始化）进行初始化可能造成程序的错误。</p>
+<p> 本章笔记：</p>
+<ol>
+<li>对象的初始化及方法的重载</li>
+<li>成员变量的初始化及初始化顺序</li>
+</ol>
+<h2 id="1-对象的初始化及方法的重载"><a href="#1-对象的初始化及方法的重载" class="headerlink" title="1.对象的初始化及方法的重载"></a><strong>1.对象的初始化及方法的重载</strong></h2><p><strong>1.1 对象的初始化</strong><br>　　Java类包含字段（成员）和方法，而方法分为构造方法和普通方法。普通方法完成我们所需要的功能，而构造方法是用来初始化对象的。对于构造方法而言，它的命名要具备唯一性，能够让编译器进行识别。Java和C++类似，在命名上采用的方案是让构造方法采用与类相同的名称，通过自动调用构造方法完成对象的初始化。<br>  如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class C</div><div class="line">&#123;</div><div class="line">C()</div><div class="line">&#123;</div><div class="line">System.out.println("C被初始化啦");</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C();</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">C被初始化啦</div></pre></td></tr></table></figure>
+<p>　　可以得知，我们通过关键字new Circle()为对象c分配内存空间，并调用相应的构造方法，确保了对象的初始化。在Java中，对象的初始化和创建是绑定在一起的。<br>  　　在实际使用时，我们也会遇到不含有显式构造方法的类，程序也能通过编译运行。这是因为，当我们不显式写出构造方法时，程序会默认给类加上无参的构造方法，以便完成初始化<br>    　　上面所讲的例子是最简单的一种情况，手动构造无参的构造方法。但是，当我们初始化对象时，希望给对象一个初始值，这时，就需要通过构造有参数的构造方法来解决：如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">   class C</div><div class="line">&#123;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println(&quot;C的值为&quot;+d);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C(2.5);</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">运行结果为：</div><div class="line">C的值为2.5</div></pre></td></tr></table></figure>
+<p><strong>1.2 方法的重载</strong><br>　　对于对象的初始化而言，我们有时候希望通过不同的方式进行初始化。比如对于类C的初始化，我们希望既可以用标准方式初始化，也希望给定一个初始值进行初始化。这个时候就需要有有两个不同的构造方法，一个不带形参，一个带有形式参数。由于构造方法必须与类名一致，因此就存在名称相同，形式参数不同的构造方法，这就是构造方法的<strong>重载</strong>。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class C</div><div class="line">&#123;</div><div class="line">C()</div><div class="line">&#123;</div><div class="line">System.out.println("C被初始化啦");</div><div class="line">&#125;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println("C的值为"+d);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们创建对象时，可以自己选择创建对象的方式，Java虚拟机能够进行自动的匹配。<br>如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c1 = new C(2.5);</div><div class="line">C c2 = new C();</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">运行结果为：</div><div class="line">C的值为2.5</div><div class="line">C被初始化啦</div></pre></td></tr></table></figure>
+<p>关于方法的重载，有几点细节知识需要注意：</p>
+<ol>
+<li>当我们自己定义了一个构造方法之后，编译器就不会帮我们自动创建无参的构造方法，此时，当我们用无参的构造方法创建对象时，程序就会报错。如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> class C</div><div class="line">&#123;</div><div class="line">C(double d)</div><div class="line">&#123;</div><div class="line">System.out.println("C的值为"+d);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CTest</div><div class="line">&#123;</div><div class="line">public static void main(String[] args)</div><div class="line">&#123;</div><div class="line">C c = new C();</div><div class="line">&#125;</div><div class="line">&#125; </div><div class="line">提示错误为：</div><div class="line">The constructor C() is undefined</div></pre></td></tr></table></figure>
+<ol>
+<li>重载方法的区分方式<br>在区分重载方法时，只能以类名和方法的形参列表（包括参数类型和参数数量）来区分，不能用方法的返回值来区分。例如，对于普通方法：</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">void method()&#123;&#125;</div><div class="line">int method()&#123;&#125;</div></pre></td></tr></table></figure>
+<p>　　它们有同样的名字和形式参数，但是方法的返回值类型不一样。当我们调用方法时，如method(),此时仅仅调用方法而忽略返回值，Java是无法区分该调用哪一个。因此，这种区分重载方法的形式是不能编译通过的。</p>
+<h2 id="2-成员变量的初始化及初始化顺序"><a href="#2-成员变量的初始化及初始化顺序" class="headerlink" title="2. 成员变量的初始化及初始化顺序"></a><strong>2. 成员变量的初始化及初始化顺序</strong></h2><p><strong>2.1 初始化方式</strong><br>对于基本数据类型，如果它是类的数据成员，系统会保证它有一个初始值。但如果它是定义在方法内部的局部变量，系统不会对其进行初始化，编译时就会报错。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void method()</div><div class="line">&#123;</div><div class="line">int i;</div><div class="line">i++</div><div class="line">&#125;</div><div class="line">报错信息为：</div><div class="line">The local variable i may not have been initialized</div></pre></td></tr></table></figure>
+<p>　　可以通过指定初始化的方式为变量进行初始化赋值：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Demo</div><div class="line">&#123;</div><div class="line">int i = 1;</div><div class="line">boolean = true;</div><div class="line">double = 3.14;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上是基本数据类型的初始化方式，对于类类型的数据，也可以采用这种方式，加入C是一个已经构建的类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class  Demo1</div><div class="line">&#123;</div><div class="line">C c1 = new C();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>2.2 初始化顺序</strong><br><img src="./images/1.png" alt="enter description here" title="1.png"></p>
+<p>如以下的示例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">package test;</div><div class="line"></div><div class="line">class A&#123;</div><div class="line">	A(int i)&#123;</div><div class="line">		System.out.println("A("+i+")");</div><div class="line">	&#125;</div><div class="line">	void method_1(int i)&#123;</div><div class="line">		System.out.println("method_1("+i+")");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B&#123;</div><div class="line">	static A a1 = new A(1);</div><div class="line">	B()&#123;</div><div class="line">		System.out.println("B()");</div><div class="line">		a2.method_1(1);</div><div class="line">	&#125;</div><div class="line">	void method_2(int i)&#123;</div><div class="line">		System.out.println("method_2("+i+")");</div><div class="line">	&#125;</div><div class="line">	static A a2 = new A(2);</div><div class="line">&#125;</div><div class="line"></div><div class="line">class C&#123;</div><div class="line">	 A a3 = new A(3);</div><div class="line">	static A a4 = new A(4);</div><div class="line">	C()&#123;</div><div class="line">		System.out.println("C()");</div><div class="line">		a4.method_1(2);</div><div class="line">	&#125;</div><div class="line">	void method_3(int i)&#123;</div><div class="line">		System.out.println("method_3("+i+")");</div><div class="line">	&#125;</div><div class="line">	static A a5 = new A(5);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line">public class InitializationDemo &#123;</div><div class="line">	static B b2 = new B();</div><div class="line">	static C c2 = new C();</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		System.out.println("creating new C() in main");</div><div class="line">		new C();</div><div class="line">		</div><div class="line">		b2.method_2(1);</div><div class="line">		c2.method_3(1);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line">A(1)</div><div class="line">A(2)</div><div class="line">B()</div><div class="line">method_1(1)</div><div class="line">A(4)</div><div class="line">A(5)</div><div class="line">A(3)</div><div class="line">C()</div><div class="line">method_1(2)</div><div class="line">creating new C() in main</div><div class="line">A(3)</div><div class="line">C()</div><div class="line">method_1(2)</div><div class="line">method_2(1)</div><div class="line">method_3(1)</div></pre></td></tr></table></figure></p>
+<p>通过运行结果，可以看出来初始化顺序：<br>1.当对initialization类进行编译的时候，类中的静态变量b2和c2会进行加载（因为后面的方法中可能会用到）。b2进行构造初始化的时候，首先会初始化其中的静态变量a1,a2，然后进行构造方法B（）的执行。c2进行构造初始化的时候，首先会初始化静态变量a4,a5，然后再初始化非静态变量a3，最后执行构造方法C（）。<br>2.类变量载入完成之后，会进行main方法的执行。首先执行语句creating new C() in main，接下来进行new C（）对象的创建。同样的，也会首先初始化C类中的静态变量，但是静态变量只加载一次，之前已经加载，所以跳过了静态变量，直接初始化非静态变量a3，最后执行构造方法C（）。<br>3.再执行语句b2.method_2(1);c2.method_3(1);</p>
+<p>注意：静态变量只会初始化一次，而且只有在必要时刻才会进行初始化。</p>
+<p>总结：初始化在Java中占有至关重要的地位，构造方法是对对象进行初始化的重要手段，利用方法的重载可以让对象进行不同方式的初始化。在初始化中，正确理解初始化的顺序也是十分重要的。</p>
 
-对象的初始化及方法的重载
-成员变量的初始化及初始化顺序
-
-1.对象的初始化及方法的重载1.1 对象的初始化　　Java类包含字段（成
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/10/《Java编程思想》学习笔记之初始化（第四章）/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -464,16 +486,24 @@
       
         
           
+            <hr>
+<p>　　<em>就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。</em><br>　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把这些东西作为对象或者方法进行了封装，而在主函数中进行的直接调用，控制程序流程仍然是程序设计的基础。<br>  　　在本章的学习中，一些和C语言共性的基础知识不再单独记录，着重介绍Java与之不同的两个细节。</p>
+<ul>
+<li><strong>equals()方法和“==”操作符的差异</strong></li>
+<li><strong>循环语句判断条件的不同</strong></li>
+</ul>
+<p> 1.<strong><em>equals()方法和“==”操作符的差异</em></strong><br>　　 “==”属于关系操作符，生成的是一个布尔结果，也即是true或者false。对于基本类型数据来说，它比较的是数据值是否相等，而对于java中的对象而言，比较的是对象的引用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	   int i;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int n1=1;</div><div class="line">		int n2=1;</div><div class="line">	System.out.println("n1和n2是否相等"+"   "+(n1==n2));</div><div class="line">		</div><div class="line">		equalsTest et1 = new equalsTest();</div><div class="line">		equalsTest et2 = new equalsTest();</div><div class="line">		</div><div class="line">		et1.i=2;</div><div class="line">		et2.i=2;</div><div class="line">	System.out.println("et1和et2是否相等"+"   "+(et1==et2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div><div class="line">et1和et2是否相等   false</div></pre></td></tr></table></figure>
+<p>　　通过程序的运行结果可以看出，n1和n2是相等的。而et1和et2的唯一的值尽管是相同的，运行的结果仍然是false。<br>  　　因为et1和et2是在堆内存中new出来的两个不同的对象，尽管对象里面的值是一样的，但是在内存中还是占据两个位置，对应在栈内存中的也是两个不同的引用，所以结果是false。<br>    　　那如果我们把et1和et2的比较用et1.euqals(et2)来表示呢，在eclipse中验证如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	   int i;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		int n1=1;</div><div class="line">		int n2=1;</div><div class="line">	System.out.println(&quot;n1和n2是否相等&quot;+&quot;   &quot;+(n1==n2));</div><div class="line">		</div><div class="line">		equalsTest et1 = new equalsTest();</div><div class="line">		equalsTest et2 = new equalsTest();</div><div class="line">		</div><div class="line">		et1.i=2;</div><div class="line">		et2.i=2;</div><div class="line">	System.out.println(&quot;et1和et2是否相等&quot;+&quot;   &quot;+et1.equals(et2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div><div class="line">et1和et2是否相等   false</div></pre></td></tr></table></figure></p>
+<p>　　可以发现，et1和et2的比较返回来的布尔值仍然是false。这说明，在equals()方法中，默认比较的仍然是对象的引用。<br>  　　<br>    　　但是在实际使用中，也发现这样一种情况，实例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class equalsTest &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Integer n1 = new Integer(28);</div><div class="line">		Integer n2 = new Integer(28);</div><div class="line">		</div><div class="line">		System.out.println(&quot;n1和n2是否相等&quot;+&quot;   &quot;+n1.equals(n2));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line">n1和n2是否相等   true</div></pre></td></tr></table></figure>
+<p>　　n1和n2也是属于不同的对象，返回的比较值结果确是true。这是因为Integer是基本类型的包装类型，在这些类中，Java的类库已经完成了对equals()方法的覆写，以便用来比较对象的内容，而非对象的引用。<br>  　　而在我们自己所写的类中，需要根据自己的需要<strong>覆写equals方法</strong>，否则，仍然是继承自超类object，比较的是对象的引用。</p>
+<p>2.<strong><em>循环语句判断条件的不同</em></strong><br>　　while-do，if-else,do-while语句是用来控制循环的，循环语句的执行条件是由条件表达式的真或假来决定的。<br>　　在C语言和C++中，循环条件允许我们用数字作为布尔值使用，如while(a),当a为非零值时，条件表达式为真，当a为零时，条件表达式为假。<br>  　　而在Java中，不允许这种用法，如果想用非布尔值作为循环判断条件，则必须先将它转换成布尔值，如while(a!=0).。</p>
+<blockquote>
+<p>小结：<br>基本数据类型值的比较可以用“==”运算符，对于Java中类的比较需要用到equals()方法。equals()默认的是比较对象的引用，对于我们自己建造的类，如果根据自己的需要进行类中对象的比较，需要进行方法的覆写。<br>对于Java而言，条件表达式必须是布尔值，不能是单纯的数字。</p>
+</blockquote>
+
           
-　　就像任何有感知的生物一样，程序必须能够操纵自己的世界，在执行过程中作出判断和选择。　　对于面向过程的程序设计语言（如C语言）来说，我们经常能够在程序中看到程序运行的流程，而这些流程正是通过操作符和控制语句和体现的。对于纯粹的面向对象语言Java来说，在主程序中看到这些流程比较少，这是因为我们把
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/28/《Java编程思想》学习笔记之控制程序流程（第三章）/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -597,23 +627,95 @@
       
         
           
-          Java是基于C++的，但是相比之下，java是一种更纯粹的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。本章笔记：
+            <p>Java是基于C++的，但是相比之下，java是一种<em>更纯粹</em>的面向对象程序设计语言。对于java而言，对其有关对象方面的理解是很重要的。<br>本章笔记：</p>
+<ul>
+<li>Java操作对象的方式</li>
+<li>对象的存储位置</li>
+<li>Java的基本数据类型和类类型</li>
+<li>Java对象和方法的作用范围</li>
+<li>static关键字</li>
+</ul>
+<h2 id="1-Java操作对象的方式"><a href="#1-Java操作对象的方式" class="headerlink" title="1. Java操作对象的方式"></a>1. <strong>Java操作对象的方式</strong></h2><p> 每种语言都有自己操作对象的方式，例如C语言的指针，而Java是通过引用来完成对数据的操作。<br> 关于指针和引用<br> <em>相同点</em>：都是操作数据的一种方式<br> <em>不同点</em>：<br> a.指针指向一块内存，它所存储的是内存的地址，而引用是对象的别名。所以指针可以为空（即不存储任何内存地址），而引用不可以为空（对象不存在，不能有别名）。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　　String s;</div></pre></td></tr></table></figure>
+<p>如上所示，创建了一个字符串类型的引用，但是没有与任何事物相关联，在运行时会报错。<br>安全的做法是：创建一个引用的同时就进行初始化<br>注：后来经过测试，如果是标识成static，系统会自动初始化成null.如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class snull</div><div class="line"> &#123;</div><div class="line">  static String s;</div><div class="line">  public static void main(String[] args)</div><div class="line">     &#123;</div><div class="line">     System.out.println(s);</div><div class="line">     &#125;</div><div class="line">&#125;</div><div class="line">运行结果为：</div><div class="line"> </div><div class="line">null</div></pre></td></tr></table></figure>
+<p>　　ｂ.引用不可以改变指向，而指针可以改变指向。<br> 　　　 引用不可以改变指向，但是可以改变初始化的内容。举例自增操作<br>      　　　符++，对引用的操作是直接反映到所指的对象，而对指针的操作是<br>         　　　指向下一个对象。<br>创建对象引用最常见的方式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String s = new String("abc");</div><div class="line">或者</div><div class="line">String s;</div><div class="line">s=new String("abc");</div></pre></td></tr></table></figure>
+<h2 id="2-对象的存储位置"><a href="#2-对象的存储位置" class="headerlink" title="2. 对象的存储位置"></a><strong>2. 对象的存储位置</strong></h2><ul>
+<li><em>寄存器</em>。<br>寄存器是最快的存储区，位于处理器内部，用于暂存指令、数据和地址。由编译器进行分配，不能通过程序进行控制，数量资源极其有限。</li>
+<li><em>堆栈。</em><br>速度仅次于寄存器，位于RAM中。编写程序时，编译器必须知道存储在堆栈里面数据的大小和生命周期。限制了程序的灵活性，但是加快程序的读写速度和运行速度。C语言的存储数据的位置就是在堆栈中。Java将<strong>对象的引用</strong>放在了堆栈中。</li>
+<li><em>堆。</em><br>速度慢于栈，也位于RAM中。编写程序时，编译器不需要知道从堆里分配多杀内存，也不需要知道数据的生命的周期，分配时有较大的灵活性。Java的<strong>对象</strong>用new关键字来实现，都存储在这个区域。对象的销毁通过垃圾回收器来实现，程序灵活，但是也付出了相应的代价，那就是速度慢。</li>
+<li><em>静态存储区。</em><br>也位于RAM中，静态值得是在<strong>固定的位置</strong>。在程序运行时，由jvm分配内存，运行时一直存在的数据。Java中是用static进行标识。</li>
+<li><em>常量存储。</em><br>可以选择放在只读存储器（ROM）中，因为他们的值永远<strong>不会被改变</strong>，在Java中，用final关键字进行标识。<br>同时用static和final标识的数据是放在静态存储区吗？</li>
+<li><em>非RAM存储。</em><br>当数据完全存活在数据之外，不受程序控制，存放在此位置。如<strong>流对象和持久化对象</strong>，流对象中，对象转换为字节流，通常发给另一台机器。持久化对象放置在磁盘上。</li>
+</ul>
+<h2 id="3-Java的基本数据类型和类类型"><a href="#3-Java的基本数据类型和类类型" class="headerlink" title="3.Java的基本数据类型和类类型"></a><strong>3.Java的基本数据类型和类类型</strong></h2><p>Java程序设计中，对于基本的数据类型，往往不是通过new创建对象，而是创建一个并非引用的自动变量，存储在堆栈中，访问更加高效。也可以通过包装器进行装箱操作（具体的目的后续学习），对应的表格如下</p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>包装器类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>char</td>
+<td>character</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>void</td>
+<td>Void</td>
+</tr>
+</tbody>
+</table>
+<p>除了基本的数据类型，Java中，我们可以自己创建类，为它定义字段和方法，创造新的数据类型。<br>字段可以是基本类型的一种，也可以是某个对象的引用（？）。<br>注意：关于字段，如果它是基本数据类型而且属于类，即使没有初始化，系统也会给它一个默认初始值，以确保得到初始化，防止程序错误（C++没有这个功能）。但是，，，如果这个字段在方法中，属于局部变量，则必须初始化，否则编译会报错。<br>方法的基本组成部分包括：名称，参数，返回值和方法体。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">returnType methodName(<span class="comment">/*Argument List*/</span>)</div><div class="line">&#123;</div><div class="line"><span class="comment">/*method body*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法名和参数列表共同唯一的标识出某个方法，这一点很重要，后面在方法的重载中会体现出来。<br>对于非静态方法，必须通过对象进行调用，这种机制称为发送消息给对象。</p>
+<h2 id="4-Java对象和方法的作用范围"><a href="#4-Java对象和方法的作用范围" class="headerlink" title="4.Java对象和方法的作用范围"></a><strong>4.Java对象和方法的作用范围</strong></h2><p>Java中，不需要手动销毁对象，由垃圾回收器完成清理工作。<br>一对花括号的位置是一个作用域，作用域决定了定义在里面的变量的生命周期和可见性。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">int x =12;</div><div class="line">&#123;</div><div class="line">int x=13;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述定义在Java中不允许，会报错，同一变量不能重复定义。</p>
+<p><em>对象的作用域</em>：对象的生命周期和基本类型不一样。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">String s=new String("abc");</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当作用域结束时，引用s（存在于栈中）消失，但是s所指的String对象仍然存在于堆中，可以通过传递和复制对象引用再次使用（？）。<br>在这一点上，Java和C++ 有明显的不同。C++ 中，一旦使用完对象，就必须确保要销毁对象。Java中，由new创建的对象，只要需要，会一直保存下去。销毁工作由垃圾回收器负责，它会监视那些不会被再次引用的对象，释放这些内存空间。</p>
+<h2 id="5-static关键字"><a href="#5-static关键字" class="headerlink" title="5.static关键字"></a><strong>5.static关键字</strong></h2><p>当我们建立了一个类时，要想使用类的字段和方法，就要通过创建该类的对象来进行使用。new完对象之后，系统才在堆内存中分配空间。<br>两种情况需要单独考虑：<br>第一，不考虑创建多少对象或者不创建对象，就想为特定数据分配空间。<br>第二，即使不创建对象，也想要能够调用类的方法。<br>通过static关键字能够满足这些要求。<br><strong>当static修饰字段</strong>时，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">class staticTest</div><div class="line">&#123;</div><div class="line">static int i=22;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要注意的是，当类被加载时，该字段i=47就在内存中分配了空间可以直接通过类名进行引用。<br>如果建立该类的两个对象;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">staticTest st1 = new staticTest();</div><div class="line">staticTest st2 = new staticTest();</div></pre></td></tr></table></figure>
+<p>尽管有两个不同的对象，但是该字段对于calssTest类来说，只有一份存储空间，而如果不用static修饰，则该字段有两个存储空间。由此可见，对于共性数据，用static修饰，能够节省内存空间。</p>
+<p><strong>当static修饰方法</strong>时，<br>在没有建立任何对象的时候就能够调用静态方法。Java程序的main函数就是被静态修饰，此时没有任何对象，它仍可以作为程序的入口被JVM调用。</p>
+<blockquote>
+<p>总结：<br> 一切都是对象，对象是类的实例，对象可以使用类的数据和调用类的方法；<br>Java数据类型和Java数据的内存分配是它和其他语言的一个区分点；<br>根据程序需要，可以考虑用static修饰字段和方法；</p>
+</blockquote>
 
-Java操作对象的方式
-对象的存储位置
-Java的基本数据类型和类类型
-Java对象和方法的作用范围
-static关键字
-
-1. Java操作对象的方式
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/22/《Java编程思想》学习笔记之一切都是对象（第二章）/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -737,15 +839,19 @@ static关键字
       
         
           
-          　　大部分工科生都接触过C语言，对于面向过程的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/20/《java编程思想》学习笔记之对象导论（第一章）/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>　　大部分工科生都接触过C语言，对于<strong>面向过程</strong>的程序设计和编程语法都有一定程度的了解。在需要解决某类问题时，最常用的思维是规划出第一步要做什么，第二步要做什么，从而得到完整的解决方法。<br>　　在接触了C++，之后，对于同样一个问题的解决，可能又多了一些思路。C++，从C语言改进而来，添加了面向对象的特征和语言（封装、继承、多态），同时也向下兼容C语言。而Java更是一门纯粹的面向对象的语言，也有人称其为（C++）–，因为Java它在C++的基础上舍弃了一些东西，只保留了面向对象的部分，并且进行了拓展。<br>  　　关于面向对象语言，Alan Kay总结了5个基本特性。</p>
+<p>　　 1. <strong>万物皆对象</strong>。刚接触面向对象语言和Java时，就被这五个字洗脑。但是抛开宽泛的概念，在现实生活中，这五个字也有具体的表现。譬如我们每个人使用的笔记本电脑，手机，电视机等等，他们都是具体的对象存在。每个对象具有自己的状态和行为。就手机而言，手机的硬件配置和颜色就是它的状态，而打电话发短信和上网就是它的行为。<br>　　 2. <strong>程序是对象的集合，它们通过发送消息来告知彼此所要做的</strong>。关于这一点，我理解的就是属于面向对象的封装特性。我们把需要的信息和行为封装到具体对象和方法中，通过调用来实现具体功能。比如最简单的加法运算。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class addDemo &#123;</div><div class="line">int a;</div><div class="line">int b;</div><div class="line">public int add(int a,int b)&#123;</div><div class="line">	return a+b;</div><div class="line">&#125;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		addDemo ad = new addDemo();</div><div class="line">		int count = ad.add(1, 1);</div><div class="line">		System.out.println(count);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这段程序中，主函数中并没有计算方法，计算方法被封装在add()中，需要用的时候只需要进行调用，复用性非常好。<br>　　 3. <strong>每个对象都有自己的有其他对象所构成的存储</strong>。我所理解的这里指的是面向对象的继承特征，通过这个特征可以构建复杂的体系并且简化重复代码的书写。<br>　　 4. <strong>每个对象都有其类型</strong>。类是对象的抽象。我们经常用的含有类词语，比如人类，这也是一个类型。里面包含有各种不同的对象，如男人，女人。我们所用的手机也是，苹果手机是一个大类，里面的各种不同型号是它的小类，每一个小类又有其许多独立的对象，共同构成了一个体系。<br>　　 5. <strong>某一特定类型的所有对象都可以接受同样的消息</strong>。关于这一点我所理解的就是面对象的多态特性。<br>　　<br>Java作为面向对象语言所特有的一些性质。</p>
+<ul>
+<li>对象的创建位置在堆内存，用new关键字开辟空间，缺点是运行开销大。</li>
+<li>Java不同与C++，它是单继承结构，有良好的继承体系。</li>
+<li>Java有垃圾回收器，可以用来处理内存释放问题，不必手动清理内存，编程更加灵活。</li>
+<li>Java内置异常处理机制，将运行代码和异常处理代码分开，有利于编写更加大型和健壮的代码。</li>
+<li>Java语言内置线程机制，有利于程序的并发处理。</li>
+</ul>
+<p><strong>小结</strong>：OOP和Java有较大优势，但并不是适合所有的场合。java代码编写更加简单，层次性较好，也便于理解。但是缺点是效率相对较低（相比较于C和C++），所以在追求高速度高效率的场合，C用的也较多。</p>
+
+          
         
       
     </div>
@@ -869,16 +975,10 @@ static关键字
       
         
           
-          　　自己已经学习Java有了两个多月的时间，之前一直是找寻学习的办法，看书、看视频，敲代码。  　　后来跟前辈交流，觉得学习的过程重在理解和深入，通过github博客记录学习笔记是一个不错的选择。自己希望能够利用这个平台多学习，在学习和实践中掌握应有的技能，早日达到自己的目标。
-   　　Life 
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/13/写在之前/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>　　自己已经学习Java有了两个多月的时间，之前一直是找寻学习的办法，看书、看视频，敲代码。<br>  　　后来跟前辈交流，觉得学习的过程重在理解和深入，通过github博客记录学习笔记是一个不错的选择。自己希望能够利用这个平台多学习，在学习和实践中掌握应有的技能，早日达到自己的目标。</p>
+<p>   　　Life is Like a sewer,what you get out of it depends on what you put into it.</p>
+
+          
         
       
     </div>

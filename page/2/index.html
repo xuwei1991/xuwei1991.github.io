@@ -326,20 +326,24 @@
       
         
           
-          　　模版方法模式也是行为型设计模式的一种，本章主要对模版方法模式进行学习。  本章要点：
+            <p>　　模版方法模式也是行为型设计模式的一种，本章主要对模版方法模式进行学习。<br>  本章要点：</p>
+<ul>
+<li>模版方法模式的概念和用途</li>
+<li>模版方法模式的主要角色</li>
+<li>模版方法模式的程序示例</li>
+<li>总结<h2 id="1-模版方法模式的概念和用途"><a href="#1-模版方法模式的概念和用途" class="headerlink" title="1.模版方法模式的概念和用途"></a><strong>1.模版方法模式的概念和用途</strong></h2>　　<strong>模版方法模式：定义一个操作中算法的框架，而将一些步骤延迟到子类中。模板方法模式使得子类可以不改变一个算法的结构就可以重新定义该算法的某些特定步骤。</strong>—-百度百科<br>　　在系统设计中，为了实现某一个复杂的功能，我们直到要进行哪些步骤，也就是知道算法框架。但是，对于具体步骤的执行在设计时还无法确定，因此可以在抽象类或者接口中把算法框架固定下来，而把每个具体步骤的操作下放到子类中，有利于程序的开发。就比如我们找工作，就必须经过投简历–笔试–面试步骤，这就是一个算法框架，而对于投简历的方式，笔试内容，面试形式都是未知的，都是具体的步骤，可以在后期确定。在这里就是模版模板模式的一种体现。<h2 id="2-模板方法模式的主要角色"><a href="#2-模板方法模式的主要角色" class="headerlink" title="2.模板方法模式的主要角色"></a><strong>2.模板方法模式的主要角色</strong></h2>对于模板方法模式而言，一般有以下两个角色：</li>
+<li>抽象类角色：定义一系列基本方法和一个模板方法。模板方法定义算法框架，可以调用抽象类中的方法，也可以调用其他对象的方法。</li>
+<li>具体类角色：继承自抽象类，实现抽象类中基本的抽象方法，即实现算法步骤的具体内容。<h2 id="3-模版方法模式的程序示例"><a href="#3-模版方法模式的程序示例" class="headerlink" title="3.模版方法模式的程序示例"></a><strong>3.模版方法模式的程序示例</strong></h2>　　以找工作为例，找工作的算法框架就是投简历–笔试–面试。但是每一个环节都可以有不同的形式，可以把流程固定在模板方法里面，而把具体实现放在子类中，如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//抽象类</div><div class="line">abstract class AbstractClass&#123;</div><div class="line">	//找工作的一些基本步骤</div><div class="line">	abstract void SendResume();</div><div class="line">	abstract void WrittenExamination();</div><div class="line">	abstract void Interview();</div><div class="line">	//模板方法，调用找工作的步骤</div><div class="line">	public void SeekJob()&#123;</div><div class="line">		SendResume();</div><div class="line">		WrittenExamination();</div><div class="line">		Interview();</div><div class="line">		System.out.println("找到一份满意的工作");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体类1，继承抽象类，实现基本步骤，找工作的第一种具体实现</div><div class="line">class ConcreteClass1 extends AbstractClass&#123;</div><div class="line"></div><div class="line">	void SendResume() &#123;</div><div class="line">		System.out.println("宣讲会现场投简历");</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	void WrittenExamination() &#123;</div><div class="line">		System.out.println("现场笔试");</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	void Interview() &#123;</div><div class="line">		System.out.println("现场一对一面试");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体类2，继承抽象类，实现基本步骤，找工作的第二种具体实现</div><div class="line">class ConcreteClass2 extends AbstractClass&#123;</div><div class="line"></div><div class="line">	void SendResume() &#123;</div><div class="line">		System.out.println("招聘网站投简历");</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	void WrittenExamination() &#123;</div><div class="line">		System.out.println("网上笔试");</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	void Interview() &#123;</div><div class="line">		System.out.println("视频面试");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">public class TemplatePattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建第一种找工作的方式，调用模板方法</div><div class="line">		System.out.println("第一种方式找工作：");</div><div class="line">		AbstractClass ac1 = new ConcreteClass1();</div><div class="line">		ac1.SeekJob();</div><div class="line">		System.out.println("-------------------");</div><div class="line">		//创建第二种找工作的方式，调用模板方法</div><div class="line">		System.out.println("第二种方式找工作：");</div><div class="line">		AbstractClass ac2 = new ConcreteClass2();</div><div class="line">		ac2.SeekJob();</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">第一种方式找工作：</div><div class="line">宣讲会现场投简历</div><div class="line">现场笔试</div><div class="line">现场一对一面试</div><div class="line">找到一份满意的工作</div><div class="line">-------------------</div><div class="line">第二种方式找工作：</div><div class="line">招聘网站投简历</div><div class="line">网上笔试</div><div class="line">视频面试</div><div class="line">找到一份满意的工作</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>模板方法模式在抽象类中定义算法框架，在具体类中实现这些算法，有利于构件复杂的程序；</li>
+<li>对于同一个模板方法，可以有不同的实现；</li>
+</ol>
 
-模版方法模式的概念和用途
-模版方法模式的主要角色
-模版方法模式的程序示例
-总结1.模版方法模式的概念和用途　　模版方法模式：定义一个操作中算法的框架，而将一些步骤延迟到子类中。模板方法模式使得子类可以不改变一
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/03/04/Java设计模式之模版方法模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -463,21 +467,34 @@
       
         
           
-          　　策略模式是行为型设计模式的一种，本章主要对策略模式进行学习。　　本章要点：
+            <p>　　策略模式是行为型设计模式的一种，本章主要对策略模式进行学习。<br>　　本章要点：</p>
+<ul>
+<li>策略模式的概念和用途</li>
+<li>策略模式的主要角色</li>
+<li>策略模式的代码示例</li>
+<li><p>总结</p>
+<h2 id="1-策略模式的概念和用途"><a href="#1-策略模式的概念和用途" class="headerlink" title="1.策略模式的概念和用途"></a><strong>1.策略模式的概念和用途</strong></h2><p>　　<strong>策略模式的目的是：定义一系列的算法，并将每一个算法封装起来，而且使它们还可以相互替换</strong>。策略模式让算法独立于使用它的客户而独立变化。—来自百度百科。<br>　　在程序型设计语言阶段，存在多种算法时，往往是通过判断语句，if…else或者switch…case语句来进行不同的选择。这样使得程序比较复杂，可读性较差且难以维护。而策略模式就是为了解决这个问题而生，它把这些算法封装成一个个的类，能够保持相对独立且进行任意的替换。<br>　　对于策略模式来说，主要有以下几个应用场景：</p>
+</li>
+<li><p>多个类只区别在表现行为不同，可以使用Strategy模式，在运行时动态选择具体要执行的行为。</p>
+</li>
+<li>需要在不同情况下使用不同的策略(算法)，或者策略还可能在未来用其它方式来实现。</li>
+<li>对客户隐藏具体策略(算法)的实现细节，彼此完全独立。</li>
+</ul>
+<h2 id="2-策略模式的主要角色"><a href="#2-策略模式的主要角色" class="headerlink" title="2.策略模式的主要角色"></a><strong>2.策略模式的主要角色</strong></h2><p>　　对于策略模式而言，它有三个主要的角色：</p>
+<ul>
+<li>抽象策略类角色：定义所有算法都要支持的公共接口</li>
+<li>具体策略类角色：实现抽象策略类的接口，定义某种具体的算法</li>
+<li>环境类角色：持有抽象策略类的引用，并用具体策略类的方法来进行配置。<h2 id="3-策略模式的的代码示例"><a href="#3-策略模式的的代码示例" class="headerlink" title="3.策略模式的的代码示例"></a><strong>3.策略模式的的代码示例</strong></h2>　　以最简单的加减乘除算法为例，通过策略模式，可以实现如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//抽象策略类，提供算法接口</div><div class="line">interface Strategy&#123;</div><div class="line">	//方法传递参数</div><div class="line">	int Operation(int num1,int num2);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//加法运算</div><div class="line">class AddStrategy implements Strategy&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public int Operation(int num1, int num2) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return num1+num2;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//减法运算</div><div class="line">class SubtractStrategy implements Strategy&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public int Operation(int num1, int num2) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return num1-num2;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//乘法运算</div><div class="line">class MultiplyStrategy implements Strategy&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public int Operation(int num1, int num2) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return num1*num2;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//除法运算</div><div class="line">class DivideStrategy implements Strategy&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public int Operation(int num1, int num2) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return num1/num2;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//环境类</div><div class="line">class Context&#123;</div><div class="line">	//持有策略对象，并传递策略</div><div class="line">	private Strategy strategy;</div><div class="line">	public Context(Strategy strategy)&#123;this.strategy = strategy;&#125;</div><div class="line">	 public int executeOperation(int num1,int num2)&#123;</div><div class="line">		 return strategy.Operation(num1, num2);</div><div class="line">	 &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public class StrategyPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//调用加法算法</div><div class="line">		Context context = new Context(new AddStrategy());</div><div class="line">		System.out.println("10+21="+context.executeOperation(10, 21));</div><div class="line">		//调用减法算法</div><div class="line">		context = new Context(new SubtractStrategy());</div><div class="line">		System.out.println("10-21="+context.executeOperation(10, 21));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">10</span>+<span class="number">21</span>=<span class="number">31</span></div><div class="line"><span class="number">10</span>-<span class="number">21</span>=-<span class="number">11</span></div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>策略模式是对算法的封装，它把算法的责任和算法本身分割开，委派给不同的对象管理；</li>
+<li>策略模式的具体策略要对客户端暴露；</li>
+</ol>
 
-策略模式的概念和用途
-策略模式的主要角色
-策略模式的代码示例
-总结
-1.策略模式的概念和用途　　策略模式的目的是：定义一系列的算法，并将每一个算法封装起来，而且使它们还可以相互替换。策略模式让算法独立于使用它的客户而独
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/03/04/Java设计模式之策略模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -601,21 +618,30 @@
       
         
           
-          　　享元模式也是构建型模式的一种，能有效的提高程序效率和性能，加快程序的运行速度。本章主要对享元模式进行学习。  本章要点：
+            <p>　　享元模式也是构建型模式的一种，能有效的提高程序效率和性能，加快程序的运行速度。本章主要对享元模式进行学习。<br>  本章要点：</p>
+<ul>
+<li>享元模式的概念和用途</li>
+<li>享元模式的主要角色</li>
+<li>享元模式的程序示例</li>
+<li><p>总结</p>
+<h2 id="1-享元模式的概念和用途"><a href="#1-享元模式的概念和用途" class="headerlink" title="1.享元模式的概念和用途"></a><strong>1.享元模式的概念和用途</strong></h2><p>　　享元模式，即Flyweight Pattern，从字面意思来理解，就是轻量级的设计模式，这也很直观的解释了享元模式的主要用途。<br>　　作为面向对象语言，其原则就是一切都是对象。但是在用起来的时候，对象会很庞大，比如一个文字处理软件，一个文字就是一个对象，如果一篇文章几万字，那么处理量就会很庞大，耗费较多的内存。享元设计模式就是求同存异，把相同的类设计为元类，进行共享。那么英语就只有大小写52个字母，汉字就是常用汉字3000多个。<br>　　<strong>享元模式的定义是：运用共享技术有效的支持大量细粒度的对象</strong>。关键字就是共享，通过共享，减少内存的占用。对于享元模式而言，它有两种状态，分别是内蕴状态和外蕴状态。内蕴状态可以共享的，存储在享元内部，不会随时间改变而有所不同；外蕴状态是不可以共享的，由客户端进行保存，随环境的变化而变化。</p>
+<h2 id="2-享元模式的主要角色"><a href="#2-享元模式的主要角色" class="headerlink" title="2.享元模式的主要角色"></a><strong>2.享元模式的主要角色</strong></h2><p>　　对于享元模式而言，主要有三个角色：</p>
+</li>
+<li><p>抽象享元角色：它是具体享元类的超类，提供公共接口，需要外蕴状态的操作可以通过方法的参数传递；</p>
+</li>
+<li>具体享元角色：实现抽象享元角色的接口，为内蕴状态提供空间。</li>
+<li>享元工厂角色：负责创建和管理享元角色。享元工厂角色类似于单例设计模式，它会检查系统中是否已经存在享元对象，如果有就提供该对象，如果没有就创建新的享元对象。<h2 id="3-享元模式的程序示例"><a href="#3-享元模式的程序示例" class="headerlink" title="3.享元模式的程序示例"></a><strong>3.享元模式的程序示例</strong></h2>　　假如要进行这样的操作，向系统中录入学生的信息，主要是姓名和年龄，但是姓名较多是相同的（现实中不太可能存在，仅作示例），于是把姓名作为内蕴状态，年龄作为外蕴状态，利用享元设计模式节约内存，示例如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">import java.util.Hashtable;</div><div class="line"></div><div class="line">//抽象享元角色</div><div class="line">interface flyweight&#123;</div><div class="line">	//提供公共方法，传递外蕴状态</div><div class="line">	void method(int age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体享元角色</div><div class="line">class concreteFlyweight implements flyweight&#123;</div><div class="line">	//为内蕴状态提供空间</div><div class="line">    private String name;</div><div class="line">    concreteFlyweight(String name)&#123;</div><div class="line">    	this.name =name;	</div><div class="line">    	&#125;</div><div class="line">	public void method(int age) &#123;</div><div class="line">		System.out.println("姓名为:"+name+",年龄为"+age);	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//享元工厂角色</div><div class="line">class FlyweightFactory&#123;</div><div class="line">	//利用哈希表存储内蕴状态</div><div class="line">	private Hashtable flyweights = new Hashtable();</div><div class="line">	public flyweight getFlyweight(String name)&#123;</div><div class="line">		concreteFlyweight cf = (concreteFlyweight)flyweights.get(name);</div><div class="line">		//对象是否为空判断</div><div class="line">		if(cf == null)&#123;</div><div class="line">			cf = new concreteFlyweight(name);</div><div class="line">			flyweights.put(name, cf);</div><div class="line">		&#125;</div><div class="line">		return cf;</div><div class="line">	&#125;</div><div class="line">	//返回内蕴状态的数量</div><div class="line">	public int getSize()&#123;return flyweights.size();&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//客户端类</div><div class="line">public class FlyweightPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		FlyweightFactory factory = new FlyweightFactory();</div><div class="line">		//创建对象，并通过方法传递外蕴状态</div><div class="line">		flyweight f1 = factory.getFlyweight("张三");</div><div class="line">		f1.method(23);</div><div class="line">		</div><div class="line">		flyweight f2 = factory.getFlyweight("张三");</div><div class="line">		f2.method(24);</div><div class="line"></div><div class="line">		flyweight f3 = factory.getFlyweight("李四");</div><div class="line">		f3.method(25);</div><div class="line"></div><div class="line">		flyweight f4 = factory.getFlyweight("王五");</div><div class="line">		f4.method(26);</div><div class="line"></div><div class="line">		flyweight f5 = factory.getFlyweight("张三");</div><div class="line">		f5.method(27);</div><div class="line"></div><div class="line">		flyweight f6 = factory.getFlyweight("张三");</div><div class="line">		f6.method(28);</div><div class="line">		</div><div class="line">		System.out.println("共享的名字一共有"+factory.getSize()+"个");</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">姓名为:张三,年龄为<span class="number">23</span></div><div class="line">姓名为:张三,年龄为<span class="number">24</span></div><div class="line">姓名为:李四,年龄为<span class="number">25</span></div><div class="line">姓名为:王五,年龄为<span class="number">26</span></div><div class="line">姓名为:张三,年龄为<span class="number">27</span></div><div class="line">姓名为:张三,年龄为<span class="number">28</span></div><div class="line">共享的名字一共有<span class="number">3</span>个</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ol>
+<li>当一个应用程序使用了大量的对象，从而造成了较大的内存开销，可以考虑采用享元设计模式；</li>
+<li>区分外蕴状态和内蕴状态，外蕴状态由客户端保存，并且彼此之间是独立的；</li>
+<li>享元模式能够使程序较高效率的执行，节约内存空进，但是也使程序的逻辑复杂化；</li>
+</ol>
 
-享元模式的概念和用途
-享元模式的主要角色
-享元模式的程序示例
-总结
-1.享元模式的概念和用途　　享元模式，即Flyweight Pattern，从字面意思来理解，就是轻量级
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/03/01/Java设计模式之享元模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -739,21 +765,41 @@
       
         
           
-          　　桥接模式也是属于结构型设计模式的一种，本章主要对桥接模式进行学习。  　　本章要点：
+            <p>　　桥接模式也是属于结构型设计模式的一种，本章主要对桥接模式进行学习。<br>  　　本章要点：</p>
+<ul>
+<li>桥接模式的概念及用途</li>
+<li>桥接模式的主要角色</li>
+<li>桥接模式的程序示例</li>
+<li><p>总结</p>
+<h2 id="1-桥接模式的概念及用途"><a href="#1-桥接模式的概念及用途" class="headerlink" title="1.桥接模式的概念及用途"></a><strong>1.桥接模式的概念及用途</strong></h2><p>　　<strong>桥接模式的目的：将抽象化(Abstraction)与实现化(Implementation)脱耦，使得二者可以独立地变化。</strong><br>　　桥接模式的本质目的是分离抽象和实现。只有分离了抽离和实现，两者才能够独立的进行变化。只有它们可以独立变化，系统才具有更好的拓展性。<br>　　在程序结构上进行分离，有利于系统的构建。但是在抽象部分实现的时候要用到具体的实现，为了让抽象部分能够调用实现部分的功能，需要在抽象部分拥有实现部分的接口对象，达到连接的作用，这也正是桥接的含义。<br>　　对于桥接模式，它有以下几个主要的作用：</p>
+</li>
+<li><p>解耦了抽象化和实现化之间的关系，使得他们可以沿着各自的纬度独立变化</p>
+</li>
+<li>可以动态切换实现。抽象和实现已经分析，可以动态的选择所需要的实现方式</li>
+<li>可以减少子类对象。对于nXm纬度的系统来说，要实现所需的功能，需要通过继承建立（n*m）个类；如果采用桥接模式，只需要（n+m）个类。从类的数量来说，桥接模式更有优势，而且后期的拓展性更好。</li>
+</ul>
+<h2 id="2-桥接模式的主要角色"><a href="#2-桥接模式的主要角色" class="headerlink" title="2.桥接模式的主要角色"></a><strong>2.桥接模式的主要角色</strong></h2><p>　　桥接模式有两个等级结构，分别是抽象化等级和实现化等级，而对于每一个等级来说，它们又各自有两个角色，所以一共有四个主要的角色，分别如下：</p>
+<ul>
+<li>抽象化(Abstraction)角色：这个角色是抽象部分的接口，在接口里，要保存有实现化部分的对象引用。且在接口的方法里，要调用实现部分的对象来完成任务。</li>
+<li>修正抽象化(Refined Abstraction)角色：实现抽象化接口的方法，在方法里完成具体的任务。</li>
+<li>实现化(Implementor)角色：这个角色是实现部分的接口，接口的方法不必和抽象化角色的方法一致，通常是实现化角色定义基本操作，抽象化角色定义基于这个基本操作的任务。</li>
+<li>具体实现化(Concrete Implementor)角色：实现实现化接口，给出实现化角色的具体实现。<h2 id="3-桥接模式的程序示例"><a href="#3-桥接模式的程序示例" class="headerlink" title="3.桥接模式的程序示例"></a><strong>3.桥接模式的程序示例</strong></h2>　　假如要实现这样的一个功能：发消息。对于消息而言，有两类消息，分别是文字消息和语音消息；对于实现方式而言也有两种，分别是QQ和微信。那么就有了两个纬度的系统。一共有四种发消息方式，分别是：用QQ发文字消息，用QQ发语音消息，用微信发文字消息，用微信发语音消息。如果不采用桥接模式，普通的程序编写如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//消息类接口，具有显示功能</div><div class="line">interface Message&#123;</div><div class="line">	void show();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//文字消息接口，继承消息总接口</div><div class="line">interface TextMessage extends Message&#123;&#125;</div><div class="line"></div><div class="line">//实现文字消息类，用QQ发文字消息</div><div class="line">class TextMesage_QQ implements TextMessage&#123;</div><div class="line">	public void show() &#123;</div><div class="line">		System.out.println("用QQ发文字消息");		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//实现文字消息类，用微信发文字消息</div><div class="line">class TextMesage_Wechat implements TextMessage&#123;</div><div class="line">	public void show() &#123;</div><div class="line">		System.out.println("用微信发文字消息");		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//语音消息接口，继承消息总接口</div><div class="line">interface VoiceMessage extends Message&#123;&#125;</div><div class="line"></div><div class="line">//实现语音消息，用QQ发语音</div><div class="line">class VoiceMessage_QQ implements VoiceMessage&#123;</div><div class="line">	public void show() &#123;</div><div class="line">		System.out.println("用QQ发语音消息");		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//实现语音消息，用微信发语音</div><div class="line">class VoiceMesage_Wechat implements VoiceMessage&#123;</div><div class="line">	public void show() &#123;</div><div class="line">		System.out.println("用微信发语音消息");		</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//测试类</div><div class="line">public class BridgePattern1 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建对象，调用方法</div><div class="line">		Message t1 = new VoiceMessage_QQ();</div><div class="line">		t1.show();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如上述程序所示，也能够完成系统设计的目的，但是存在以下两个问题：</p>
+<ul>
+<li>抽象化类和实现方式高度耦合，不能单独的修改；</li>
+<li>如果在已有的系统上加上一个发送视频消息的抽象化，那么针对QQ实现方式和微信实现方式都需要再写一个新类；如果增加了一种发送消息的方式，比如用微博，那么针对每一种消息也需要重写编写实现类。以此类推，如果消息类型和消息发送方式越来愈多，原来的系统就会越来越庞大，系统耦合度也较高，不利于维护。</li>
+</ul>
+<p>如果把消息类型和实现消息的方式进行分离，各自独立进行变化，那么系统就会更加方便维护，具体的代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//抽象的实现化接口；有实现化方法</div><div class="line">interface Implementor&#123;</div><div class="line">	void Implementway();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//抽象化角色，抽象的消息类</div><div class="line">abstract class Message1&#123;</div><div class="line">	//持有实现化对象</div><div class="line">	private Implementor implementor;</div><div class="line">	public Message1(Implementor implementor)&#123;this.implementor = implementor;&#125;</div><div class="line">	//定义的显示方式会调用实现化方法</div><div class="line">	public void show() &#123;</div><div class="line">		implementor.Implementway();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体的实现类QQ：实现抽象的接口，并覆写方法</div><div class="line">class QQ implements Implementor&#123;</div><div class="line">	public void Implementway() &#123;</div><div class="line">		System.out.print("用QQ发送：");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体的实现微信：实现抽象的接口，并覆写方法</div><div class="line">class Wechat implements Implementor&#123;</div><div class="line">	public void Implementway() &#123;</div><div class="line">		System.out.print("用微信发送：");	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//修正抽象化角色：文字消息类型。继承抽象化角色，也持有抽象实现接口对象</div><div class="line">class MessageText1 extends Message1&#123;</div><div class="line">	public MessageText1(Implementor implementor) &#123;</div><div class="line">		super(implementor);</div><div class="line">	&#125;</div><div class="line">	//调用父类中包含有实现化的方法，并添加自己的方法</div><div class="line">	public void show()&#123;</div><div class="line">		super.show();</div><div class="line">		System.out.println("文字消息");</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//修正抽象化角色：语音消息类型。继承抽象化角色，也持有抽象实现接口对象</div><div class="line">class MessageVoice1 extends Message1&#123;</div><div class="line">	public MessageVoice1(Implementor implementor) &#123;</div><div class="line">		super(implementor);</div><div class="line">	&#125;</div><div class="line">	//调用父类中包含有实现化的方法，并添加自己的方法</div><div class="line">	public void show()&#123;</div><div class="line">		super.show();</div><div class="line">		System.out.println("语音消息");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//测试类</div><div class="line">public class BridgePattern2 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建一个具体实现类的对象</div><div class="line">		Implementor i = new Wechat();</div><div class="line">		//创建消息类型对象，传入具体的实现方式对象，并调用方法</div><div class="line">		Message1 m1 = new MessageVoice1(i);</div><div class="line">		m1.show();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如上代码所示，利用桥接模式把抽象化和实现化相分离，两者可以独立的变化。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ul>
+<li>桥接模式属于结构型设计模式的一种，它的本质是分离抽象和实现，很好的符合了设计模式的开闭原则；</li>
+<li>继承也是拓展程序功能的重要手段，但是耦合性较强。尤其是在抽象和实现是多维度的时候，比如上面的示例，消息类似和消息实现方式两个维度。如果每个维度都有多个可变对象，此时最好采用桥接模式。</li>
+</ul>
 
-桥接模式的概念及用途
-桥接模式的主要角色
-桥接模式的程序示例
-总结
-1.桥接模式的概念及用途　　桥接模式的目的：将抽象化(Abstraction)与实现化(Implementation)脱耦，使得二者可以独立
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/26/Java设计模式之桥接模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -877,20 +923,25 @@
       
         
           
-          　　外观模式也是结构型设计模式的一种，本章主要对外观模式进行学习。  　　本章要点：
+            <p>　　外观模式也是结构型设计模式的一种，本章主要对外观模式进行学习。<br>  　　本章要点：</p>
+<ul>
+<li>外观模式的概念和用途</li>
+<li>外观模式的主要角色</li>
+<li>外观模式的程序示例</li>
+<li>总结<h2 id="1-外观模式的概念和用途"><a href="#1-外观模式的概念和用途" class="headerlink" title="1.外观模式的概念和用途"></a><strong>1.外观模式的概念和用途</strong></h2>　　外观模式（Facade）<strong>定义</strong>：为子系统中的一组接口提供一个一致的界面，定义一个高层接口，这个接口使得这一子系统更加容易使用。<br>　　在软件开发阶段，都是先开发一个一个的子系统，这样有利于开发效率，也可以建立系统之间的耦合性。客户端在用到软件时，需要用到各个功能，但是不需要与各个子系统交互。这个时候采用外观模式，就能够降低子系统与客户端之间的耦合，而且能够减少客户端所接触的子系统对象。<h2 id="2-外观模式的主要角色"><a href="#2-外观模式的主要角色" class="headerlink" title="2.外观模式的主要角色"></a><strong>2.外观模式的主要角色</strong></h2>对于外观模式而言，它有两个角色：</li>
+<li><strong>子系统角色</strong>：定义各个子系统的功能，子系统之间是独立的，而且内部不知道外观角色的存在。</li>
+<li><strong>外观角色</strong>：该角色是外观模式的核心，内部含有子系统对象，根据需要整合系统功能。面向客户端，与客户端进行交互。<h2 id="3-外观模式的程序示例"><a href="#3-外观模式的程序示例" class="headerlink" title="3.外观模式的程序示例"></a><strong>3.外观模式的程序示例</strong></h2>　　举例来说，一台电脑有三个子系统，分别是CPU，内存和硬盘，当我们开机的时候，只需要点击开机键，这三个子系统就被启动。我们并不知道内部是如何发生的，只知道开机的外观显示。程序代码示例如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//子系统1：CPU系统，定义CPU启动方法</div><div class="line">class CPU2&#123;</div><div class="line">	public void cpu_run()&#123;</div><div class="line">		System.out.println("CPU启动");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//子系统2：内存系统，定义内存启动方法</div><div class="line">class Neicun&#123;</div><div class="line">	public void neicun_run()&#123;</div><div class="line">		System.out.println("内存启动");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//子系统3：硬盘系统，定义硬盘启动方法</div><div class="line">class Yingpan&#123;</div><div class="line">	public void yingpan_run()&#123;</div><div class="line">		System.out.println("硬盘启动");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//外观角色：电脑开机功能的整合</div><div class="line">class Computer&#123;</div><div class="line">	//定义子系统的对象</div><div class="line">	private CPU2 cpu = new CPU2();</div><div class="line">	private Neicun neicun = new Neicun();</div><div class="line">	private Yingpan yingpan = new Yingpan();</div><div class="line">	//定义一个方法，放入子系统的方法</div><div class="line">	public void run()&#123;</div><div class="line">		cpu.cpu_run();</div><div class="line">		neicun.neicun_run();</div><div class="line">		yingpan.yingpan_run();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//客户端测试类</div><div class="line">public class FacadePattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//建立外观类对象</div><div class="line">		Computer c = new Computer();</div><div class="line">		//调用外观类方法，系统自动调用子系统的方法</div><div class="line">		c.run();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CPU启动</div><div class="line">内存启动</div><div class="line">硬盘启动</div></pre></td></tr></table></figure>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ul>
+<li>外观设计模式是结构型设计模式的一种，它减少了用户与子系统的耦合，也起到了一种封装的作用；</li>
+<li>只是为用户访问子系统提供统一的接口，不妨碍用户直接调用子系统；</li>
+<li>如果新增加了子系统，可能需要更改外观类角色，这也是缺点之一；</li>
+</ul>
 
-外观模式的概念和用途
-外观模式的主要角色
-外观模式的程序示例
-总结1.外观模式的概念和用途　　外观模式（Facade）定义：为子系统中的一组接口提供一个一致的界面，定义一个高层接口，这个接口使得这一子系统更加容易
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/25/Java设计模式之外观模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -1014,21 +1065,37 @@
       
         
           
-          　　代理模式也是结构型设计模式的一种。正如之前所介绍的那样，适配器模式的目的是兼容接口，装饰模式的目的是增强功能，而代理模式的目的是隔离，通过代理来访问真实对象。本章主要对代理模式进行学习。  本章要点：
+            <p>　　代理模式也是结构型设计模式的一种。正如之前所介绍的那样，适配器模式的目的是兼容接口，装饰模式的目的是增强功能，而代理模式的目的是隔离，通过代理来访问真实对象。本章主要对代理模式进行学习。<br>  本章要点：</p>
+<ul>
+<li>代理模式的概念和来源</li>
+<li>代理模式的主要角色</li>
+<li>代理模式的程序示例</li>
+<li><p>总结</p>
+<h2 id="1-代理模式的概念和来源"><a href="#1-代理模式的概念和来源" class="headerlink" title="1.代理模式的概念和来源"></a><strong>1.代理模式的概念和来源</strong></h2><p>　　代理模式的定义：为其他对象提供一种代理以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。——百度百科<br>　　正如上述定义所说，代理的目的在于隔离限制，通过代理模式，可以在访问真实对象时添加条件。拿日常的生活举例，人们日常中所买的汽车都是汽车厂商所生产的，但是买车都是在4S店进行购买，并不直接与汽车厂商进行交互，4S店就是汽车厂商的代理。通过这种模式，减少了客户端与真实对象之间的耦合性。</p>
+<h2 id="2-代理模式的主要角色"><a href="#2-代理模式的主要角色" class="headerlink" title="2.代理模式的主要角色"></a><strong>2.代理模式的主要角色</strong></h2><p>　　对于代理模式而言，它有三个主要的角色：</p>
+</li>
+<li><p><strong>抽象角色</strong>。声明具体角色所需要实现的业务方法，一般是接口或者抽象类；</p>
+</li>
+<li><strong>具体角色</strong>。实现抽象角色的接口，完成业务逻辑，是被代理的对象。</li>
+<li><strong>代理角色</strong>。代理设计模式的核心角色，有两个要点。第一：实现抽象角色的接口，第二：内部包含对真实对象的引用，对真实对象进行代理。<h2 id="3-代理模式的程序示例"><a href="#3-代理模式的程序示例" class="headerlink" title="3.代理模式的程序示例"></a><strong>3.代理模式的程序示例</strong></h2>　　对于代码的具体实现，Java有两种实现方式，分别是静态代理和动态代理。静态代理是指在程序运行前，被代理的具体对象的字节码文件已经存在；动态代理是指通过反射在程序运行阶段获取被代理对象的字节码文件。<h4 id="3-1-静态代理程序示例"><a href="#3-1-静态代理程序示例" class="headerlink" title="3.1 静态代理程序示例"></a><strong>3.1 静态代理程序示例</strong></h4>　　静态代理程序首先创建抽象接口，并有具体的角色去实现接口，再创建代理类对具体角色进行代理，最后客户端程序对代理类进行操作。在代理模式中，网络浏览图片就是采用代理模式，具体示意代码如下：<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//图像接口，定义显示功能</div><div class="line">interface Image&#123;</div><div class="line">	void show();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体的类实现图像接口，定义图像的名称，并重写显示方法，进行图像输出</div><div class="line">class RealImage implements Image&#123;</div><div class="line">    private String ImageName;</div><div class="line">    public RealImage(String ImageName)&#123;this.ImageName=ImageName;&#125;</div><div class="line">	@Override</div><div class="line">	public void show() &#123;</div><div class="line">	    System.out.println("显示"+ImageName);</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//定义代理角色，实现图像接口，内部添加具体角色的对象</div><div class="line">class ProxyImage implements Image&#123;</div><div class="line">    private RealImage realimage;</div><div class="line">    private String ImageName;</div><div class="line">    public ProxyImage(String ImageName)&#123;this.ImageName = ImageName;&#125;</div><div class="line">	@Override</div><div class="line">	public void show() &#123;</div><div class="line">		//代理类在接口方法中调用被代理角色的方法，并且添加了判断功能，如果具体角色对象为空，就创建具体对象，参数由代理类提供</div><div class="line">		if (realimage==null)&#123;realimage = new RealImage(ImageName);&#125;</div><div class="line">		realimage.show();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">public class ProxyPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//通过代理对图像进行访问并显示</div><div class="line">		Image r = new ProxyImage("图像1");</div><div class="line">		r.show();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>运行结果为;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">显示图像<span class="number">1</span></div></pre></td></tr></table></figure>
+<h4 id="3-2-动态代理程序示例"><a href="#3-2-动态代理程序示例" class="headerlink" title="3.2 动态代理程序示例"></a><strong>3.2 动态代理程序示例</strong></h4><p> 　　所谓的动态代理，就是在代理类中不指明索要代理的对象，在运行时传入具体的对象字节码文件进行代理，这种代理方式具有更广泛的使用性。动态代理主要是通过一个类和一个接口来实现。</p>
+<ul>
+<li>InvocationHandler：该接口中仅定义了一个Object : invoke(Object proxy, Method method, Object[] args);参数proxy指代理类，method表示被代理的方法，args为method中的参数数组，返回值Object为代理实例的方法调用返回的值。这个抽象方法在代理类中动态实现。</li>
+<li>Proxy：所有动态代理类的父类，提供用于创建动态代理类和实例的静态方法。<br>具体的程序示例之前在反射时已有学习，如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">import java.lang.reflect.*;</div><div class="line"></div><div class="line"> interface Interface2 &#123;</div><div class="line">	public void say();</div><div class="line">	public void eat();</div><div class="line">&#125;</div><div class="line"> </div><div class="line">//接口实现类</div><div class="line">class Child2 implements Interface2&#123;</div><div class="line">	public void say() &#123;</div><div class="line">		System.out.println("开始说话");</div><div class="line">		&#125;</div><div class="line">	public void eat() &#123;</div><div class="line">		System.out.println("开始吃饭");</div><div class="line">		&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//动态代理类</div><div class="line"> class DynamicProxyHandler implements InvocationHandler&#123;</div><div class="line">	private Object proxied;</div><div class="line">	public DynamicProxyHandler(Object proxied)&#123;</div><div class="line">		this.proxied=proxied;</div><div class="line">	&#125;</div><div class="line">	public Object invoke(Object proxy, Method method, Object[] args)</div><div class="line">			throws Throwable &#123;</div><div class="line">		System.out.println("新加入的语句");</div><div class="line">		return method.invoke(proxied, args);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">//测试类</div><div class="line"></div><div class="line">public class ProxyPattern2 &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Child2 c = new Child2();</div><div class="line">		Interface2 p = (Interface2)Proxy.newProxyInstance(c.getClass().getClassLoader(), c.getClass().getInterfaces(), new DynamicProxyHandler(c));	</div><div class="line">		p.eat();</div><div class="line">		p.say();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该程序的源码具有普适性，可以代理所需要的类。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><ul>
+<li>代理模式可以解决的问题是访问限制，客户端通过代理来对真实对象进行访问</li>
+<li>代理类和被代理类实现同一个接口，且拥有被代理类的对象引用</li>
+<li>代理分为静态代理和动态代理，动态代理与反射相结合，具有更强大的复用性。</li>
+</ul>
 
-代理模式的概念和来源
-代理模式的主要角色
-代理模式的程序示例
-总结
-1.代理模式的概念和来源
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/25/Java设计模式之代理模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -1152,21 +1219,52 @@
       
         
           
-          　　适配器模式和装饰模式都是属于结构型设计模式，两者有一些相似之处。本章主要对这两种设计模式进行学习。  本章要点：
+            <p>　　适配器模式和装饰模式都是属于结构型设计模式，两者有一些相似之处。本章主要对这两种设计模式进行学习。<br>  本章要点：</p>
+<ul>
+<li>适配器模式</li>
+<li>装饰模式</li>
+<li>适配器模式和装饰模式的比较</li>
+<li><p>总结</p>
+<h2 id="1-适配器模式"><a href="#1-适配器模式" class="headerlink" title="1.适配器模式"></a><strong>1.适配器模式</strong></h2><p>　　适配器模式的作用是将将一个类的接口适配成用户期待的接口。如果用户已经继承了一个接口，但是又需要用到另一个接口的方法。在不改变源代码的情况，可以创建适配器，把接口转换成目标接口，使得原本由于接口不兼容而不能一起工作的那些类可以在一起工作。对于适配器模式而言，它有三个主要的角色：</p>
+</li>
+<li><p>目标接口（target）：用户所希望的接口，目标接口可以是具体或者抽象的类，也可以是接口，它里面定义用户的方法。</p>
+</li>
+<li>被适配者</li>
+<li>适配器：把被适配者中的接口转换成目标接口。<br>　　<br>根据实现方式的不同，适配器模式分为两种，分别是类适配器模式和对象适配器模式。<h4 id="1-1-类适配器模式"><a href="#1-1-类适配器模式" class="headerlink" title="1.1 类适配器模式"></a><strong>1.1 类适配器模式</strong></h4>　　类适配器模式中，适配器和被适配者是继承关系，通过继承把被适配者的方法适配成目标接口。由于Java不支持多继承，所以<strong>在类适配器模式下，目标接口是接口，适配器是具体的类</strong>。具体的代码如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//目标接口，拥有方法1</div><div class="line">interface Target&#123;</div><div class="line">	void method1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//被适配者，拥有方法2</div><div class="line">class Adaptee&#123;</div><div class="line">	public void method2()&#123;</div><div class="line">		System.out.println("这是适配的方法");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//为了把被适配者的方法2适配到目标接口的方法1上，创建适配器，继承被适配者并实现目标接口</div><div class="line">class Adapter extends Adaptee implements Target&#123;</div><div class="line">	@Override</div><div class="line">	//覆写目标接口的方法1，并在里面调用适配的方法2</div><div class="line">	public void method1() &#123;</div><div class="line">		super.method2();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">public class AdaptPattern &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//通过适配器创建目标接口对象</div><div class="line">		Target t = new Adapter();</div><div class="line">		//调用目标接口的方法1，执行的是被适配者的方法2，达到目标</div><div class="line">		t.method1();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">这是适配的方法</div></pre></td></tr></table></figure>
+<h4 id="1-2-对象适配器模式"><a href="#1-2-对象适配器模式" class="headerlink" title="1.2 对象适配器模式"></a><strong>1.2 对象适配器模式</strong></h4><p>　　如果适配器中包含被适配者的实例，通过组合而非继承的方式实现适配的目的，则是对象适配器模式，此时适配器与被适配者是委派关系。目标接口可以是接口或者类，被适配者是具体的类。具体的代码如下。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//目标接口，包含有方法1</div><div class="line">interface Target2&#123;</div><div class="line">	void method1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//被适配者，含有需要适配的方法2</div><div class="line">class Adaptee2&#123;</div><div class="line">	public void method2()&#123;</div><div class="line">		System.out.println("这是适配的方法");</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//适配器实现目标接口</div><div class="line">class Adapter2  implements Target2&#123;</div><div class="line">	//适配器建立被适配者的实例</div><div class="line">	private Adaptee2 adaptee;</div><div class="line">	public Adapter2(Adaptee2 adaptee)&#123;this.adaptee=adaptee;&#125;</div><div class="line">	@Override</div><div class="line">	//重写目标接口的方法1，并在方法1中适配方法2</div><div class="line">	public void method1() &#123;</div><div class="line">		this.adaptee.method2();;	</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">public class AdaptPattern2 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//利用适配器，创建目标接口的对象</div><div class="line">		Target2 t = new Adapter2(new Adaptee2());</div><div class="line">		//调用目标接口的方法1</div><div class="line">		t.method1();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//输出的是适配后的方法</span></div><div class="line">这是适配的方法</div></pre></td></tr></table></figure>
+<h4 id="1-3-类适配模式和对象适配模式的比较"><a href="#1-3-类适配模式和对象适配模式的比较" class="headerlink" title="1.3 类适配模式和对象适配模式的比较"></a><strong>1.3 类适配模式和对象适配模式的比较</strong></h4><p>　　类适配模式和对象适配模式都属于适配设计模式，只不过是两种不同的实现方式。他们有以下的一些差异：</p>
+<ul>
+<li>类适配模式使用继承的方式实现的，是静态的定义方式；对象适配模式采用组合的方式实现，是动态组合的定义方式</li>
+<li>由于上述定义方式的不同，类适配器模式的适配器继承了被适配者时候，就不能再去继承其他的类；对象适配器模式可以把多种不同的适配源适配到同一目标接口</li>
+<li>在开发中，根据实际需要选择适配方式，一般来说，使用对象适配器模式居多</li>
+</ul>
+<h2 id="2-装饰模式"><a href="#2-装饰模式" class="headerlink" title="2.装饰模式"></a><strong>2.装饰模式</strong></h2><p>　　装饰设计模式是在不改变源文件且不使用继承的情况下，动态的拓展一个类的功能。通过创建一个装饰对象来装饰真实的对象。<br>  　　对于装饰设计模式而言，它有四个主要的角色：</p>
+<ul>
+<li>抽象构件角色。该类是需要装饰的基类，提供最原始的接口；</li>
+<li>具体构件角色。该角色是抽象构件的实现类，也是需要被装饰的具体对象。</li>
+<li>装饰角色。该角色持有具体构件角色的对象，它实现与抽象构件角色一样的接口。</li>
+<li><p>具体构件角色。对被装饰对象进行具体的装饰。</p>
+<p>　　以程序举例，假如我们有个角色有吃饭的功能，我需要对这个对象进行装饰，让他在吃饭之前先喝汤，在吃饭之后喝酸奶，为了达到这样的目的，可以如下实现。</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//抽象构件，提供接口</div><div class="line">interface Person2&#123;</div><div class="line">	void eat();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体构件，具体实现方法</div><div class="line">class Child implements Person2&#123;</div><div class="line">	@Override</div><div class="line">	public void eat() &#123;</div><div class="line">		System.out.println("开始吃白米饭");</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//装饰角色，实现抽象构件的接口，并且持有具体构件的对象</div><div class="line">class Decorator implements Person2&#123;</div><div class="line">	private Person2 person;</div><div class="line">	public Decorator(Person2 person)&#123;this.person = person;&#125;</div><div class="line">	public void eat() &#123;	</div><div class="line">		person.eat();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//具体装饰角色，继承装饰角色，为具体构建角色添加新功能</div><div class="line">class ConcreteDecorator extends Decorator&#123;</div><div class="line">	public ConcreteDecorator(Person2 person)&#123;</div><div class="line">		super(person);</div><div class="line">	&#125;</div><div class="line">	private void drink1()&#123;</div><div class="line">		System.out.println("吃饭前先喝汤");</div><div class="line">	&#125;</div><div class="line">	private void drink2()&#123;</div><div class="line">		System.out.println("吃饭后喝酸奶");</div><div class="line">	&#125;</div><div class="line">	public void eat() &#123;	</div><div class="line">		this.drink1();</div><div class="line">		super.eat();</div><div class="line">		this.drink2();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//测试类</div><div class="line">public class DecoratorPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//创建对象</div><div class="line">		Person2 c = new Child();</div><div class="line">		c.eat();</div><div class="line">		System.out.println("----采用装饰类后的结果-----");</div><div class="line">		//将对象传入装饰者，进行方法的调用</div><div class="line">		Person2 d = new ConcreteDecorator(c);</div><div class="line">		d.eat();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">开始吃白米饭</div><div class="line">----采用装饰类后的结果-----</div><div class="line">吃饭前先喝汤</div><div class="line">开始吃白米饭</div><div class="line">吃饭后喝酸奶</div></pre></td></tr></table></figure>
+<h2 id="3-适配器模式和装饰模式的比较"><a href="#3-适配器模式和装饰模式的比较" class="headerlink" title="3. 适配器模式和装饰模式的比较"></a><strong>3. 适配器模式和装饰模式的比较</strong></h2><p>　　适配器模式和装饰模式都是结构型设计模式，两者有很多相似之处，也有很多不同点：</p>
+<ol>
+<li><strong>在模式使用目的上</strong>：<br>适配器模式的目的在于兼容，将一个接口转换成另一个接口；<br>装饰模式的目的在于增强，被装饰类和装饰类实现同一接口，加入新的功能。</li>
+<li><strong>在程序代码实现上</strong>：<br>适配器有三个角色，最核心的是适配器，程序实现原有的接口并继承被适配者，实现接口的方法，并在方法中调用适配方法，实现接口转换；<br>装饰模式有四个角色，核心角色是抽象构件。具体构件和装饰者都实现抽象构件的同一个方法，把具体构件的对象传入装饰类中。在覆写接口的方法时，往方法中添加更多的责任代码。</li>
+</ol>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a><strong>4.总结</strong></h2><p>　　这次学习了两个模式，发现有相近之处，因此放在了一起进行记录。适配器模式和装饰模式都是结构型设计模式，需要掌握两者的类结构图，牢记模式的使用目的和使用方法。</p>
 
-适配器模式
-装饰模式
-适配器模式和装饰模式的比较
-总结
-1.适配器模式　　适配器模式的作用是将将一个类的接口适配成用户期待的接口。如果用户已经继承了一个接口，但是又需要用到另一个接
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/23/Java设计模式之适配器模式-装饰模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -1290,22 +1388,32 @@
       
         
           
-          　　原型设计模式也是创建型设计模式的一种，利用原型设计模式能够通过拷贝创建新对象。本章主要对原型设计模式进行学习：  本章要点：
+            <p>　　原型设计模式也是创建型设计模式的一种，利用原型设计模式能够通过拷贝创建新对象。本章主要对原型设计模式进行学习：<br>  本章要点：</p>
+<ul>
+<li>原型设计模式的概念</li>
+<li>原型设计模式的主要角色</li>
+<li>原型设计模式的要点</li>
+<li>原型设计模式的代码示例</li>
+<li><p>总结</p>
+<h2 id="1-原型设计模式的概念和用法"><a href="#1-原型设计模式的概念和用法" class="headerlink" title="1.原型设计模式的概念和用法"></a><strong>1.原型设计模式的概念和用法</strong></h2><p>　　<strong>原型设计模式定义：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</strong><br>　　它主要用来实现对象的复制。当我们需要创建一个类的很多对象时，通常的做法是用new关键字进行创建，但是new关键字创建对象比较耗费时间。而采用原型设计模式，shou’xian创建该类的一个对象，然后不断的复制该对象，能够达到同样的目的，而且复制操作直接操作内存里面的数据，能够节约时间。</p>
+<h2 id="2-原型设计模式的主要角色"><a href="#2-原型设计模式的主要角色" class="headerlink" title="2.原型设计模式的主要角色"></a><strong>2.原型设计模式的主要角色</strong></h2><p>　　作为创建型设计模式的一种，原型设计模式主要有三个角色。</p>
+</li>
+<li><p>抽象原型类角色。该角色为接口或抽象类，是原型设计模式的核心角色，它有两个要点。第一，必须实现cloneable接口。只有实现了这个接口，才能够调用类的clone方法，否则会抛出CloneNotSupportedException异常。第二，要重写clone方法。clone方法是Object类的方法，但是作用范围是protected，一般的类无法进行调用，必须把作用范围改为public。</p>
+</li>
+<li>具体原型角色。该角色是被复制的对象，需要实现抽象原型角色的接口。</li>
+<li>客户角色。创建具体的对象，并进行克隆操作<h2 id="3-原型设计模式的要点"><a href="#3-原型设计模式的要点" class="headerlink" title="3.原型设计模式的要点"></a><strong>3.原型设计模式的要点</strong></h2><h4 id="3-1-原型设计模式与单例设计模式"><a href="#3-1-原型设计模式与单例设计模式" class="headerlink" title="3.1 原型设计模式与单例设计模式"></a><strong>3.1 原型设计模式与单例设计模式</strong></h4>　　原型设计模式通过复制来创建新对象，通过clone方法直接在内存调用数据，不会调用构造方法。构造方法内的代码不会得到执行，且访问权限对原型设计模式无效。而单例设计模式是通过控制构造方法的权限，组织外界通过new关键字创建对象，自己在内部进行创建。因此，原型设计模式与单例设计模式是冲突的。<h4 id="3-2-深拷贝与浅拷贝"><a href="#3-2-深拷贝与浅拷贝" class="headerlink" title="3.2 深拷贝与浅拷贝"></a><strong>3.2 深拷贝与浅拷贝</strong></h4>　　浅拷贝：仅仅拷贝对象本身，而不包含对象所包含的引用指定的对象。<br>　　深拷贝：不仅拷贝对象本身，也拷贝对象所包含的引用所指定的全部对象<br> 　　在Java中，可以对基本数据类型及其包装类型进行完全的拷贝，而如果要对String类型、数组类型和容器类型进行复制，就必须进行深拷贝。<h2 id="4-原型设计模式的代码示例"><a href="#4-原型设计模式的代码示例" class="headerlink" title="4.原型设计模式的代码示例"></a><strong>4.原型设计模式的代码示例</strong></h2>　　假设通过原型模式，对学生的基本信息进行复制创建。代码示例如下：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//原型类，实现Cloneable接口，重写clone方法</div><div class="line">class prototype implements Cloneable&#123;</div><div class="line">	public prototype clone()&#123;</div><div class="line">		prototype p =null;</div><div class="line">		try &#123;</div><div class="line">			p=(prototype)super.clone();</div><div class="line">		&#125; catch (CloneNotSupportedException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		return p;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//学生类，继承自原型类，并提供学生的一些信息</div><div class="line">class Student extends prototype&#123;</div><div class="line">	private int age;</div><div class="line">	private String name;</div><div class="line">	public int getAge() &#123;</div><div class="line">		return age;</div><div class="line">	&#125;</div><div class="line">	public void setAge(int age) &#123;</div><div class="line">		this.age = age;</div><div class="line">	&#125;</div><div class="line">	public String getName() &#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public void setName(String name) &#123;</div><div class="line">		this.name = name;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//客户端类，创建一个对象，并通过复制又创建另一个对象，打印第二个对象的信息</div><div class="line">public class PrototypePattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Student s1 = new Student();</div><div class="line">		s1.setAge(25);</div><div class="line">		s1.setName("张三");</div><div class="line">		Student s2 = (Student)s1.clone();</div><div class="line">		System.out.println("学生2的名字是"+s2.getName()+"，，，学生2的年龄是"+s2.getAge());</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出的结果为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">学生<span class="number">2</span>的名字是张三，，，学生<span class="number">2</span>的年龄是<span class="number">25</span></div></pre></td></tr></table></figure>
+<p>疑问，没有进行深拷贝，String类型也可以复制下来了啊。只复制了引用，没有复制对象？内存中只有一个姓名“张三”？</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a><strong>5.总结</strong></h2><ul>
+<li>可以通过原型模式来获得新对象</li>
+<li>clone分为深拷贝和浅拷贝，需要根据需要进行选择</li>
+<li>原型模式里面的数据复制发生在内存中，不会调用构造方法，能够省去大部分的时间开销</li>
+</ul>
 
-原型设计模式的概念
-原型设计模式的主要角色
-原型设计模式的要点
-原型设计模式的代码示例
-总结
-1.原型设计模式的概念和用法　　原型设计模式定义：用原型实例指定创建对象的
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/20/Java设计模式之原型模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -1429,21 +1537,32 @@
       
         
           
-          　　建造者设计模式也是属于创建型模式的一种，是用来更好的创建复杂对象的，它与工厂类设计模式也有很多相似的地方。本章主要对建造者设计模式进行学习。  本章学习要点：
+            <p>　　建造者设计模式也是属于创建型模式的一种，是用来更好的创建复杂对象的，它与工厂类设计模式也有很多相似的地方。本章主要对建造者设计模式进行学习。<br>  本章学习要点：</p>
+<ol>
+<li>建造者设计模式的概念和由来</li>
+<li>建造者设计模式的主要角色</li>
+<li>建造者设计模式的代码示例</li>
+<li>建造者设计模式与工厂类设计模式的区别</li>
+<li>总结<h2 id="1-建造者设计模式的概念和由来"><a href="#1-建造者设计模式的概念和由来" class="headerlink" title="1. 建造者设计模式的概念和由来"></a><strong>1. 建造者设计模式的概念和由来</strong></h2>　　建造者模式的定义是：将一个复杂对象的构建和它的表示相分离，使得同样的构建过程可以创建不同的表示。<br>　　建造者模式的关键在于将产品创建的过程固定并封装在程序内部，每个产品的创建都会遵从设定的流程。通常，建造者设计模式在以下两个情况下使用较多：<br>第一：创建复杂对象的算法独立于组成对象的部件。也就是说创建复杂对象的流程是固定的，对于每一个产品的创建，都是一样的流程。<br>第二：同一个创建过程需要有不同的内部表象的产品对象。也就是说创建流程确定之后，根据流程可以生产出不同的产品对象。<h2 id="2-建造者设计模式的主要角色"><a href="#2-建造者设计模式的主要角色" class="headerlink" title="2.建造者设计模式的主要角色"></a><strong>2.建造者设计模式的主要角色</strong></h2>对于建造者设计模式而言，主要的角色有四种，分别如下：</li>
+<li>产品角色。产品角色一般是个复杂的对象，有较多的部件，创建过程也比较复杂。产品角色可以是具体类，但一般是有抽线类和具体实现类构成。</li>
+<li>抽象建造者角色。主要是给出一个抽象接口，规范产品各个组成部分的构建。它一般有两种方法，一个建造方法，一种是向外界提供的返回方法。其中，建造方法的数量应当与零件数量一致的。</li>
+<li>具体建造者角色。具体实现抽象建造者角色里面的方法，主要是两个功能，构建具体产品和返回产品。</li>
+<li>导演者角色。导演者调用具体的建造者来组建产品对象，它不予产品类直接发生关系，而是与具体建造者进行交互。导演者直到如何来构建产品，它通常负责整体的构建算法。<h2 id="3-建造者设计模式的代码示例"><a href="#3-建造者设计模式的代码示例" class="headerlink" title="3. 建造者设计模式的代码示例"></a><strong>3. 建造者设计模式的代码示例</strong></h2>　　参考大话设计模式的示例，进行代码的演示。假设女娲造人，分别有男人和女人，那么男人和女人都属于产品类。定义抽象建造者，定义建造一个人所的抽象方法，并且，定义具体建造者，分别实现这些方法去建造男人和女人的部件。最后，定义一个导演类，负责规范造人的步骤。示例如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div></pre></td><td class="code"><pre><div class="line">package com.xuwei.DesignPattern;</div><div class="line"></div><div class="line">//产品类，人类，有三个成员变量，分别有set和get方法</div><div class="line">class Person&#123;</div><div class="line">	private String head;</div><div class="line">	private String body;</div><div class="line">	private String foot;</div><div class="line">	public String getHead() &#123;</div><div class="line">		return head;</div><div class="line">	&#125;</div><div class="line">	public void setHead(String head) &#123;</div><div class="line">		this.head = head;</div><div class="line">	&#125;</div><div class="line">	public String getBody() &#123;</div><div class="line">		return body;</div><div class="line">	&#125;</div><div class="line">	public void setBody(String body) &#123;</div><div class="line">		this.body = body;</div><div class="line">	&#125;</div><div class="line">	public String getFoot() &#123;</div><div class="line">		return foot;</div><div class="line">	&#125;</div><div class="line">	public void setFoot(String foot) &#123;</div><div class="line">		this.foot = foot;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体产品类，男人和女人继承自人类</div><div class="line">class Man extends Person&#123;&#125;</div><div class="line">class Woman extends Person&#123;&#125;</div><div class="line"></div><div class="line">//抽象建造者，定义构造人所需要的方法</div><div class="line"> interface Builder&#123;</div><div class="line">	 public void bulidHead();</div><div class="line">	 public void buildBody();</div><div class="line">	 public void buildFoot();</div><div class="line">	 public Person buildPerson();	</div><div class="line">&#125;</div><div class="line"></div><div class="line"> </div><div class="line">//具体建造者，定义如果建造一个男人的头、身体和脚</div><div class="line">class ManBuilder implements Builder&#123;</div><div class="line">	Person person;</div><div class="line">	public ManBuilder()&#123;</div><div class="line">		person = new Man();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void bulidHead() &#123;</div><div class="line">		person.setHead("建造男人的头");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildBody() &#123;</div><div class="line">		person.setBody("建造男人的身体");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildFoot() &#123;</div><div class="line">		person.setFoot("建造男人的脚");;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public Person buildPerson() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return person;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//具体建造者，定义如何建造一个女人的头、身体和脚</div><div class="line">class WomanBuilder implements Builder&#123;</div><div class="line">	Person person;</div><div class="line">	public WomanBuilder()&#123;</div><div class="line">		person = new Woman();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void bulidHead() &#123;</div><div class="line">		person.setHead("建造女人的头");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildBody() &#123;</div><div class="line">		person.setBody("建造女人的身体");</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public void buildFoot() &#123;</div><div class="line">		person.setFoot("建造女人的脚");;</div><div class="line">	&#125;</div><div class="line">	@Override</div><div class="line">	public Person buildPerson() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return person;</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//导演类，定义了构造人类所需的步骤和流程</div><div class="line">class PersonDirector&#123;</div><div class="line">	public Person ConstructPerson(Builder b)&#123;</div><div class="line">		b.bulidHead();</div><div class="line">		b.buildBody();</div><div class="line">		b.buildFoot();</div><div class="line">		return b.buildPerson();</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">//测试类</div><div class="line">public class BuilderPattern &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		//定义一个导演类</div><div class="line">		PersonDirector pd = new PersonDirector();</div><div class="line">		//向导演类传入具体建造者，创建对象并获取成员变量</div><div class="line">		Person person = pd.ConstructPerson(new WomanBuilder());</div><div class="line">		System.out.println(person.getHead());</div><div class="line">		System.out.println(person.getBody());</div><div class="line">		System.out.println(person.getFoot());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="4-建造者设计模式与工厂类设计模式的区别"><a href="#4-建造者设计模式与工厂类设计模式的区别" class="headerlink" title="4.建造者设计模式与工厂类设计模式的区别"></a><strong>4.建造者设计模式与工厂类设计模式的区别</strong></h2><p>　　如果把建造者设计模式的导演类去掉，作为测试类进行使用，那么建造者模式就和抽象工厂模式几乎一模一样，同样作为创建者设计模式的一种，它们有以下区别和联系：</p>
+<ul>
+<li>建造者模式和工厂模式都属于创建者设计模式，都是为创建复杂对象服务的</li>
+<li>建造者模式的建造者角色负责的是产品具体零件的生产，而把组装放置在导演角色中，更加规范生产的流程和规范；工厂模式的工厂角色直接负责产品的生产</li>
+</ul>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a><strong>5.总结</strong></h2><p>　　建造者设计模式是创建型设计模式的一种：</p>
+<ul>
+<li>当构造过程必须允许被构造的对象有不同表示时（相同的方法，不同的执行顺序，产生不同的结果时），可以采用建造者设计模式。如上，需要先要创建身体，再去创建头，只需要创建一个新的导演类重新规范流程就行</li>
+<li>使用建造者设计模式使得客户端调用时不必直到产品的具体细节，起到了封装的作用</li>
+<li>使用建造者设计模式能够在代码中规范产品创建的流程，不会导致部件的缺失</li>
+</ul>
 
-建造者设计模式的概念和由来
-建造者设计模式的主要角色
-建造者设计模式的代码示例
-建造者设计模式与工厂类设计模式的区别
-总结1. 建造者
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/19/Java设计模式之建造者模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -1567,22 +1686,42 @@
       
         
           
-          　　单例模式是设计模式中比较最简单的形式之一。单例设计模式的目的是使得类的一个对象成为系统中的唯一实例。单例设计模式的具体实现有懒汉式和饿汉式两种，本章主要对单例设计模式进行学习。  本章要点：
+            <p>　　单例模式是设计模式中比较最简单的形式之一。单例设计模式的目的是使得类的一个对象成为系统中的唯一实例。单例设计模式的具体实现有懒汉式和饿汉式两种，本章主要对单例设计模式进行学习。<br>  本章要点：</p>
+<ol>
+<li>单例设计模式的概念和实现方式</li>
+<li>懒汉式</li>
+<li>饿汉式</li>
+<li>优缺点</li>
+<li><p>总结</p>
+<h2 id="1-单例设计模式的概念和实现方式"><a href="#1-单例设计模式的概念和实现方式" class="headerlink" title="1. 单例设计模式的概念和实现方式"></a><strong>1. 单例设计模式的概念和实现方式</strong></h2><p>　　Java中单例模式定义：“<strong>一个类有且仅有一个实例，并且自行实例化向整个系统提供</strong>。之所以要用到这种设计模式，是因为在系统和程序中，某些类只能有一个实例。比如，一个系统只能有一个计时工具或者序号生成器，否则会造成任务的混乱。</p>
+<p>　　对于单例设计模式来说，它有三个要点：</p>
+</li>
+</ol>
+<p><strong>1. 某个类只能有一个实例</strong>。在程序中，是通过私有化构造方法来实现的，通过构造方法私有化，外界无法通过关键字new来创建实例（反射除外）。</p>
+<p><strong>2. 它必须自己创建这个实例</strong>。构造方法私有化之后，类中提供静态的私有对象。</p>
+<p><strong>3. 它必须向外界提供获取该实例的方法</strong>。外界无法自己创建实例，所以类中要定义共有的方法，能够获取到在类中创建的私有对象。</p>
+<p>　　对于单例设计模式来说，它有两种主要的实现方式，分别是懒汉式和饿汉式。</p>
+<h2 id="2-懒汉式"><a href="#2-懒汉式" class="headerlink" title="2.懒汉式"></a><strong>2.懒汉式</strong></h2><p>　　懒汉式，顾名思义，就是不急于实例化对象，在需要的时候再进行调用方法实例化对象。具体的代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class SignalPattern &#123;</div><div class="line">     //构造方法私有化，外界无法创建该类对象</div><div class="line">     private SignalPattern()&#123;&#125; </div><div class="line">     //静态私有对象，初始值赋值为null</div><div class="line">     private static SignalPattern signal = null;  </div><div class="line">     //提供共有的方法向外界提供类的唯一实例对象</div><div class="line">     public static SignalPattern getInstance()&#123;   </div><div class="line">    	 if(signal ==null)&#123;</div><div class="line">    		 signal = new SignalPattern();</div><div class="line">    	 &#125;</div><div class="line">    	 return signal;</div><div class="line">     &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　如上，懒汉式单例设计模式对构造方法进行了私有化，在开始时给对象赋值为null，并向外提供getInstance方法。当我们需要用到该类实例对象时，就可以调用这个方法来获取实例。假如是第一次调用该方法，此时signal为空，方法就为它创造对象。当我们已经创建了该类对象后，如果后续再进行方法的调用signal已经不为空值，方法不会再次创建对象，而是返回已有的signal，这样就保证了类对象的唯一性。<br>  　　上述懒汉式单例设计模式的唯一性是在不考虑线程安全的情况下的，实际上由于多线程的存在，懒汉式有可能存在new出多个对象的情况。比如，线程1第一次调用getInstance方法，判断了signal为空，刚好在这里挂起了；CPU资源被线程2获得，也去执行这个方法，此时signal还是空，线程2也进入实例化的步骤，那么就有两个线程都通过了判断条件，同时new了一个对象。因此，懒汉式在使用的过程中必须进行处理来保证线程安全。</p>
+<h4 id="2-1-同步方法"><a href="#2-1-同步方法" class="headerlink" title="2.1 同步方法"></a><strong>2.1 同步方法</strong></h4><p>　　可以用关键字给getInstance方法进行同步，保证在某一任意时刻，只能有一个线程在调用此方法，代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class SignalPattern &#123;</div><div class="line">     private SignalPattern()&#123;&#125;  </div><div class="line">     private static SignalPattern signal = null;  </div><div class="line">     //用关键字synchronized进行方法的同步</div><div class="line">     public static synchronized SignalPattern getInstance()&#123;   </div><div class="line">    	 if(signal ==null)&#123;</div><div class="line">    		 signal = new SignalPattern();</div><div class="line">    	 &#125;</div><div class="line">    	 return signal;</div><div class="line">     &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-2-锁和双重检查"><a href="#2-2-锁和双重检查" class="headerlink" title="2.2 锁和双重检查"></a><strong>2.2 锁和双重检查</strong></h3><p>　　可以通过同步代码块进行同步并双重检查，代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public class SignalPattern &#123;</div><div class="line">     private SignalPattern()&#123;&#125;  </div><div class="line">     private static SignalPattern signal = null;  </div><div class="line">     public static  SignalPattern getInstance()&#123;   </div><div class="line">    	 //第一次判断，如果signal为空，进行下面的赋值操作</div><div class="line">    	 if(signal ==null)&#123;</div><div class="line">    		 //进行赋值代码块的锁定，锁为类的字节码文件</div><div class="line">    		 synchronized(SignalPattern.class)&#123;</div><div class="line">    			 //进行第二次检查判断</div><div class="line">    			 if(signal ==null)</div><div class="line">    			 signal = new SignalPattern();</div><div class="line">    		 &#125;</div><div class="line">    	 &#125;</div><div class="line">    	 return signal;</div><div class="line">     &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-3-静态内部类"><a href="#2-3-静态内部类" class="headerlink" title="2.3 静态内部类"></a><strong>2.3 静态内部类</strong></h4><p>　　可以在类中提供一个静态内部类，静态内部类生成外部类的实例对象，并在外部类中提供方法进行调用。代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class SignalPattern1 &#123;</div><div class="line">     private SignalPattern1()&#123;&#125;</div><div class="line">    //静态内部类提供外部类的实例对象</div><div class="line">     private static class Inner&#123;</div><div class="line">    	 private static final SignalPattern1 signal= new SignalPattern1();</div><div class="line">     &#125;</div><div class="line">     public static final SignalPattern1 getInstance()&#123;</div><div class="line">    	 return Inner.signal;</div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　三种方式都能够保证在保证线程安全的情况下保证单例，但是也有一些区别。第一种方法在方法上加上同步，能够保证线程安全，但是每次都需要进行同步，会损耗系统性能；第二种方法进行两次空值检查，并且保证只有在第一次调用时才进行同步，能够保证线程安全且提高效率；第三种方法还需要再理解，但是也用的较多。</p>
+<h2 id="3-饿汉式"><a href="#3-饿汉式" class="headerlink" title="3. 饿汉式"></a><strong>3. 饿汉式</strong></h2><p>饿汉式与懒汉式的不同就是在于建立对象的时间不一样，顾名思义，饿汉式就是饿了，一上来就先把类进行了实例化。它也是符合单例设计模式的三个要点，具体代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class SignalPattern2 &#123;</div><div class="line">	//私有化构造方法</div><div class="line">	private SignalPattern2()&#123;&#125;</div><div class="line">	//内部创建静态类对象</div><div class="line">    private static final SignalPattern2 signal = new SignalPattern2();</div><div class="line">    //提供公开的方法让外界来进行调用</div><div class="line">    public static SignalPattern2 getInstance()&#123;</div><div class="line">    	return signal;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　饿汉式在类创建的时候就提供了一个唯一的类对象供外界使用，自身就是线程安全的。</p>
+<h2 id="4-优缺点"><a href="#4-优缺点" class="headerlink" title="4.优缺点"></a><strong>4.优缺点</strong></h2><p>　　两种方法都是单例设计模式的实现方式，各自有各自的优缺点：</p>
+<ol>
+<li>饿汉式在类创建的时候都会创建一个对象，不管后面用不用到这个对象，它都会占据一定的内存，而懒汉式只有在需要的时候才会进行对象创建，节约内存；</li>
+<li>饿汉式天生就是线程安全的，代码比较简单，懒汉式需要通过之前学习的三种方式来进行线程同步，代码相对比较繁琐</li>
+</ol>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a><strong>5.总结</strong></h2><p>　　　单例设计模式是比较常用的设计模式，它有饿汉式和懒汉式两种实现方式。两者的区别是类的创建时间不同，可以根据需要进行方式的选择。</p>
 
-单例设计模式的概念和实现方式
-懒汉式
-饿汉式
-优缺点
-总结
-1. 单例设计模式的概念和实现方式　　Ja
-          ...
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/15/Java设计模式之单例设计模式/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
